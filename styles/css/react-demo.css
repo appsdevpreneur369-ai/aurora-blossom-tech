@@ -1,0 +1,39 @@
+/*!
+
+=========================================================
+* NextJS Material Kit PRO v1.3.1 based on Material Kit PRO - v2.0.2 (Bootstrap 4.0.0 Final Edition) and Material Kit PRO React v1.8.0
+=========================================================
+
+* Product Page: https://novellogiks.com/product/ct-novel-logiks
+* Copyright 2022 Sunil (https://novellogiks.com)
+
+* Coded by Sunil
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
+@keyframes Floatingy {
+  from {
+    -webkit-transform: translate(0, 0px);
+  }
+  65% {
+    -webkit-transform: translate(50px, 0);
+  }
+  to {
+    -webkit-transform: translate(0, 0px);
+  }
+}
+
+@keyframes Floatingx {
+  from {
+    -webkit-transform: translate(50px, 0px);
+  }
+  65% {
+    -webkit-transform: translate(0, 0);
+  }
+  to {
+    -webkit-transform: translate(50px, 0px);
+  }
+}
