@@ -104,8 +104,8 @@ export default function SectionsPage() {
           name="description"
           content="Aurora Blossom Tech — enterprise IT consulting, AI & analytics, cloud architecture, SAP, e-commerce, and digital marketing. Hyderabad, India."
         />
-        <link rel="canonical" href="https://www.aurorablossomtech.com/sections" />
-        <meta property="og:url" content="https://www.aurorablossomtech.com/sections" />
+        <link rel="canonical" href="https://www.aurora-blossom.com/sections" />
+        <meta property="og:url" content="https://www.aurora-blossom.com/sections" />
         <meta property="og:title" content="Aurora Blossom Tech | Digital Transformation & IT Services" />
         {/* Preload hero image for LCP */}
         <link

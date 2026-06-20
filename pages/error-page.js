@@ -60,7 +60,7 @@ export default function ErrorPage({ ...rest }) {
               <List className={classes.list}>
                 <ListItem className={classes.inlineBlock}>
                   <a
-                    href="https://www.aurorablossomtech.com"
+                    href="https://www.aurora-blossom.com"
                     target="_blank"
                     className={classes.block}
                   >
@@ -69,7 +69,7 @@ export default function ErrorPage({ ...rest }) {
                 </ListItem>
                 <ListItem className={classes.inlineBlock}>
                   <a
-                    href="https://www.aurorablossomtech.com"
+                    href="https://www.aurora-blossom.com"
                     target="_blank"
                     className={classes.block}
                   >
@@ -86,7 +86,7 @@ export default function ErrorPage({ ...rest }) {
                 </ListItem>
                 <ListItem className={classes.inlineBlock}>
                   <a
-                    href="https://www.aurorablossomtech.com"
+                    href="https://www.aurora-blossom.com"
                     target="_blank"
                     className={classes.block}
                   >
@@ -99,7 +99,7 @@ export default function ErrorPage({ ...rest }) {
               &copy; {1900 + new Date().getYear()} , made with{" "}
               <Favorite className={classes.icon} /> by{" "}
               <a
-                href="https://www.aurorablossomtech.com"
+                href="https://www.aurora-blossom.com"
                 target="_blank"
               >
                 Sunil

@@ -2,7 +2,7 @@ import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@mui/styles";
 
-const SITE_URL = "https://www.aurorablossomtech.com";
+const SITE_URL = "https://www.aurora-blossom.com";
 const SITE_NAME = "Aurora Blossom Tech";
 const SITE_DESCRIPTION =
   "Aurora Blossom Tech — enterprise IT consulting, AI & analytics, cloud architecture, SAP, e-commerce, and digital marketing. Hyderabad, India.";
@@ -23,7 +23,7 @@ const organizationSchema = {
   },
   contactPoint: {
     "@type": "ContactPoint",
-    email: "contact@aurorablossomtech.com",
+    email: "contact@aurora-blossom.com",
     contactType: "customer service",
     areaServed: "IN",
     availableLanguage: "English",
@@ -71,11 +71,11 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en-IN">
         <Head>
-          {/* ── Charset & basics ── */}
+          {/* Charset & basics */}
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
-          {/* ── SEO ── */}
+          {/* SEO */}
           <meta name="robots" content="index, follow" />
           <meta name="description" content={SITE_DESCRIPTION} />
           <meta
@@ -84,7 +84,7 @@ export default class MyDocument extends Document {
           />
           <link rel="canonical" href={SITE_URL} />
 
-          {/* ── Open Graph ── */}
+          {/* Open Graph */}
           <meta property="og:type" content="website" />
           <meta property="og:site_name" content={SITE_NAME} />
           <meta property="og:url" content={SITE_URL} />
@@ -95,30 +95,30 @@ export default class MyDocument extends Document {
           <meta property="og:image:height" content="630" />
           <meta property="og:locale" content="en_IN" />
 
-          {/* ── Twitter Card ── */}
+          {/* Twitter Card */}
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@aurorablossomtech" />
           <meta name="twitter:title" content={`${SITE_NAME} | Digital Transformation & IT Services`} />
           <meta name="twitter:description" content={SITE_DESCRIPTION} />
           <meta name="twitter:image" content={OG_IMAGE} />
 
-          {/* ── Geo ── */}
+          {/* Geo */}
           <meta name="geo.region" content="IN-TG" />
           <meta name="geo.placename" content="Hyderabad" />
 
-          {/* ── Theme & PWA ── */}
+          {/* Theme & PWA */}
           <meta name="theme-color" content="#4C1D95" />
           <meta name="application-name" content={SITE_NAME} />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="default" />
           <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
 
-          {/* ── Favicons — ABT (Aurora Blossom Tech) violet icon ── */}
+          {/* Favicons */}
           <link rel="icon" type="image/x-icon" href="/favicon.ico" />
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
           <link rel="apple-touch-icon" sizes="192x192" href="/apple-touch-icon.png" />
 
-          {/* ── Fonts ── */}
+          {/* Fonts */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
           <link
@@ -135,7 +135,7 @@ export default class MyDocument extends Document {
             crossOrigin="anonymous"
           />
 
-          {/* ── JSON-LD Organization schema ── */}
+          {/* JSON-LD Organization schema */}
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

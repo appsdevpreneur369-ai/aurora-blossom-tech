@@ -35,7 +35,7 @@ export default function SectionFooter() {
             <div>
               <div className={classes.left}>
                 <a
-                  href="https://www.aurorablossomtech.com"
+                  href="https://www.aurora-blossom.com"
                   target="_blank"
                   className={classes.footerBrand}
                 >
@@ -46,7 +46,7 @@ export default function SectionFooter() {
                 <List className={classes.list}>
                   <ListItem className={classes.inlineBlock}>
                     <a
-                      href="https://www.aurorablossomtech.com"
+                      href="https://www.aurora-blossom.com"
                       target="_blank"
                       className={classes.block}
                     >
@@ -55,7 +55,7 @@ export default function SectionFooter() {
                   </ListItem>
                   <ListItem className={classes.inlineBlock}>
                     <a
-                      href="https://www.aurorablossomtech.com"
+                      href="https://www.aurora-blossom.com"
                       target="_blank"
                       className={classes.block}
                     >
@@ -72,7 +72,7 @@ export default function SectionFooter() {
                   </ListItem>
                   <ListItem className={classes.inlineBlock}>
                     <a
-                      href="https://www.aurorablossomtech.com"
+                      href="https://www.aurora-blossom.com"
                       target="_blank"
                       className={classes.block}
                     >
@@ -130,7 +130,7 @@ export default function SectionFooter() {
                 <List className={classes.list}>
                   <ListItem className={classes.inlineBlock}>
                     <a
-                      href="https://www.aurorablossomtech.com"
+                      href="https://www.aurora-blossom.com"
                       target="_blank"
                       className={classes.block}
                     >
@@ -139,7 +139,7 @@ export default function SectionFooter() {
                   </ListItem>
                   <ListItem className={classes.inlineBlock}>
                     <a
-                      href="https://www.aurorablossomtech.com"
+                      href="https://www.aurora-blossom.com"
                       target="_blank"
                       className={classes.block}
                     >
@@ -156,7 +156,7 @@ export default function SectionFooter() {
                   </ListItem>
                   <ListItem className={classes.inlineBlock}>
                     <a
-                      href="https://www.aurorablossomtech.com"
+                      href="https://www.aurora-blossom.com"
                       target="_blank"
                       className={classes.block}
                     >
@@ -169,7 +169,7 @@ export default function SectionFooter() {
                 &copy; {1900 + new Date().getYear()} , made with{" "}
                 <Favorite className={classes.icon} /> by{" "}
                 <a
-                  href="https://www.aurorablossomtech.com"
+                  href="https://www.aurora-blossom.com"
                   target="_blank"
                   className={classes.aClasses}
                 >
@@ -188,7 +188,7 @@ export default function SectionFooter() {
             <div>
               <div className={classes.left}>
                 <a
-                  href="https://www.aurorablossomtech.com"
+                  href="https://www.aurora-blossom.com"
                   target="_blank"
                   className={classes.footerBrand}
                 >
@@ -208,7 +208,7 @@ export default function SectionFooter() {
                   </ListItem>
                   <ListItem className={classes.inlineBlock}>
                     <a
-                      href="https://www.aurorablossomtech.com"
+                      href="https://www.aurora-blossom.com"
                       target="_blank"
                       className={classes.block}
                     >
@@ -235,7 +235,7 @@ export default function SectionFooter() {
                   </ListItem>
                   <ListItem className={classes.inlineBlock}>
                     <a
-                      href="https://www.aurorablossomtech.com"
+                      href="https://www.aurora-blossom.com"
                       target="_blank"
                       className={classes.block}
                     >
@@ -342,7 +342,7 @@ export default function SectionFooter() {
               <div className={classes.right}>
                 Copyright &copy; {1900 + new Date().getYear()}{" "}
                 <a
-                  href="https://www.aurorablossomtech.com"
+                  href="https://www.aurora-blossom.com"
                   target="_blank"
                   className={classes.aClasses}
                 >
@@ -473,7 +473,7 @@ export default function SectionFooter() {
             <div className={classNames(classes.pullCenter, classes.copyRight)}>
               Copyright &copy; {1900 + new Date().getYear()}{" "}
               <a
-                href="https://www.aurorablossomtech.com"
+                href="https://www.aurora-blossom.com"
                 target="_blank"
               >
                 Sunil
@@ -626,7 +626,7 @@ export default function SectionFooter() {
               >
                 Copyright &copy; {1900 + new Date().getYear()}{" "}
                 <a
-                  href="https://www.aurorablossomtech.com"
+                  href="https://www.aurora-blossom.com"
                   target="_blank"
                 >
                   Sunil

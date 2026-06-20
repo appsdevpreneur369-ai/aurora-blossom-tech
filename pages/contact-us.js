@@ -61,7 +61,7 @@ export default function ContactUsPage() {
                 <Typography style={{ fontWeight: "500", fontFamily: '"Montserrat"' }}>(+91) 2244451109<br />Mon - Fri, 8:00-22:00</Typography>
               </GridItem>
               <GridItem xs={12} sm={12} md={12} style={{ textAlign: "left", justifyContent: "center", alignItems: "center" }}>
-                <Typography style={{ fontWeight: "500", fontFamily: '"Montserrat"' }}>contact@aurorablossomtech.com<br />hr@aurorablossomtech.com<br /></Typography>
+                <Typography style={{ fontWeight: "500", fontFamily: '"Montserrat"' }}>contact@aurora-blossom.com<br />hr@aurora-blossom.com<br /></Typography>
               </GridItem>
             </Typography>
           </GridItem>

@@ -13,8 +13,8 @@ export const contactUs = {
     "Hyderabad – 500072, Telangana, India",
   ],
   email_ids: [
-    "contact@aurorablossomtech.com",
-    "hr@aurorablossomtech.com",
+    "contact@aurora-blossom.com",
+    "hr@aurora-blossom.com",
   ],
   phone_no: ["(+91) 7032405627"],
   working_hours: "Mon – Fri, 8:00 – 22:00 IST",

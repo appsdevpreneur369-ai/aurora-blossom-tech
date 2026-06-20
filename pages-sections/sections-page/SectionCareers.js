@@ -255,7 +255,7 @@ export default function SectionCareers({ ...rest }) {
                   Try broadening your search or{" "}
                   <Box
                     component="a"
-                    href="mailto:hr@aurorablossomtech.com"
+                    href="mailto:hr@aurora-blossom.com"
                     sx={{ color: "#7C3AED", fontWeight: 600 }}
                   >
                     send us your résumé

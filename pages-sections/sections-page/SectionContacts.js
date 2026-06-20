@@ -55,7 +55,7 @@ export default function SectionContacts({ ...rest }) {
                   </GridItem>
                   <GridItem xs={12} sm={12} className={classes.gridItem} style={{ textAlign: "center", justifyContent: "center", alignItems: "center" }}>
                     <span >
-                      <Typography className={classes.infoArea} style={{ color: "white", fontWeight: "700", fontFamily: '"Montserrat"' }}>contact@aurorablossomtech.com<br />hr@aurorablossomtech.com<br /></Typography>
+                      <Typography className={classes.infoArea} style={{ color: "white", fontWeight: "700", fontFamily: '"Montserrat"' }}>contact@aurora-blossom.com<br />hr@aurora-blossom.com<br /></Typography>
                     </span>
                   </GridItem>
                 </GridContainer>
