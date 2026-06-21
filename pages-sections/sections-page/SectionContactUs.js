@@ -150,7 +150,7 @@ export default function SectionContactUs({ ...rest }) {
           <Grid item xs={12} md={5}>
             <Box
               sx={{
-                position: "sticky",
+                position: { xs: "static", md: "sticky" },
                 top: 100,
               }}
             >

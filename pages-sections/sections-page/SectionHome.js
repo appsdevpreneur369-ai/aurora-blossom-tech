@@ -109,7 +109,7 @@ export default function SectionHome({ ...rest }) {
           <Box
             sx={{
               mb: 4,
-              minHeight: { xs: "4rem", md: "3rem" },
+              minHeight: { xs: "6rem", sm: "4rem", md: "3rem" },
             }}
           >
             <TypeAnimation
@@ -135,7 +135,7 @@ export default function SectionHome({ ...rest }) {
           </Box>
 
           {/* CTA buttons */}
-          <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+          <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", flexDirection: { xs: "column", sm: "row" } }}>
             <Button
               variant="contained"
               size="large"
@@ -147,6 +147,7 @@ export default function SectionHome({ ...rest }) {
                 borderRadius: 2,
                 px: 4,
                 py: 1.5,
+                width: { xs: "100%", sm: "auto" },
                 background: "linear-gradient(135deg, #7C3AED 0%, #0891B2 100%)",
                 boxShadow: "0 4px 20px rgba(124,58,237,0.45)",
                 "&:hover": {
@@ -172,6 +173,7 @@ export default function SectionHome({ ...rest }) {
                 borderRadius: 2,
                 px: 4,
                 py: 1.5,
+                width: { xs: "100%", sm: "auto" },
                 borderColor: "rgba(255,255,255,0.5)",
                 color: "#fff",
                 "&:hover": {
