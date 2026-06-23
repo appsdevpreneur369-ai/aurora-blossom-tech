@@ -6,7 +6,7 @@ export const contactUs = {
     "We're here to help — every step of the way.",
   ],
   address_lines: [
-    "Aurora Blossom Tech",
+    "Aurora Blossom",
     "Geek Space Business Centre",
     "12th Floor, Manjeera Trinity Corporate",
     "JNTU – Hitech City Road, KPHB Phase 3, Kukatpally",

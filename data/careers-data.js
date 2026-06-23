@@ -175,7 +175,7 @@ export const careersData = {
     }],
     points :[
         "Navigate your career in the right direction.",
-        "At Aurora Blossom Tech, we endeavor to provide a formidable platform for professionals who will be our change agents — catalysts who are torchbearers of our fortitude to excel and redefine the limits of technology to make our clients successful. Our hiring team focuses on the recruitment of talented professionals in the industry. If you are experienced in the pursuit of excellence in IT and looking for challenging opportunities to actualize your fire within, look no further. A career at Aurora Blossom Tech offers just that and a lot more.",
+        "At Aurora Blossom, we endeavor to provide a formidable platform for professionals who will be our change agents — catalysts who are torchbearers of our fortitude to excel and redefine the limits of technology to make our clients successful. Our hiring team focuses on the recruitment of talented professionals in the industry. If you are experienced in the pursuit of excellence in IT and looking for challenging opportunities to actualize your fire within, look no further. A career at Aurora Blossom offers just that and a lot more.",
         "We intend to build a workforce that is diverse irrespective of gender, religion, age, country of origin and what have you"
     ]
 }

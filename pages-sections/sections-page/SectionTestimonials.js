@@ -118,7 +118,7 @@ export default function SectionTestimonials({ ...rest }) {
                             {"'"}s last game Chop up the soul Vinod. I promise I
                             will never let the people down. I want a better life for
                             all!!!! Thank you Vinod for the
-                            invite thank you to the whole Aurora Blossom Tech team.{'"'}
+                            invite thank you to the whole Aurora Blossom team.{'"'}
                           </h5>
                           <h4 className={classes.cardTitle}>P V Rao</h4>
                           <Muted>

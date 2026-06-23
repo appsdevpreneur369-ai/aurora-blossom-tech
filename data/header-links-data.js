@@ -1,12 +1,12 @@
 export const headerLinksData = {
     links :  [
     {
-        href: "/sections#home",
+        href: "/#home",
         title: "Home",
         smoothScroll:"home"
     },
     {
-        href: "/sections#about-us",
+        href: "/#about-us",
         title: "About Us",
         smoothScroll:"about-us"
     },
@@ -16,27 +16,27 @@ export const headerLinksData = {
         smoothScroll:"services"
     },
     {
-        href: "/sections#products",
+        href: "/#products",
         title: "Products",
         smoothScroll:"products"
     },
     {
-        href: "/sections#clients",
+        href: "/#clients",
         title: "Clients",
         smoothScroll:"clients"
     },
     {
-        href: "/sections#teams",
+        href: "/#teams",
         title: "Team",
         smoothScroll:"teams"
     },
     {
-        href: "/sections#careers",
+        href: "/#careers",
         title: "Careers",
         smoothScroll:"careers"
     },
     {
-        href: "/sections#contactUs",
+        href: "/#contactUs",
         title: "Contact Us",
         smoothScroll:"contactUs"
     }]

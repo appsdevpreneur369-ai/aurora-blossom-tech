@@ -9,7 +9,7 @@ const TEAM = [
     role: "Chief Executive Officer",
     emoji: "\u{1F469}\u200D\u{1F4BC}",
     gradient: "linear-gradient(135deg, #7C3AED 0%, #EC4899 100%)",
-    bio: "A visionary leader and Full Stack Developer proficient across the complete technology stack — front-end, back-end, server management, and security. Suhasini steers Aurora Blossom Tech's strategy, culture, and engineering excellence.",
+    bio: "A visionary leader and Full Stack Developer proficient across the complete technology stack — front-end, back-end, server management, and security. Suhasini steers Aurora Blossom's strategy, culture, and engineering excellence.",
   },
   {
     name: "Venkat Raju",

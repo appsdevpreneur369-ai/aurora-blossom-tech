@@ -40,7 +40,7 @@ export default function SectionContacts({ ...rest }) {
                   </GridItem>
                   <GridItem xs={12} sm={12} className={classes.gridItem} style={{ textAlign: "center", justifyContent: "center", alignItems: "center" }}>
                     <span >
-                      <Typography className={classes.infoArea} style={{ color: "white", fontWeight: "700", fontFamily: '"Montserrat"' }}>Learn how Aurora Blossom Tech can move your technology and business strategy forward. Please contact us with any inquiries or requests to help you grow your business.</Typography>
+                      <Typography className={classes.infoArea} style={{ color: "white", fontWeight: "700", fontFamily: '"Montserrat"' }}>Learn how Aurora Blossom can move your technology and business strategy forward. Please contact us with any inquiries or requests to help you grow your business.</Typography>
                     </span>
                   </GridItem>
                   <GridItem xs={12} sm={12} className={classes.gridItem} style={{ textAlign: "center", justifyContent: "center", alignItems: "center" }}>

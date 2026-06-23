@@ -29,8 +29,8 @@ export const industries = [
     {
         serviceTitle: "Manufacturing",
         serviceImageUrl: "img/latest/manufacturing_ai.jpg",
-        // serviceOneLiner :"Aurora Blossom Tech partners with Manufacturing industry brings in Advanced Analytics for planning and forecasting, digital tools to improve productivity and safety , Automated processes to improve efficiency , reduce error rates and increase efficiencies and advanced supply chain enterprise platforms on cloud."
-        serviceOneLiner :"Aurora Blossom Tech partners with Manufacturing industry brings in Advanced Analytics for planning and forecasting, digital tools to improve productivity and safety."
+        // serviceOneLiner :"Aurora Blossom partners with Manufacturing industry brings in Advanced Analytics for planning and forecasting, digital tools to improve productivity and safety , Automated processes to improve efficiency , reduce error rates and increase efficiencies and advanced supply chain enterprise platforms on cloud."
+        serviceOneLiner :"Aurora Blossom partners with Manufacturing industry brings in Advanced Analytics for planning and forecasting, digital tools to improve productivity and safety."
     
     },
     {

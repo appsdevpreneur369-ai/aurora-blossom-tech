@@ -52,7 +52,7 @@ export default function ContactUsPage() {
                 What Does Your Business Need?
               </GridItem>
               <GridItem xs={12} sm={12} md={12} style={{ textAlign: "left", justifyContent: "center", alignItems: "center" }}>
-                <Typography style={{ fontWeight: "600", fontFamily: '"Montserrat"' }}>Learn how Aurora Blossom Tech can move your technology and business strategy forward. Please contact us with any inquiries or requests to help you grow your business.</Typography>
+                <Typography style={{ fontWeight: "600", fontFamily: '"Montserrat"' }}>Learn how Aurora Blossom can move your technology and business strategy forward. Please contact us with any inquiries or requests to help you grow your business.</Typography>
               </GridItem>
               <GridItem xs={12} sm={12} md={12} style={{ textAlign: "left", justifyContent: "center", alignItems: "center" }}>
                 <Typography style={{ fontWeight: "500", fontFamily: '"Montserrat"' }}>Please contact us with any inquiries or requests to help you grow your business.</Typography>
@@ -93,7 +93,7 @@ export default function ContactUsPage() {
                         color: "#000",
                       }}
                     >
-                      © 2025 Aurora Blossom Tech. All rights reserved.
+                      © 2025 Aurora Blossom. All rights reserved.
                     </h4>
                   </GridItem>
                 </GridContainer>

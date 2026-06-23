@@ -274,7 +274,7 @@ export default function CareerDetails() {
                 target="_blank"
                 style={{ color: "gray" }}
               >
-                All rights reserved by Aurora Blossom Tech © 2025
+                All rights reserved by Aurora Blossom © 2025
               </a>{" "}
             </div>
           </div>

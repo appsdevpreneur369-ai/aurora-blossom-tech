@@ -44,7 +44,7 @@ const SectionFooter = () => {
                     </Button>
                   </div>
                   <div className={classes.right}>
-                    <Typography style={{ color: "gray" }}>All rights reserved by Aurora Blossom Tech © 2025</Typography>
+                    <Typography style={{ color: "gray" }}>All rights reserved by Aurora Blossom © 2025</Typography>
                   </div>
                 </div>
               }

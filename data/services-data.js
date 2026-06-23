@@ -12,10 +12,10 @@ export const services = [
     serviceTitle: "Data Analytics & Business Intelligence",
     serviceImageUrl: "img/lsk_imgs/data-anlytics.png",
     servicePoints: [
-      "Commit to new vectors of growth with Aurora Blossom Tech's AI and Analytics services. Tap into our extensive tech expertise to create, maintain, and scale Artificial Intelligence (AI) and Machine Learning (ML) solutions that augment human capacity and increase business value.",
+      "Commit to new vectors of growth with Aurora Blossom's AI and Analytics services. Tap into our extensive tech expertise to create, maintain, and scale Artificial Intelligence (AI) and Machine Learning (ML) solutions that augment human capacity and increase business value.",
     ],
     serviceOneLiner:
-      "Transform raw data into actionable insights with Aurora Blossom Tech's AI, ML, and BI solutions.",
+      "Transform raw data into actionable insights with Aurora Blossom's AI, ML, and BI solutions.",
   },
   {
     serviceTitle: "E-Commerce & Retail",

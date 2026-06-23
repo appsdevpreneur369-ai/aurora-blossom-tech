@@ -45,7 +45,7 @@ export default function SectionHeaders({ ...rest }) {
           <div className={classes.container}>
             <GridContainer>
               <GridItem xs={12} sm={6} md={6}>
-                <h1 className={classes.title}>Aurora Blossom Tech</h1>
+                <h1 className={classes.title}>Aurora Blossom</h1>
                 <h4>
                   There{"'"}s no doubt that Tesla is delighted with the
                   interest, but the data also raises a few questions. How long

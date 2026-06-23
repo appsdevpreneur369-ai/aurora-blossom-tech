@@ -44,7 +44,7 @@ export default function SectionOffices({ ...rest }) {
                   title="India"
                   description={
                     <p>
-                      Aurora Blossom Tech Pvt Ltd<br />
+                      Aurora Blossom Pvt Ltd<br />
                       Opp. ISB, Gachibowli Main Road, Hyderabad, TS 500075
                     </p>
                   }

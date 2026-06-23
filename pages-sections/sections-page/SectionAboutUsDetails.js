@@ -4,7 +4,7 @@ import { Box, Grid, Typography } from "@mui/material";
 // Aurora Blossom — About section cards
 // Vision: violet→pink (aurora blossom)
 // Mission: teal→violet (aurora sky)
-// Values: rose→amber (blossom sunset)
+// Values: violet→teal (matches brand palette)
 const CARDS = [
   {
     id: "vision",
@@ -26,8 +26,8 @@ const CARDS = [
     id: "values",
     label: "Values",
     icon: "💎",
-    gradient: "linear-gradient(135deg, #BE185D 0%, #D97706 100%)",
-    shadow: "rgba(190,24,93,0.35)",
+    gradient: "linear-gradient(135deg, #7C3AED 0%, #0891B2 100%)",
+    shadow: "rgba(124,58,237,0.35)",
     body: "Oneness · Integrity · Humour · Trust · Thrive · Strive — the six pillars that define how we work and who we are.",
   },
 ];
@@ -66,7 +66,7 @@ export default function SectionAboutUsDetails({ ...rest }) {
               mb: 2,
             }}
           >
-            About Aurora Blossom Tech
+            About Aurora Blossom
           </Typography>
           <Typography
             variant="body1"

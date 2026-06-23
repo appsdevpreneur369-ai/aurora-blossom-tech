@@ -47,7 +47,7 @@ export default function SectionClients({ ...rest }) {
             variant="body1"
             sx={{ color: "text.secondary", maxWidth: 500, mx: "auto", fontSize: "1.05rem", lineHeight: 1.8 }}
           >
-            Trusted by forward-thinking businesses who chose Aurora Blossom Tech
+            Trusted by forward-thinking businesses who chose Aurora Blossom
             to power their digital transformation.
           </Typography>
         </Box>
@@ -132,7 +132,7 @@ export default function SectionClients({ ...rest }) {
                 Become Our Next Success Story
               </Typography>
               <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.85)", lineHeight: 1.6 }}>
-                Join a growing list of businesses transforming with Aurora Blossom Tech.
+                Join a growing list of businesses transforming with Aurora Blossom.
               </Typography>
               <Box
                 component="a"

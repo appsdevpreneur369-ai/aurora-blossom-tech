@@ -136,7 +136,7 @@ export default class MyApp extends App {
         <ThemeProvider theme={auroraTheme}>
           <CssBaseline />
           <Head>
-            <title>Aurora Blossom Tech | Digital Transformation &amp; IT Services</title>
+            <title>Aurora Blossom | Digital Transformation &amp; IT Services</title>
           </Head>
           <Component {...pageProps} />
         </ThemeProvider>

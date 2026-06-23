@@ -43,7 +43,7 @@ export default function AiDetails() {
               color: '#112A46',
               backgroundColor: "#FFFFFF",
               marginTop: "1.5rem"
-            }}>  Aurora Blossom Tech in Artificial Intelligence
+            }}>  Aurora Blossom in Artificial Intelligence
             </h1>
             {/* <Divider style={{
               backgroundColor: '#0D47A1',
@@ -84,7 +84,7 @@ export default function AiDetails() {
             <h4 style={{
               fontSize: '1rem', lineHeight: '1.25em', fontWeight: '500'
             }}>
-              At Aurora Blossom Tech, we’re passionate about demystifying the magic behind Generative Artificial Intelligence (AI) and showing you how it works. Generative AI is
+              At Aurora Blossom, we’re passionate about demystifying the magic behind Generative Artificial Intelligence (AI) and showing you how it works. Generative AI is
               a groundbreaking technology that enables computers to not only process data
               but also create entirely new content, ranging from text and images to music and
               even more.
@@ -157,7 +157,7 @@ export default function AiDetails() {
             <h4 style={{
               fontSize: '1rem', lineHeight: '1.25em', fontWeight: '500'
             }}>
-              At Aurora Blossom Tech, we’re dedicated to demystifying the world of Predictive Maintenance and showcasing its pivotal role in enhancing efficiency and reliability in
+              At Aurora Blossom, we’re dedicated to demystifying the world of Predictive Maintenance and showcasing its pivotal role in enhancing efficiency and reliability in
               various industries. Predictive Maintenance is a proactive approach that utilizes
               cutting-edge technology and data-driven insights to predict when equipment
               or machinery is likely to fail. This methodology ensures minimal downtime,
@@ -241,7 +241,7 @@ export default function AiDetails() {
             <h4 style={{
               fontSize: '1rem', lineHeight: '1.25em', fontWeight: '500'
             }}>
-              Welcome to Aurora Blossom Tech, where we delve into the captivating world of AI and
+              Welcome to Aurora Blossom, where we delve into the captivating world of AI and
               Computer Vision, unlocking the potential of visual data for intelligent decisionmaking. Computer Vision, powered by Artificial Intelligence, allows machines
               to interpret and understand the visual world around us, offering a myriad of
               applications across various industries
@@ -316,7 +316,7 @@ export default function AiDetails() {
                         color: "#000",
                       }}
                     >
-                      © 2025 Aurora Blossom Tech. All rights reserved.
+                      © 2025 Aurora Blossom. All rights reserved.
                     </h4>
                   </GridItem>
                 </GridContainer>

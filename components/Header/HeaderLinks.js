@@ -40,7 +40,7 @@ export default function HeaderLinks({ dropdownHoverColor }) {
       Router.push(link.href);
       return;
     }
-    if (window.location.pathname === "/sections") {
+    if (window.location.pathname === "/") {
       const isMobile = /iPad|iPhone|iPod|android|webOS/i.test(navigator.userAgent);
       if (!isMobile) {
         e.preventDefault();
@@ -53,15 +53,15 @@ export default function HeaderLinks({ dropdownHoverColor }) {
   return (
     <nav aria-label="Main navigation" style={{ display: "flex", alignItems: "center", width: "100%" }}>
       {/* Brand logo */}
-      <Link href="/sections#home" passHref>
+      <Link href="/#home" passHref>
         <a
-          aria-label="Aurora Blossom Tech — Home"
+          aria-label="Aurora Blossom — Home"
           style={{ display: "flex", alignItems: "center", gap: "0.625rem", textDecoration: "none", marginRight: "0.5rem" }}
         >
           {/* Logo mark — save your logo as /public/img/logo/aurora-blossom-logo.png */}
           <img
             src="/img/logo/aurora-blossom-logo.png"
-            alt="Aurora Blossom Tech logo"
+            alt="Aurora Blossom logo"
             style={{ width: "2.25rem", height: "2.25rem", objectFit: "contain" }}
           />
           {/* Brand name as styled text — no image needed */}
@@ -78,7 +78,7 @@ export default function HeaderLinks({ dropdownHoverColor }) {
               whiteSpace: "nowrap",
             }}
           >
-            Aurora Blossom Tech
+            Aurora Blossom
           </span>
         </a>
       </Link>

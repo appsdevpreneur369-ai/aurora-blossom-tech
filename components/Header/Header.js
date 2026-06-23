@@ -67,7 +67,7 @@ export default function Header(props) {
         <Hidden mdUp>
           <img
             src="/img/logo/aurora-blossom-logo.png"
-            alt="Aurora Blossom Tech logo"
+            alt="Aurora Blossom logo"
             style={{ width: "2.25rem", height: "2.25rem", objectFit: "contain", marginRight: "0.5rem" }}
           />
           <span style={{
@@ -82,7 +82,7 @@ export default function Header(props) {
             whiteSpace: "nowrap",
             flex: 1,
           }}>
-            Aurora Blossom Tech
+            Aurora Blossom
           </span>
           <IconButton
             color="inherit"
@@ -114,7 +114,7 @@ export default function Header(props) {
             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
               <img
                 src="/img/logo/aurora-blossom-logo.png"
-                alt="Aurora Blossom Tech"
+                alt="Aurora Blossom"
                 style={{ width: "2rem", height: "2rem", objectFit: "contain" }}
               />
               <span style={{
@@ -126,7 +126,7 @@ export default function Header(props) {
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
               }}>
-                Aurora Blossom Tech
+                Aurora Blossom
               </span>
             </div>
             <IconButton

@@ -3,10 +3,49 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheets } from "@mui/styles";
 
 const SITE_URL = "https://www.aurora-blossom.com";
-const SITE_NAME = "Aurora Blossom Tech";
+const SITE_NAME = "Aurora Blossom";
 const SITE_DESCRIPTION =
-  "Aurora Blossom Tech — enterprise IT consulting, AI & analytics, cloud architecture, SAP, e-commerce, and digital marketing. Hyderabad, India.";
+  "Aurora Blossom — enterprise IT consulting, AI & analytics, cloud architecture, SAP, e-commerce, and digital marketing. Hyderabad, India.";
 const OG_IMAGE = `${SITE_URL}/img/og-image.png`;
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE_NAME,
+  url: SITE_URL,
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${SITE_URL}/?s={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
+};
+
+const clinicflowSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "ClinicFlow247",
+  applicationCategory: "HealthApplication",
+  operatingSystem: "Web, Android, iOS",
+  url: "https://clinicflow247.com",
+  description:
+    "ClinicFlow247 is a clinic management software for Indian clinics — appointment booking, EMR, e-prescriptions, WhatsApp reminders, and billing. Starting at ₹599/month.",
+  offers: {
+    "@type": "Offer",
+    price: "599",
+    priceCurrency: "INR",
+    priceSpecification: {
+      "@type": "UnitPriceSpecification",
+      price: "599",
+      priceCurrency: "INR",
+      unitCode: "MON",
+    },
+  },
+  provider: {
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: SITE_URL,
+  },
+};
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -80,7 +119,7 @@ export default class MyDocument extends Document {
           <meta name="description" content={SITE_DESCRIPTION} />
           <meta
             name="keywords"
-            content="IT services, digital transformation, AI, cloud architecture, SAP, e-commerce, Hyderabad, Aurora Blossom Tech"
+            content="IT services, digital transformation, AI, cloud architecture, SAP, e-commerce, Hyderabad, Aurora Blossom"
           />
           <link rel="canonical" href={SITE_URL} />
 
@@ -135,10 +174,20 @@ export default class MyDocument extends Document {
             crossOrigin="anonymous"
           />
 
-          {/* JSON-LD Organization schema */}
+          {/* JSON-LD: Organization */}
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          />
+          {/* JSON-LD: WebSite (enables Google Sitelinks search) */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+          />
+          {/* JSON-LD: SoftwareApplication — ClinicFlow247 product */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(clinicflowSchema) }}
           />
         </Head>
         <body>

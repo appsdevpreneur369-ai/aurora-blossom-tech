@@ -8,7 +8,7 @@ export default function SectionHome({ ...rest }) {
     <section
       id="home"
       className="cd-section"
-      aria-label="Aurora Blossom Tech home"
+      aria-label="Aurora Blossom home"
       {...rest}
     >
       <Box
@@ -57,33 +57,6 @@ export default function SectionHome({ ...rest }) {
           }}
         >
           {/* Eyebrow pill */}
-          <Box
-            sx={{
-              display: "inline-flex",
-              alignItems: "center",
-              px: 2,
-              py: 0.5,
-              borderRadius: "999px",
-              bgcolor: "rgba(34,211,238,0.18)",
-              border: "1px solid rgba(34,211,238,0.4)",
-              mb: 3,
-            }}
-          >
-            <Typography
-              variant="caption"
-              sx={{
-                color: "#22D3EE",
-                fontFamily: '"Montserrat", sans-serif',
-                fontWeight: 700,
-                fontSize: "0.75rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-              }}
-            >
-              Aurora Blossom Tech
-            </Typography>
-          </Box>
-
           {/* H1 */}
           <Typography
             variant="h1"
@@ -93,11 +66,7 @@ export default function SectionHome({ ...rest }) {
               fontWeight: 900,
               fontSize: { xs: "2.25rem", sm: "3rem", md: "3.75rem" },
               lineHeight: 1.1,
-              backgroundImage:
-                "linear-gradient(135deg, #FFFFFF 0%, #22D3EE 50%, #EC4899 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
+              color: "#FFFFFF",
               mb: 3,
               maxWidth: 800,
             }}

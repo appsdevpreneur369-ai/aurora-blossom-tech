@@ -76,7 +76,7 @@ export default function SectionCareers({ ...rest }) {
               mb: 2,
             }}
           >
-            Careers at Aurora Blossom Tech
+            Careers at Aurora Blossom
           </Typography>
           <Typography
             variant="body1"
