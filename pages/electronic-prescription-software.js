@@ -50,10 +50,10 @@ export default function ElectronicPrescriptionSoftware() {
         <title>Electronic Prescription Software India | ClinicFlow247 by Aurora Blossom</title>
         <meta name="description" content="Digital e-prescription software for Indian doctors. Create prescriptions in 30 seconds, share on WhatsApp, view medication history. Free 14-day trial." />
         <meta name="keywords" content="electronic prescription software India, e-prescription software, digital prescription India, doctor prescription app, EMR prescription software India" />
-        <link rel="canonical" href={PAGE_URL} />
-        <meta property="og:title" content="Electronic Prescription Software India | ClinicFlow247" />
-        <meta property="og:description" content="Create digital prescriptions in 30 seconds. Share on WhatsApp. Complete medication history. Free 14-day trial." />
-        <meta property="og:url" content={PAGE_URL} />
+        <link key="canonical" rel="canonical" href={PAGE_URL} />
+        <meta key="og:title" property="og:title" content="Electronic Prescription Software India | ClinicFlow247" />
+        <meta key="og:description" property="og:description" content="Create digital prescriptions in 30 seconds. Share on WhatsApp. Complete medication history. Free 14-day trial." />
+        <meta key="og:url" property="og:url" content={PAGE_URL} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
       </Head>
 

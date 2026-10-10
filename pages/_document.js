@@ -1,12 +1,12 @@
 import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { ServerStyleSheets } from "@mui/styles";
+import createEmotionServer from "@emotion/server/create-instance";
+import createEmotionCache from "/styles/createEmotionCache.js";
 
 const SITE_URL = "https://www.aurora-blossom.com";
 const SITE_NAME = "Aurora Blossom";
 const SITE_DESCRIPTION =
   "Aurora Blossom — enterprise IT consulting, AI & analytics, cloud architecture, SAP, e-commerce, and digital marketing. Hyderabad, India.";
-const OG_IMAGE = `${SITE_URL}/img/og-image.png`;
 
 const websiteSchema = {
   "@context": "https://schema.org",
@@ -90,20 +90,27 @@ const organizationSchema = {
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    const sheets = new ServerStyleSheets();
     const originalRenderPage = ctx.renderPage;
+    // Extract MUI (Emotion) critical CSS into <head> instead of inline <style>
+    // tags scattered through the body.
+    const cache = createEmotionCache();
+    const { extractCriticalToChunks } = createEmotionServer(cache);
     ctx.renderPage = () =>
       originalRenderPage({
-        enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+        enhanceApp: (App) =>
+          function EnhanceApp(props) {
+            return <App emotionCache={cache} {...props} />;
+          },
       });
     const initialProps = await Document.getInitialProps(ctx);
-    return {
-      ...initialProps,
-      styles: [
-        ...React.Children.toArray(initialProps.styles),
-        sheets.getStyleElement(),
-      ],
-    };
+    const emotionStyleTags = extractCriticalToChunks(initialProps.html).styles.map((style) => (
+      <style
+        data-emotion={`${style.key} ${style.ids.join(" ")}`}
+        key={style.key}
+        dangerouslySetInnerHTML={{ __html: style.css }}
+      />
+    ));
+    return { ...initialProps, emotionStyleTags };
   }
 
   render() {
@@ -113,33 +120,12 @@ export default class MyDocument extends Document {
           {/* Charset & basics */}
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="emotion-insertion-point" content="" />
+          {this.props.emotionStyleTags}
 
-          {/* SEO */}
+          {/* Page-level SEO (description, canonical, Open Graph, Twitter) lives in
+              pages/_app.js so each page can override it without duplicates. */}
           <meta name="robots" content="index, follow" />
-          <meta name="description" content={SITE_DESCRIPTION} />
-          <meta
-            name="keywords"
-            content="IT services, digital transformation, AI, cloud architecture, SAP, e-commerce, Hyderabad, Aurora Blossom"
-          />
-          <link rel="canonical" href={SITE_URL} />
-
-          {/* Open Graph */}
-          <meta property="og:type" content="website" />
-          <meta property="og:site_name" content={SITE_NAME} />
-          <meta property="og:url" content={SITE_URL} />
-          <meta property="og:title" content={`${SITE_NAME} | Digital Transformation & IT Services`} />
-          <meta property="og:description" content={SITE_DESCRIPTION} />
-          <meta property="og:image" content={OG_IMAGE} />
-          <meta property="og:image:width" content="1200" />
-          <meta property="og:image:height" content="630" />
-          <meta property="og:locale" content="en_IN" />
-
-          {/* Twitter Card */}
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:site" content="@aurorablossomtech" />
-          <meta name="twitter:title" content={`${SITE_NAME} | Digital Transformation & IT Services`} />
-          <meta name="twitter:description" content={SITE_DESCRIPTION} />
-          <meta name="twitter:image" content={OG_IMAGE} />
 
           {/* Geo */}
           <meta name="geo.region" content="IN-TG" />
@@ -157,22 +143,9 @@ export default class MyDocument extends Document {
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
           <link rel="apple-touch-icon" sizes="192x192" href="/apple-touch-icon.png" />
 
-          {/* Fonts */}
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/icon?family=Material+Icons"
-            rel="stylesheet"
-          />
-          <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-            rel="stylesheet"
-            crossOrigin="anonymous"
-          />
+          {/* Fonts — self-hosted (styles/fonts.css); preload the Latin faces used above the fold */}
+          <link rel="preload" href="/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+          <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
           {/* JSON-LD: Organization */}
           <script

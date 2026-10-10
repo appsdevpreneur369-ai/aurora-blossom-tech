@@ -22,14 +22,20 @@ export default function BrandMark({ size, onDark }) {
           boxShadow: onDark ? "none" : `inset 0 0 0 1px ${color.slate200}`,
         }}
       >
-        <img
-          src="/img/logo/aurora-blossom-logo-96.png"
-          srcSet="/img/logo/aurora-blossom-logo-96.png 1x, /img/logo/aurora-blossom-logo-192.png 2x"
-          alt="Aurora Blossom logo"
-          width={96}
-          height={88}
-          style={{ width: size - 6, height: size - 6, objectFit: "contain", display: "block" }}
-        />
+        <picture style={{ display: "contents" }}>
+          <source
+            type="image/webp"
+            srcSet="/img/logo/aurora-blossom-logo-96.webp 1x, /img/logo/aurora-blossom-logo-192.webp 2x"
+          />
+          <img
+            src="/img/logo/aurora-blossom-logo-96.png"
+            srcSet="/img/logo/aurora-blossom-logo-96.png 1x, /img/logo/aurora-blossom-logo-192.png 2x"
+            alt="Aurora Blossom logo"
+            width={96}
+            height={88}
+            style={{ width: size - 6, height: size - 6, objectFit: "contain", display: "block" }}
+          />
+        </picture>
       </Box>
       <Box
         component="span"

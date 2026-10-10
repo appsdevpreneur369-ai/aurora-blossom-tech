@@ -56,7 +56,7 @@ export default function ContactUsPage() {
       />
       <main id="main-content">
         <PageHero title="Contact Us" />
-        <Section>
+        <Section isStatic>
           <Box
             sx={{
               display: "grid",
@@ -125,15 +125,21 @@ export default function ContactUsPage() {
                   p: 3,
                 }}
               >
-                <img
-                  src="/img/logo/aurora-blossom-logo-192.png"
-                  srcSet="/img/logo/aurora-blossom-logo-192.png 1x, /img/logo/aurora-blossom-logo-512.png 2x"
-                  alt="Aurora Blossom logo"
-                  width={192}
-                  height={176}
-                  loading="lazy"
-                  style={{ width: "100%", height: "auto" }}
-                />
+                <picture style={{ display: "block", width: "100%" }}>
+                  <source
+                    type="image/webp"
+                    srcSet="/img/logo/aurora-blossom-logo-192.webp 1x, /img/logo/aurora-blossom-logo-512.webp 2x"
+                  />
+                  <img
+                    src="/img/logo/aurora-blossom-logo-192.png"
+                    srcSet="/img/logo/aurora-blossom-logo-192.png 1x, /img/logo/aurora-blossom-logo-512.png 2x"
+                    alt="Aurora Blossom logo"
+                    width={192}
+                    height={176}
+                    loading="lazy"
+                    style={{ width: "100%", height: "auto" }}
+                  />
+                </picture>
               </Box>
             </Box>
           </Box>

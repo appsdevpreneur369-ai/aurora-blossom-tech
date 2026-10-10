@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import Section from "/components/ui/Section.js";
+import StaticIsland from "/components/ui/StaticIsland.js";
 import SectionHeader from "/components/ui/SectionHeader.js";
 import FeatureCard from "/components/ui/FeatureCard.js";
 import { gridPattern } from "/components/ui/PageHero.js";
@@ -34,7 +35,7 @@ export function CtaLink({ href, tone, children }) {
     secondary: { bgcolor: color.slate100, color: color.ink2, "&:hover": { bgcolor: color.slate200 }, "&:focus-visible": focusRing },
   };
   return (
-    <Link href={href} passHref>
+    <Link prefetch={false} href={href} passHref>
       <Box component="a" sx={{ ...baseCta, ...tones[tone] }}>
         {children}
       </Box>
@@ -48,7 +49,7 @@ CtaLink.propTypes = { href: PropTypes.string.isRequired, tone: PropTypes.oneOf([
 /** "Problem" band: heading, paragraph, pain-point cards. */
 export function ProblemBand({ title, body, pains }) {
   return (
-    <Section tone="subtle" aria-labelledby="problem-heading">
+    <Section tone="subtle" aria-labelledby="problem-heading" isStatic>
       <SectionHeader id="problem-heading" title={title} lead={body} />
       <Box
         component="ul"
@@ -90,7 +91,7 @@ ProblemBand.propTypes = { title: PropTypes.node, body: PropTypes.node, pains: Pr
 /** Feature grid section. Features: { icon, title, desc }. */
 export function FeatureSection({ title, subtitle, features, iconVariant }) {
   return (
-    <Section aria-labelledby="features-heading">
+    <Section aria-labelledby="features-heading" isStatic>
       <SectionHeader id="features-heading" title={title} lead={subtitle} />
       <Box
         component="ul"
@@ -124,7 +125,7 @@ FeatureSection.propTypes = {
 /** FAQ list — answers are always visible (they mirror the page's FAQ structured data). */
 export function FaqSection({ faqs }) {
   return (
-    <Section tone="subtle" width="narrow" aria-labelledby="faq-heading">
+    <Section tone="subtle" width="narrow" aria-labelledby="faq-heading" isStatic>
       <SectionHeader id="faq-heading" title="Frequently Asked Questions" />
       <Box component="dl" sx={{ m: 0, display: "grid", gap: 2 }}>
         {faqs.map((faq) => (
@@ -172,7 +173,8 @@ export function CtaBand({ title, body, children }) {
         }}
       >
         <Box aria-hidden="true" sx={gridPattern} />
-        <Box sx={{ position: "relative" }}>
+        {/* Links only — skips hydration on first load (see components/ui/StaticIsland.js) */}
+        <StaticIsland style={{ position: "relative" }}>
           <Typography
             id="cta-heading"
             component="h2"
@@ -186,7 +188,7 @@ export function CtaBand({ title, body, children }) {
             </Typography>
           )}
           {children}
-        </Box>
+        </StaticIsland>
       </Box>
     </Box>
   );

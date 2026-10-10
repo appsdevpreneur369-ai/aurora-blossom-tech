@@ -11,7 +11,7 @@ import { color, font, motion, radius, shadow, focusRing } from "/styles/tokens.j
 
 function ServiceCard({ svc, index }) {
   return (
-    <Link href={`/services-details#service-${index + 1}`} passHref>
+    <Link prefetch={false} href={`/services-details#service-${index + 1}`} passHref>
       <Box
         component="a"
         aria-label={svc.serviceTitle}
@@ -109,7 +109,7 @@ export default function SectionServices({ ...rest }) {
           lead="End-to-end technology services tailored to your industry and scale."
           sx={{ mb: 0 }}
         />
-        <Link href="/services-details" passHref>
+        <Link prefetch={false} href="/services-details" passHref>
           <Button component="a" variant="outlined" color="primary" sx={{ flexShrink: 0 }}>
             View All Services →
           </Button>
@@ -135,7 +135,7 @@ export default function SectionServices({ ...rest }) {
       </Box>
 
       <Box sx={{ textAlign: "center", mt: { xs: 6, md: 8 } }}>
-        <Link href="/contact-us" passHref>
+        <Link prefetch={false} href="/contact-us" passHref>
           <Button component="a" variant="contained" color="primary" size="large" endIcon={<ArrowForwardRounded />}>
             Talk to Our Experts
           </Button>

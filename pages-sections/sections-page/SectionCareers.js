@@ -13,7 +13,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import CheckCircleOutlineRounded from "@mui/icons-material/CheckCircleOutlineRounded";
 import { careersData } from "../../data/careers-data";
-import Router from "next/router";
+import Link from "next/link";
 import Section from "/components/ui/Section.js";
 import SectionHeader from "/components/ui/SectionHeader.js";
 import JobCard from "/components/Careers/JobCard.js";
@@ -59,7 +59,7 @@ export default function SectionCareers({ ...rest }) {
       <SectionHeader id="careers-heading" title="Careers at Aurora Blossom" lead={careersData.points[0]} />
 
       {/* ── Company pitch + search panel ── */}
-      <Grid container spacing={{ xs: 3, md: 4 }} sx={{ mb: 6 }}>
+      <Grid container spacing={{ xs: 2, sm: 3, md: 4 }} sx={{ mb: 6 }}>
         <Grid item xs={12} md={7}>
           <Box
             sx={{
@@ -216,9 +216,11 @@ export default function SectionCareers({ ...rest }) {
                     { heading: "Required Skill Set", items: job.skillSet },
                   ]}
                   action={
-                    <Button variant="contained" color="primary" onClick={() => Router.push("/career-details")}>
-                      Apply Now →
-                    </Button>
+                    <Link href="/career-details" prefetch={false} passHref>
+                      <Button component="a" variant="contained" color="primary">
+                        Apply Now →
+                      </Button>
+                    </Link>
                   }
                 />
               ))}

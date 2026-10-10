@@ -52,10 +52,10 @@ export default function BookDemo() {
         <title>Book a Free Demo | ClinicFlow247 Clinic Management Software</title>
         <meta name="description" content="Book a free 20-minute demo of ClinicFlow247 — clinic management software for Indian doctors. See appointments, prescriptions, and billing live. No credit card." />
         <meta name="keywords" content="book demo clinic software, ClinicFlow247 demo, free clinic management demo India, clinic software demo booking" />
-        <link rel="canonical" href={PAGE_URL} />
-        <meta property="og:title" content="Book a Free Demo | ClinicFlow247" />
-        <meta property="og:description" content="Book a free 20-minute live demo of ClinicFlow247. See appointments, e-prescriptions, billing and WhatsApp reminders in action." />
-        <meta property="og:url" content={PAGE_URL} />
+        <link key="canonical" rel="canonical" href={PAGE_URL} />
+        <meta key="og:title" property="og:title" content="Book a Free Demo | ClinicFlow247" />
+        <meta key="og:description" property="og:description" content="Book a free 20-minute live demo of ClinicFlow247. See appointments, e-prescriptions, billing and WhatsApp reminders in action." />
+        <meta key="og:url" property="og:url" content={PAGE_URL} />
       </Head>
 
       <Header brand="" links={<HeaderLinks dropdownHoverColor="info" />} fixed color="white" changeColorOnScroll={{ height: 60, color: "white" }} />
@@ -177,7 +177,7 @@ export default function BookDemo() {
               { href: "/electronic-prescription-software", label: "e-Prescription Software" },
             ].map((link) => (
               <li key={link.href}>
-                <Link href={link.href} passHref>
+                <Link prefetch={false} href={link.href} passHref>
                   <Box
                     component="a"
                     sx={{

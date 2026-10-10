@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import StaticIsland from "/components/ui/StaticIsland.js";
 import Link from "next/link";
 import { Box, Typography } from "@mui/material";
 import EmailOutlined from "@mui/icons-material/EmailOutlined";
@@ -76,7 +77,7 @@ function LinkList({ items }) {
     <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "grid", gap: 1 }}>
       {items.map((item) => (
         <li key={item.href + item.label}>
-          <Link href={item.href} passHref>
+          <Link prefetch={false} href={item.href} passHref>
             <Box component="a" sx={linkSx}>
               {item.label}
             </Box>
@@ -109,6 +110,8 @@ ContactLine.propTypes = { Icon: PropTypes.elementType.isRequired, children: Prop
 export default function SiteFooter({ legal, extra }) {
   return (
     <Box component="footer" sx={{ bgcolor: color.ink, color: "rgba(255,255,255,0.72)", mt: "auto" }}>
+      {/* Links only — never hydrated on first load (see components/ui/StaticIsland.js) */}
+      <StaticIsland>
       <Box sx={{ maxWidth: layout.maxWidth, mx: "auto", px: layout.gutter, pt: { xs: 8, md: 10 }, pb: 5 }}>
         <Box
           sx={{
@@ -118,7 +121,7 @@ export default function SiteFooter({ legal, extra }) {
           }}
         >
           <Box>
-            <Link href="/#home" passHref>
+            <Link prefetch={false} href="/#home" passHref>
               <Box component="a" aria-label="Aurora Blossom — Home" sx={{ display: "inline-flex", textDecoration: "none", borderRadius: `${radius.sm}px`, "&:focus-visible": focusRingOnDark }}>
                 <BrandMark size={44} onDark />
               </Box>
@@ -213,7 +216,7 @@ export default function SiteFooter({ legal, extra }) {
           <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "flex", flexWrap: "wrap", gap: { xs: 2.5, md: 3 } }}>
             {QUICK_LINKS.map((l) => (
               <li key={l.label}>
-                <Link href={l.href} passHref>
+                <Link prefetch={false} href={l.href} passHref>
                   <Box
                     component="a"
                     sx={{ ...linkSx, fontFamily: font.display, fontWeight: 600, fontSize: "0.75rem", letterSpacing: "0.06em", textTransform: "uppercase" }}
@@ -227,6 +230,7 @@ export default function SiteFooter({ legal, extra }) {
           {extra && <Typography sx={{ fontSize: "0.8rem", color: "rgba(255,255,255,0.5)" }}>{extra}</Typography>}
         </Box>
       </Box>
+      </StaticIsland>
     </Box>
   );
 }

@@ -82,7 +82,7 @@ function ContactRow({ item, index }) {
 
 export default function SectionContactUs({ ...rest }) {
   return (
-    <Section tone="subtle" id="contactUs" className="cd-section" aria-labelledby="contact-heading" {...rest}>
+    <Section tone="subtle" id="contactUs" className="cd-section" aria-labelledby="contact-heading" isStatic {...rest}>
       <Box
         sx={{
           display: "grid",

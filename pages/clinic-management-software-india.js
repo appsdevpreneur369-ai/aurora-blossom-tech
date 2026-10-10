@@ -100,11 +100,11 @@ export default function ClinicManagementSoftwareIndia() {
           content="Best clinic management software for Indian clinics. ClinicFlow247 — appointments, EMR, e-prescriptions, WhatsApp reminders & billing. Plans from ₹1,199/month. Free trial."
         />
         <meta name="keywords" content="clinic management software India, clinic management system, hospital management software, EMR software India, doctor appointment software, clinic software" />
-        <link rel="canonical" href={PAGE_URL} />
-        <meta property="og:title" content="Clinic Management Software India | ClinicFlow247" />
-        <meta property="og:description" content="Appointments, patient records, e-prescriptions, WhatsApp reminders and billing — all in one. Plans from ₹1,199/month." />
-        <meta property="og:url" content={PAGE_URL} />
-        <meta property="og:type" content="website" />
+        <link key="canonical" rel="canonical" href={PAGE_URL} />
+        <meta key="og:title" property="og:title" content="Clinic Management Software India | ClinicFlow247" />
+        <meta key="og:description" property="og:description" content="Appointments, patient records, e-prescriptions, WhatsApp reminders and billing — all in one. Plans from ₹1,199/month." />
+        <meta key="og:url" property="og:url" content={PAGE_URL} />
+        <meta key="og:type" property="og:type" content="website" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       </Head>
@@ -147,7 +147,7 @@ export default function ClinicManagementSoftwareIndia() {
         />
 
         {/* ── Why Choose ClinicFlow247 ── */}
-        <Section tone="tint" aria-labelledby="why-heading">
+        <Section tone="tint" aria-labelledby="why-heading" isStatic>
           <SectionHeader id="why-heading" title="Built for How Indian Clinics Actually Run" />
           <Box
             component="ul"

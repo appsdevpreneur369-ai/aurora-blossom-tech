@@ -1,12 +1,14 @@
 import React from "react";
-import App from "next/app";
 import Head from "next/head";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { createRoot } from "react-dom/client";
-import { ThemeProvider, createTheme, StyledEngineProvider } from "@mui/material/styles";
+import { CacheProvider } from "@emotion/react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import PageChange from "/components/PageChange/PageChange.js";
+import createEmotionCache from "/styles/createEmotionCache.js";
 import { color, font, radius, shadow, motion, focusRing } from "/styles/tokens.js";
+import "/styles/fonts.css";
 import "/styles/scss/novel-logiks.scss";
 import "/styles/css/novel-logiks.css";
 
@@ -222,29 +224,62 @@ Router.events.on("routeChangeError", () => {
   }
 });
 
-// ── App component ─────────────────────────────────────────────────────────────
-export default class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    let pageProps = {};
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-    return { pageProps };
-  }
+// ── Site-wide SEO defaults ────────────────────────────────────────────────────
+// Pages override these through next/head: `name` metas de-duplicate by name;
+// Open Graph metas and the canonical link de-duplicate by matching `key`.
+const SITE_URL = "https://www.aurora-blossom.com";
+const SITE_NAME = "Aurora Blossom";
+const DEFAULT_TITLE = "Aurora Blossom | Digital Transformation & IT Services";
+const DEFAULT_DESCRIPTION =
+  "Aurora Blossom — enterprise IT consulting, AI & analytics, cloud architecture, SAP, e-commerce, and digital marketing. Hyderabad, India.";
+const OG_IMAGE = `${SITE_URL}/img/og-image.png`;
+// Routes that must not advertise themselves as canonical documents.
+const NO_CANONICAL = new Set(["/404", "/_error", "/error-page"]);
 
-  render() {
-    const { Component, pageProps } = this.props;
-    return (
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={auroraTheme}>
-          <CssBaseline />
-          <Head>
-            <title>Aurora Blossom | Digital Transformation &amp; IT Services</title>
-          </Head>
-          <a className="skip-link" href="#main-content">Skip to main content</a>
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </StyledEngineProvider>
-    );
-  }
+function DefaultSeo() {
+  const { pathname } = useRouter();
+  const url = pathname === "/" ? `${SITE_URL}/` : `${SITE_URL}${pathname}`;
+  return (
+    <Head>
+      <title>{DEFAULT_TITLE}</title>
+      <meta name="description" content={DEFAULT_DESCRIPTION} />
+      <meta
+        name="keywords"
+        content="IT services, digital transformation, AI, cloud architecture, SAP, e-commerce, Hyderabad, Aurora Blossom"
+      />
+      {!NO_CANONICAL.has(pathname) && <link key="canonical" rel="canonical" href={url} />}
+
+      <meta key="og:type" property="og:type" content="website" />
+      <meta key="og:site_name" property="og:site_name" content={SITE_NAME} />
+      <meta key="og:url" property="og:url" content={url} />
+      <meta key="og:title" property="og:title" content={DEFAULT_TITLE} />
+      <meta key="og:description" property="og:description" content={DEFAULT_DESCRIPTION} />
+      <meta key="og:image" property="og:image" content={OG_IMAGE} />
+      <meta key="og:image:width" property="og:image:width" content="1200" />
+      <meta key="og:image:height" property="og:image:height" content="630" />
+      <meta key="og:locale" property="og:locale" content="en_IN" />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@aurorablossomtech" />
+      <meta name="twitter:title" content={DEFAULT_TITLE} />
+      <meta name="twitter:description" content={DEFAULT_DESCRIPTION} />
+      <meta name="twitter:image" content={OG_IMAGE} />
+    </Head>
+  );
+}
+
+// ── App component ─────────────────────────────────────────────────────────────
+const clientSideEmotionCache = createEmotionCache();
+
+export default function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }) {
+  return (
+    <CacheProvider value={emotionCache}>
+      <ThemeProvider theme={auroraTheme}>
+        <CssBaseline />
+        <DefaultSeo />
+        <a className="skip-link" href="#main-content">Skip to main content</a>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </CacheProvider>
+  );
 }

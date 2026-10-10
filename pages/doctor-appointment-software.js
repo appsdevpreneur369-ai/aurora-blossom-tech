@@ -50,10 +50,10 @@ export default function DoctorAppointmentSoftware() {
         <title>Doctor Appointment Software India | ClinicFlow247 by Aurora Blossom</title>
         <meta name="description" content="Online doctor appointment booking software for Indian clinics. Real-time slots, patient self-booking, WhatsApp reminders & queue management. Free 14-day trial." />
         <meta name="keywords" content="doctor appointment software, online appointment booking India, clinic appointment system, patient booking software, doctor scheduling software India" />
-        <link rel="canonical" href={PAGE_URL} />
-        <meta property="og:title" content="Doctor Appointment Software India | ClinicFlow247" />
-        <meta property="og:description" content="Online doctor appointment booking with real-time slots, WhatsApp reminders, and queue management. Free 14-day trial." />
-        <meta property="og:url" content={PAGE_URL} />
+        <link key="canonical" rel="canonical" href={PAGE_URL} />
+        <meta key="og:title" property="og:title" content="Doctor Appointment Software India | ClinicFlow247" />
+        <meta key="og:description" property="og:description" content="Online doctor appointment booking with real-time slots, WhatsApp reminders, and queue management. Free 14-day trial." />
+        <meta key="og:url" property="og:url" content={PAGE_URL} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
       </Head>
 

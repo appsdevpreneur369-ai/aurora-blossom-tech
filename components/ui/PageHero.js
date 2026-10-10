@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Box, Typography } from "@mui/material";
+import StaticIsland from "/components/ui/StaticIsland.js";
 import { color, font, gradient, layout, type } from "/styles/tokens.js";
 
 // Faint engineering grid used behind dark heroes — pure CSS, no image request.
@@ -21,6 +22,7 @@ export const gridPattern = {
  */
 export default function PageHero({ overline, title, lead, actions, footnote, align, aside, titleSx }) {
   const centered = align === "center" && !aside;
+  const Content = aside ? React.Fragment : StaticIsland;
   return (
     <Box
       component="header"
@@ -34,6 +36,9 @@ export default function PageHero({ overline, title, lead, actions, footnote, ali
       }}
     >
       <Box aria-hidden="true" sx={gridPattern} />
+      {/* Without an `aside` the hero is text + links only, so it skips hydration
+          on first load (see components/ui/StaticIsland.js). */}
+      <Content>
       <Box
         sx={{
           position: "relative",
@@ -124,6 +129,7 @@ export default function PageHero({ overline, title, lead, actions, footnote, ali
         </Box>
         {aside && <Box sx={{ minWidth: 0 }}>{aside}</Box>}
       </Box>
+      </Content>
     </Box>
   );
 }

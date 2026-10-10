@@ -32,9 +32,9 @@ export default function HomePage() {
           name="description"
           content="Aurora Blossom — enterprise IT consulting, AI &amp; analytics, cloud architecture, SAP, e-commerce, and digital marketing. Hyderabad, India."
         />
-        <link rel="canonical" href="https://www.aurora-blossom.com/" />
-        <meta property="og:url"   content="https://www.aurora-blossom.com/" />
-        <meta property="og:title" content="Aurora Blossom | Digital Transformation &amp; IT Services" />
+        <link key="canonical" rel="canonical" href="https://www.aurora-blossom.com/" />
+        <meta key="og:url" property="og:url"   content="https://www.aurora-blossom.com/" />
+        <meta key="og:title" property="og:title" content="Aurora Blossom | Digital Transformation &amp; IT Services" />
       </Head>
 
       <Header

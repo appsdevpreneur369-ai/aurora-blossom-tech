@@ -106,7 +106,7 @@ function TeamCard({ member, index }) {
 
 export default function SectionTeams({ ...rest }) {
   return (
-    <Section id="teams" className="cd-section" aria-labelledby="teams-heading" {...rest}>
+    <Section id="teams" className="cd-section" aria-labelledby="teams-heading" isStatic {...rest}>
       <SectionHeader
         id="teams-heading"
         title="Meet the Team"

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
-import CheckRounded from "@mui/icons-material/CheckRounded";
-import CloseRounded from "@mui/icons-material/CloseRounded";
 import AutoAwesomeOutlined from "@mui/icons-material/AutoAwesomeOutlined";
 import { color, font, motion, radius, focusRingOnDark } from "/styles/tokens.js";
 
@@ -237,37 +235,49 @@ function PlanCard({ plan, cycle }) {
 
       <Box aria-hidden="true" sx={{ my: 2.5, height: "1px", bgcolor: featured ? "rgba(15,23,42,0.1)" : "rgba(255,255,255,0.1)" }} />
 
-      <Box component="ul" aria-label={`${plan.name} features`} sx={{ listStyle: "none", m: 0, p: 0, flex: 1, display: "grid", alignContent: "start", gap: 1.25 }}>
+      {/* Plain elements styled from the list's single sx (cheaper to hydrate
+          than an sx/icon component per row). */}
+      <Box
+        component="ul"
+        aria-label={`${plan.name} features`}
+        sx={{
+          listStyle: "none",
+          m: 0,
+          p: 0,
+          flex: 1,
+          display: "grid",
+          alignContent: "start",
+          gap: 1.25,
+          "& li": { display: "flex", alignItems: "flex-start", gap: 1.25, fontSize: "0.875rem", lineHeight: 1.45 },
+          "& svg": { mt: "2px", width: 16, height: 16, flexShrink: 0 },
+          "& .yes svg": { color: featured ? color.violet700 : "#34D399" },
+          "& .no svg": { color: featured ? color.slate400 : color.slate500 },
+          "& .yes span": { color: body },
+          "& .yes.hl span": { color: ink, fontWeight: 600 },
+          "& .no span": { color: featured ? color.slate500 : color.slate400, textDecoration: "line-through", textDecorationThickness: "1px" },
+          "& strong": { fontWeight: 600 },
+          "& .sr": visuallyHidden,
+        }}
+      >
         {FEATURES.map((row) => {
           const value = row[plan.key];
           const included = value !== false;
-          const Icon = included ? CheckRounded : CloseRounded;
           return (
-            <Box component="li" key={row.feature} sx={{ display: "flex", alignItems: "flex-start", gap: 1.25, fontSize: "0.875rem", lineHeight: 1.45 }}>
-              <Icon
-                aria-hidden="true"
-                sx={{ mt: "1px", fontSize: 17, flexShrink: 0, color: included ? (featured ? color.violet700 : "#34D399") : featured ? color.slate400 : color.slate500 }}
-              />
-              <Box
-                component="span"
-                sx={
-                  included
-                    ? { color: row.highlight ? ink : body, fontWeight: row.highlight ? 600 : 400 }
-                    : { color: featured ? color.slate500 : color.slate400, textDecoration: "line-through", textDecorationThickness: "1px" }
-                }
-              >
-                <Box component="span" sx={visuallyHidden}>
-                  {included ? "Included: " : "Not included: "}
-                </Box>
+            <li key={row.feature} className={included ? (row.highlight ? "yes hl" : "yes") : "no"}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                {included ? <path d="M20 6 9 17l-5-5" /> : <path d="M18 6 6 18M6 6l12 12" />}
+              </svg>
+              <span>
+                <span className="sr">{included ? "Included: " : "Not included: "}</span>
                 {typeof value === "string" ? (
                   <>
-                    {row.feature}: <strong style={{ fontWeight: 600 }}>{value}</strong>
+                    {row.feature}: <strong>{value}</strong>
                   </>
                 ) : (
                   row.feature
                 )}
-              </Box>
-            </Box>
+              </span>
+            </li>
           );
         })}
       </Box>

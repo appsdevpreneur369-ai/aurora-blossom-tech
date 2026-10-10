@@ -105,7 +105,7 @@ function ServicesMenu({ link, isActive, onNavigate }) {
         if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false);
       }}
     >
-      <Link href={link.href} passHref>
+      <Link prefetch={false} href={link.href} passHref>
         <Box component="a" aria-current={isActive ? "page" : undefined} sx={{ ...linkSx(isActive), pr: { md: 0.5, lg: 0.75 } }} onClick={() => onNavigate(link)}>
           {link.title}
         </Box>
@@ -162,7 +162,7 @@ function ServicesMenu({ link, isActive, onNavigate }) {
         }}
       >
         {services.map((svc, idx) => (
-          <Link key={svc.serviceTitle} href={`/services-details#service-${idx + 1}`} passHref>
+          <Link key={svc.serviceTitle} prefetch={false} href={`/services-details#service-${idx + 1}`} passHref>
             <Box
               component="a"
               onClick={() => setOpen(false)}
@@ -186,7 +186,7 @@ function ServicesMenu({ link, isActive, onNavigate }) {
             </Box>
           </Link>
         ))}
-        <Link href={link.href} passHref>
+        <Link prefetch={false} href={link.href} passHref>
           <Box
             component="a"
             onClick={() => setOpen(false)}
@@ -250,7 +250,7 @@ export default function HeaderLinks() {
           }
           return (
             <li key={link.title}>
-              <Link href={link.href} passHref>
+              <Link prefetch={false} href={link.href} passHref>
                 <Box
                   component="a"
                   aria-current={isActive ? "true" : undefined}

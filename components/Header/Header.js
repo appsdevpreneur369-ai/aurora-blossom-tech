@@ -75,7 +75,7 @@ export default function Header({ links }) {
           gap: 2,
         }}
       >
-        <Link href="/#home" passHref>
+        <Link prefetch={false} href="/#home" passHref>
           <Box
             component="a"
             aria-label="Aurora Blossom — Home"
@@ -148,7 +148,7 @@ export default function Header({ links }) {
               const isActive = active === link.title;
               return (
                 <li key={link.title}>
-                  <Link href={link.href} passHref>
+                  <Link prefetch={false} href={link.href} passHref>
                     <Box
                       component="a"
                       aria-current={isActive ? "true" : undefined}

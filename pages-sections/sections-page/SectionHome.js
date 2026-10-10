@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Router from "next/router";
+import Link from "next/link";
 import { Box, Button, Typography } from "@mui/material";
 import { TypeAnimation } from "react-type-animation";
 import ArrowForwardRounded from "@mui/icons-material/ArrowForwardRounded";
@@ -117,11 +117,12 @@ export default function SectionHome({ ...rest }) {
             </Box>
 
             <Box sx={{ display: "flex", gap: 1.5, flexWrap: "wrap", flexDirection: { xs: "column", sm: "row" } }}>
+              <Link href="/ai-details" prefetch={false} passHref>
               <Button
+                component="a"
                 variant="contained"
                 size="large"
                 endIcon={<ArrowForwardRounded />}
-                onClick={() => Router.push("/ai-details")}
                 sx={{
                   width: { xs: "100%", sm: "auto" },
                   bgcolor: color.white,
@@ -132,6 +133,7 @@ export default function SectionHome({ ...rest }) {
               >
                 Explore Our Work
               </Button>
+              </Link>
               <Button
                 variant="outlined"
                 size="large"

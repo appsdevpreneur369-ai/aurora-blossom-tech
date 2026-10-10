@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Suspense } from "react";
 import PropTypes from "prop-types";
 import { Box } from "@mui/material";
+import StaticIsland from "/components/ui/StaticIsland.js";
 import { color, gradient, layout } from "/styles/tokens.js";
 
 const TONES = {
@@ -13,8 +14,13 @@ const TONES = {
 /**
  * Page section with consistent vertical rhythm and a centred content container.
  * Extra props (id, className, aria-*) are forwarded to the <section> element.
+ *
+ * Content sits in a Suspense boundary so React 18 hydrates each section as its
+ * own interruptible task instead of one long main-thread block (lower TBT).
+ * `isStatic` sections (no handlers/state inside) skip hydration entirely on the
+ * first load — see components/ui/StaticIsland.js.
  */
-export default function Section({ tone, width, children, sx, innerSx, component, py, ...rest }) {
+export default function Section({ tone, width, children, sx, innerSx, component, py, isStatic, ...rest }) {
   return (
     <Box
       component={component}
@@ -31,7 +37,7 @@ export default function Section({ tone, width, children, sx, innerSx, component,
           ...innerSx,
         }}
       >
-        {children}
+        {isStatic ? <StaticIsland>{children}</StaticIsland> : <Suspense fallback={null}>{children}</Suspense>}
       </Box>
     </Box>
   );
@@ -41,6 +47,7 @@ Section.defaultProps = {
   tone: "default",
   width: "default",
   component: "section",
+  isStatic: false,
 };
 
 Section.propTypes = {
@@ -51,4 +58,5 @@ Section.propTypes = {
   sx: PropTypes.object,
   innerSx: PropTypes.object,
   py: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+  isStatic: PropTypes.bool,
 };
