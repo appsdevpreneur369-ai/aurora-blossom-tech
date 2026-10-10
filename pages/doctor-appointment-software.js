@@ -23,7 +23,7 @@ const softwareSchema = {
   operatingSystem: "Web",
   url: "https://clinicflow247.com",
   description: "Online doctor appointment booking software for Indian clinics. Real-time slot management, patient self-booking, WhatsApp reminders, and queue management.",
-  offers: { "@type": "Offer", price: "599", priceCurrency: "INR" },
+  offers: { "@type": "Offer", price: "1199", priceCurrency: "INR" },
   provider: { "@type": "Organization", name: "Aurora Blossom", url: SITE_URL },
 };
 
@@ -65,7 +65,7 @@ export default function DoctorAppointmentSoftware() {
           title="Doctor Appointment Software for Indian Clinics"
           lead="Stop managing appointments on paper or WhatsApp messages. ClinicFlow247 gives your clinic real-time online booking, automated reminders, and a live patient queue — in minutes."
           actions={<CtaLink href="/book-demo">Book a Free Demo →</CtaLink>}
-          footnote="Free 14-day trial · No credit card · Starts at ₹599/month"
+          footnote="Free 14-day trial · No credit card · Plans from ₹1,199/month"
         />
 
         <ProblemBand

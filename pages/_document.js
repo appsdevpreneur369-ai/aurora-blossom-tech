@@ -28,14 +28,14 @@ const clinicflowSchema = {
   operatingSystem: "Web, Android, iOS",
   url: "https://clinicflow247.com",
   description:
-    "ClinicFlow247 is a clinic management software for Indian clinics — appointment booking, EMR, e-prescriptions, WhatsApp reminders, and billing. Starting at ₹599/month.",
+    "ClinicFlow247 is a clinic management software for Indian clinics — appointment booking, EMR, e-prescriptions, WhatsApp reminders, and billing. Plans from ₹1,199/month.",
   offers: {
     "@type": "Offer",
-    price: "599",
+    price: "1199",
     priceCurrency: "INR",
     priceSpecification: {
       "@type": "UnitPriceSpecification",
-      price: "599",
+      price: "1199",
       priceCurrency: "INR",
       unitCode: "MON",
     },

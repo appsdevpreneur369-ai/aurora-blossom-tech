@@ -23,7 +23,7 @@ const softwareSchema = {
   operatingSystem: "Web",
   url: "https://clinicflow247.com",
   description: "Digital e-prescription software for Indian doctors. Create, share, and store prescriptions digitally. ABDM-ready, WhatsApp sharing, and patient medication history.",
-  offers: { "@type": "Offer", price: "599", priceCurrency: "INR" },
+  offers: { "@type": "Offer", price: "1199", priceCurrency: "INR" },
   provider: { "@type": "Organization", name: "Aurora Blossom", url: SITE_URL },
 };
 
@@ -65,7 +65,7 @@ export default function ElectronicPrescriptionSoftware() {
           title="Electronic Prescription Software for Doctors"
           lead="Replace handwritten prescriptions with digital ones. Create a complete e-prescription in under 30 seconds — and share it on WhatsApp before the patient leaves your clinic."
           actions={<CtaLink href="/book-demo">Book a Free Demo →</CtaLink>}
-          footnote="Free 14-day trial · No credit card · Starts at ₹599/month"
+          footnote="Free 14-day trial · No credit card · Plans from ₹1,199/month"
         />
 
         <ProblemBand
