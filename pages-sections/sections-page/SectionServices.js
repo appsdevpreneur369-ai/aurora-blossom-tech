@@ -1,151 +1,146 @@
 import React from "react";
-import { Box, Grid, Typography, Button } from "@mui/material";
+import Image from "next/image";
+import Link from "next/link";
+import { Box, Button, Typography } from "@mui/material";
+import ArrowForwardRounded from "@mui/icons-material/ArrowForwardRounded";
+import NorthEastRounded from "@mui/icons-material/NorthEastRounded";
 import { services } from "../../data/services-data";
-import Router from "next/router";
+import Section from "/components/ui/Section.js";
+import SectionHeader from "/components/ui/SectionHeader.js";
+import { color, font, motion, radius, shadow, focusRing } from "/styles/tokens.js";
 
-const SERVICE_COLORS = [
-  { color: "#7C3AED", bg: "rgba(124,58,237,0.07)", border: "rgba(124,58,237,0.15)" },
-  { color: "#0891B2", bg: "rgba(8,145,178,0.07)",  border: "rgba(8,145,178,0.15)"  },
-  { color: "#059669", bg: "rgba(5,150,105,0.07)",  border: "rgba(5,150,105,0.15)"  },
-  { color: "#D97706", bg: "rgba(217,119,6,0.07)",  border: "rgba(217,119,6,0.15)"  },
-  { color: "#BE185D", bg: "rgba(190,24,93,0.07)",  border: "rgba(190,24,93,0.15)"  },
-  { color: "#1D4ED8", bg: "rgba(29,78,216,0.07)",  border: "rgba(29,78,216,0.15)"  },
-];
-const SERVICE_ICONS = ["🚀", "🤖", "☁️", "💼", "🛒", "📊"];
+function ServiceCard({ svc, index }) {
+  return (
+    <Link href={`/services-details#service-${index + 1}`} passHref>
+      <Box
+        component="a"
+        aria-label={svc.serviceTitle}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+          borderRadius: `${radius.lg}px`,
+          overflow: "hidden",
+          bgcolor: color.white,
+          border: `1px solid ${color.slate200}`,
+          boxShadow: shadow.xs,
+          textDecoration: "none",
+          color: "inherit",
+          transition: `box-shadow ${motion.base} ${motion.ease}, transform ${motion.base} ${motion.ease}, border-color ${motion.base} ${motion.ease}`,
+          "&:hover": { boxShadow: shadow.md, transform: "translateY(-4px)", borderColor: color.violet300 },
+          "&:hover .svc-img img": { transform: "scale(1.04)" },
+          "&:hover .svc-arrow": { bgcolor: color.violet600, color: color.white, borderColor: color.violet600 },
+          "&:focus-visible": focusRing,
+        }}
+      >
+        <Box
+          className="svc-img"
+          sx={{
+            position: "relative",
+            aspectRatio: "16 / 9",
+            bgcolor: color.slate100,
+            overflow: "hidden",
+            "& img": { transition: `transform ${motion.slow} ${motion.ease}` },
+          }}
+        >
+          <Image
+            src={`/${svc.serviceImageUrl}`}
+            alt=""
+            layout="fill"
+            objectFit="cover"
+            sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 380px"
+          />
+        </Box>
+        <Box sx={{ p: { xs: 3, md: 3.5 }, display: "flex", flexDirection: "column", flex: 1 }}>
+          <Typography
+            aria-hidden="true"
+            sx={{ fontFamily: font.display, fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.12em", color: color.violet600, mb: 1.25 }}
+          >
+            {String(index + 1).padStart(2, "0")}
+          </Typography>
+          <Typography
+            component="h3"
+            sx={{ fontFamily: font.display, fontWeight: 700, fontSize: "1.125rem", lineHeight: 1.35, color: color.ink2, m: 0, mb: 1.25 }}
+          >
+            {svc.serviceTitle}
+          </Typography>
+          <Typography sx={{ color: color.slate600, fontSize: "0.9375rem", lineHeight: 1.7, mb: 3 }}>{svc.serviceOneLiner}</Typography>
+          <Box
+            className="svc-arrow"
+            aria-hidden="true"
+            sx={{
+              mt: "auto",
+              width: 40,
+              height: 40,
+              borderRadius: "50%",
+              border: `1px solid ${color.slate200}`,
+              color: color.violet700,
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: `all ${motion.base} ${motion.ease}`,
+            }}
+          >
+            <NorthEastRounded sx={{ fontSize: 18 }} />
+          </Box>
+        </Box>
+      </Box>
+    </Link>
+  );
+}
 
 export default function SectionServices({ ...rest }) {
   return (
-    <section
-      id="services"
-      className="cd-section"
-      aria-labelledby="services-heading"
-      {...rest}
-    >
-      <Box sx={{ py: { xs: 6, md: 10 }, px: { xs: 3, md: 6 }, maxWidth: 1200, mx: "auto" }}>
-
-        {/* Section header */}
-        <Box sx={{ textAlign: "center", mb: 7 }}>
-          <Typography
-            id="services-heading"
-            variant="h2"
-            component="h2"
-            sx={{
-              fontFamily: '"Montserrat", sans-serif',
-              fontWeight: 800,
-              fontSize: { xs: "1.75rem", md: "2.5rem" },
-              backgroundImage: "linear-gradient(135deg, #4C1D95 0%, #0891B2 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              mb: 2,
-            }}
-          >
-            What We Do
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{ color: "text.secondary", maxWidth: 600, mx: "auto", fontSize: "1.05rem", lineHeight: 1.8 }}
-          >
-            End-to-end technology services tailored to your industry and scale.
-          </Typography>
-          <Button
-            variant="text"
-            onClick={() => Router.push("/services-details")}
-            sx={{
-              mt: 2,
-              textTransform: "none",
-              fontFamily: '"Montserrat", sans-serif',
-              fontWeight: 600,
-              color: "#7C3AED",
-              "&:hover": { bgcolor: "rgba(124,58,237,0.06)" },
-            }}
-          >
+    <Section tone="subtle" id="services" className="cd-section" aria-labelledby="services-heading" {...rest}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          alignItems: { xs: "flex-start", md: "flex-end" },
+          justifyContent: "space-between",
+          gap: 3,
+          mb: { xs: 5, md: 7 },
+        }}
+      >
+        <SectionHeader
+          id="services-heading"
+          align="left"
+          title="What We Do"
+          lead="End-to-end technology services tailored to your industry and scale."
+          sx={{ mb: 0 }}
+        />
+        <Link href="/services-details" passHref>
+          <Button component="a" variant="outlined" color="primary" sx={{ flexShrink: 0 }}>
             View All Services →
           </Button>
-        </Box>
+        </Link>
+      </Box>
 
-        {/* Services grid */}
-        <Grid container spacing={3}>
-          {services.map((svc, idx) => {
-            const palette = SERVICE_COLORS[idx % SERVICE_COLORS.length];
-            return (
-              <Grid key={svc.serviceTitle} item xs={12} sm={6} md={4}>
-                <Box
-                  sx={{
-                    p: 3,
-                    borderRadius: 3,
-                    height: "100%",
-                    background: palette.bg,
-                    border: `1px solid ${palette.border}`,
-                    cursor: "pointer",
-                    transition: "transform 0.2s ease, box-shadow 0.2s ease",
-                    "&:hover": {
-                      transform: "translateY(-4px)",
-                      boxShadow: `0 12px 36px ${palette.color}20`,
-                    },
-                  }}
-                  onClick={() => Router.push("/services-details")}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && Router.push("/services-details")}
-                >
-                  <Box
-                    aria-hidden="true"
-                    sx={{ fontSize: "2rem", mb: 1.5, lineHeight: 1 }}
-                  >
-                    {SERVICE_ICONS[idx]}
-                  </Box>
-                  <Typography
-                    variant="h6"
-                    component="h3"
-                    sx={{
-                      fontFamily: '"Montserrat", sans-serif',
-                      fontWeight: 700,
-                      fontSize: "1rem",
-                      color: palette.color,
-                      mb: 1,
-                    }}
-                  >
-                    {svc.serviceTitle}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: "text.secondary", lineHeight: 1.7, fontSize: "0.875rem" }}
-                  >
-                    {svc.serviceOneLiner}
-                  </Typography>
-                </Box>
-              </Grid>
-            );
-          })}
-        </Grid>
+      <Box
+        component="ul"
+        sx={{
+          listStyle: "none",
+          m: 0,
+          p: 0,
+          display: "grid",
+          gap: { xs: 2.5, md: 3 },
+          gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)" },
+        }}
+      >
+        {services.map((svc, idx) => (
+          <li key={svc.serviceTitle}>
+            <ServiceCard svc={svc} index={idx} />
+          </li>
+        ))}
+      </Box>
 
-        {/* Bottom CTA */}
-        <Box sx={{ textAlign: "center", mt: 6 }}>
-          <Button
-            variant="contained"
-            onClick={() => Router.push("/contact-us")}
-            sx={{
-              textTransform: "none",
-              fontFamily: '"Montserrat", sans-serif',
-              fontWeight: 600,
-              borderRadius: 2,
-              px: 4,
-              py: 1.5,
-              background: "linear-gradient(135deg, #7C3AED 0%, #0891B2 100%)",
-              boxShadow: "0 4px 14px rgba(124,58,237,0.3)",
-              "&:hover": {
-                background: "linear-gradient(135deg, #6D28D9 0%, #0E7490 100%)",
-                boxShadow: "0 6px 20px rgba(124,58,237,0.45)",
-                transform: "translateY(-1px)",
-              },
-              transition: "all 0.2s ease",
-            }}
-          >
+      <Box sx={{ textAlign: "center", mt: { xs: 6, md: 8 } }}>
+        <Link href="/contact-us" passHref>
+          <Button component="a" variant="contained" color="primary" size="large" endIcon={<ArrowForwardRounded />}>
             Talk to Our Experts
           </Button>
-        </Box>
+        </Link>
       </Box>
-    </section>
+    </Section>
   );
 }

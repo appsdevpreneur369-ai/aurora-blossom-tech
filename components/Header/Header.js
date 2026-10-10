@@ -1,203 +1,210 @@
 import React from "react";
 import Link from "next/link";
-import classNames from "classnames";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import makeStyles from '@mui/styles/makeStyles';
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Hidden from "@mui/material/Hidden";
-import Drawer from "@mui/material/Drawer";
+import { AppBar, Box, Drawer, IconButton } from "@mui/material";
 import Menu from "@mui/icons-material/Menu";
 import Close from "@mui/icons-material/Close";
-import styles from "/styles/jss/novel-logiks/components/headerStyle.js";
-import Router from "next/router";
+import MailOutlineRounded from "@mui/icons-material/MailOutlineRounded";
+import BrandMark from "/components/ui/BrandMark.js";
 import { headerLinksData } from "../../data/header-links-data.js";
+import { scrollToSection, useActiveNavItem } from "./navUtils.js";
+import { color, font, layout, motion, radius, focusRing } from "/styles/tokens.js";
 
-const useStyles = makeStyles(styles);
+const DRAWER_ID = "mobile-navigation";
 
-export default function Header(props) {
+export default function Header({ links }) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const classes = useStyles();
+  const [scrolled, setScrolled] = React.useState(false);
+  const router = useRouter();
+  const active = useActiveNavItem();
 
   React.useEffect(() => {
-    if (props.changeColorOnScroll) {
-      window.addEventListener("scroll", headerColorChange);
-    }
-    return function cleanup() {
-      if (props.changeColorOnScroll) {
-        window.removeEventListener("scroll", headerColorChange);
-      }
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Close the drawer whenever navigation completes
+  React.useEffect(() => {
+    const close = () => setMobileOpen(false);
+    router.events.on("routeChangeComplete", close);
+    router.events.on("hashChangeComplete", close);
+    return () => {
+      router.events.off("routeChangeComplete", close);
+      router.events.off("hashChangeComplete", close);
     };
-  });
+  }, [router.events]);
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+  const handleDrawerToggle = () => setMobileOpen((o) => !o);
 
-  const headerColorChange = () => {
-    const { color, changeColorOnScroll } = props;
-    const windowsScrollTop = window.pageYOffset;
-    if (windowsScrollTop > changeColorOnScroll.height) {
-      document.body.getElementsByTagName("header")[0].classList.remove(classes[color]);
-      document.body.getElementsByTagName("header")[0].classList.add(classes[changeColorOnScroll.color]);
-    } else {
-      document.body.getElementsByTagName("header")[0].classList.add(classes[color]);
-      document.body.getElementsByTagName("header")[0].classList.remove(classes[changeColorOnScroll.color]);
+  const handleMobileNav = (e, link) => {
+    setMobileOpen(false);
+    if (link.title === "Services") return;
+    if (window.location.pathname === "/" && document.getElementById(link.smoothScroll)) {
+      e.preventDefault();
+      // Wait for the drawer to release its scroll lock before scrolling.
+      setTimeout(() => scrollToSection(link.smoothScroll), 260);
     }
   };
-
-  const { color, links, fixed, absolute } = props;
-  const appBarClasses = classNames({
-    [classes.appBar]: true,
-    [classes[color]]: color,
-    [classes.absolute]: absolute,
-    [classes.fixed]: fixed,
-  });
 
   return (
-    <AppBar className={appBarClasses} style={{ backgroundColor: "white" }}>
-      <Toolbar className={classes.container} style={{ marginRight: "auto" }}>
-        {/* Desktop nav */}
-        <Hidden mdDown implementation="css" className={classes.hidden}>
-          <div className={classes.collapse}>{links}</div>
-        </Hidden>
-
-        {/* Mobile: logo + brand + hamburger */}
-        <Hidden mdUp>
-          <img
-            src="/img/logo/aurora-blossom-logo.png"
-            alt="Aurora Blossom logo"
-            style={{ width: "2.25rem", height: "2.25rem", objectFit: "contain", marginRight: "0.5rem" }}
-          />
-          <span style={{
-            fontFamily: '"Montserrat", sans-serif',
-            fontWeight: 800,
-            fontSize: "0.9rem",
-            letterSpacing: "0.02em",
-            background: "linear-gradient(90deg, #4C1D95 0%, #0891B2 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-            whiteSpace: "nowrap",
-            flex: 1,
-          }}>
-            Aurora Blossom
-          </span>
-          <IconButton
-            color="inherit"
-            aria-label="Open navigation menu"
-            onClick={handleDrawerToggle}
-            size="large"
+    <AppBar
+      position="fixed"
+      elevation={0}
+      sx={{
+        bgcolor: scrolled ? "rgba(255,255,255,0.92)" : color.white,
+        backdropFilter: scrolled ? "saturate(180%) blur(12px)" : "none",
+        color: color.ink2,
+        borderBottom: `1px solid ${scrolled ? color.slate200 : "transparent"}`,
+        boxShadow: scrolled ? "0 6px 24px -12px rgba(15,23,42,0.18)" : "none",
+        transition: `box-shadow ${motion.base} ${motion.ease}, border-color ${motion.base} ${motion.ease}, background-color ${motion.base} ${motion.ease}`,
+      }}
+    >
+      <Box
+        sx={{
+          maxWidth: layout.maxWidth + 64,
+          width: "100%",
+          mx: "auto",
+          px: { xs: 2, sm: 3, md: 3 },
+          height: layout.headerHeight,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 2,
+        }}
+      >
+        <Link href="/#home" passHref>
+          <Box
+            component="a"
+            aria-label="Aurora Blossom — Home"
+            onClick={(e) => {
+              if (scrollToSection("home")) e.preventDefault();
+            }}
+            sx={{ display: "inline-flex", alignItems: "center", textDecoration: "none", borderRadius: `${radius.sm}px`, "&:focus-visible": focusRing }}
           >
-            <Menu style={{ color: "#4C1D95" }} />
-          </IconButton>
-        </Hidden>
-      </Toolbar>
+            <BrandMark size={40} />
+          </Box>
+        </Link>
 
-      {/* Mobile Drawer */}
-      <Hidden mdUp implementation="js">
-        <Drawer
-          anchor="right"
-          open={mobileOpen}
-          classes={{ paper: classes.drawerPaper }}
-          onClose={handleDrawerToggle}
+        {/* Desktop navigation */}
+        <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}>{links}</Box>
+
+        {/* Mobile menu button */}
+        <IconButton
+          aria-label="Open navigation menu"
+          aria-controls={DRAWER_ID}
+          aria-expanded={mobileOpen}
+          onClick={handleDrawerToggle}
+          sx={{
+            display: { xs: "inline-flex", md: "none" },
+            width: 44,
+            height: 44,
+            borderRadius: `${radius.md}px`,
+            border: `1px solid ${color.slate200}`,
+            color: color.violet800,
+            "&.Mui-focusVisible": focusRing,
+          }}
         >
-          {/* Drawer header */}
-          <div style={{
+          <Menu />
+        </IconButton>
+      </Box>
+
+      {/* Mobile drawer */}
+      <Drawer
+        anchor="right"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        PaperProps={{
+          id: DRAWER_ID,
+          sx: { width: { xs: "86vw", sm: 360 }, maxWidth: 380, display: "flex", flexDirection: "column", bgcolor: color.white },
+        }}
+        sx={{ display: { md: "none" } }}
+      >
+        <Box
+          sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "1rem 1.25rem",
-            borderBottom: "1px solid rgba(124,58,237,0.15)",
-          }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <img
-                src="/img/logo/aurora-blossom-logo.png"
-                alt="Aurora Blossom"
-                style={{ width: "2rem", height: "2rem", objectFit: "contain" }}
-              />
-              <span style={{
-                fontFamily: '"Montserrat", sans-serif',
-                fontWeight: 800,
-                fontSize: "0.85rem",
-                background: "linear-gradient(90deg, #4C1D95 0%, #0891B2 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}>
-                Aurora Blossom
-              </span>
-            </div>
-            <IconButton
-              aria-label="Close navigation menu"
-              onClick={handleDrawerToggle}
-              size="small"
-            >
-              <Close style={{ color: "#4C1D95" }} />
-            </IconButton>
-          </div>
+            px: 2.5,
+            height: 64,
+            borderBottom: `1px solid ${color.slate200}`,
+          }}
+        >
+          <BrandMark size={36} />
+          <IconButton
+            aria-label="Close navigation menu"
+            onClick={handleDrawerToggle}
+            sx={{ width: 44, height: 44, color: color.violet800, "&.Mui-focusVisible": focusRing }}
+          >
+            <Close />
+          </IconButton>
+        </Box>
 
-          {/* Nav links — vertical list */}
-          <nav aria-label="Mobile navigation" style={{ padding: "0.5rem 0" }}>
-            {headerLinksData.links.map((link, i) => (
-              <Link key={link.title} href={link.href} passHref>
-                <a
-                  onClick={handleDrawerToggle}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "0.875rem 1.5rem",
-                    fontFamily: '"Montserrat", sans-serif',
-                    fontWeight: 600,
-                    fontSize: "0.95rem",
-                    color: "#1E293B",
-                    textDecoration: "none",
-                    letterSpacing: "0.05em",
-                    textTransform: "uppercase",
-                    borderBottom: i < headerLinksData.links.length - 1
-                      ? "1px solid rgba(0,0,0,0.06)"
-                      : "none",
-                    transition: "background 0.15s ease, color 0.15s ease",
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.background = "rgba(124,58,237,0.06)";
-                    e.currentTarget.style.color = "#7C3AED";
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.background = "transparent";
-                    e.currentTarget.style.color = "#1E293B";
-                  }}
-                >
-                  {link.title}
-                </a>
-              </Link>
-            ))}
-          </nav>
+        <Box component="nav" aria-label="Mobile navigation" sx={{ py: 1.5, px: 1.5, overflowY: "auto" }}>
+          <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0 }}>
+            {headerLinksData.links.map((link) => {
+              const isActive = active === link.title;
+              return (
+                <li key={link.title}>
+                  <Link href={link.href} passHref>
+                    <Box
+                      component="a"
+                      aria-current={isActive ? "true" : undefined}
+                      onClick={(e) => handleMobileNav(e, link)}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        minHeight: 52,
+                        px: 2,
+                        borderRadius: `${radius.md}px`,
+                        fontFamily: font.display,
+                        fontWeight: 600,
+                        fontSize: "1rem",
+                        color: isActive ? color.violet700 : color.slate800,
+                        bgcolor: isActive ? color.violet50 : "transparent",
+                        textDecoration: "none",
+                        transition: `background-color ${motion.fast} ${motion.ease}, color ${motion.fast} ${motion.ease}`,
+                        "&:hover": { bgcolor: color.violet50, color: color.violet700 },
+                        "&:focus-visible": focusRing,
+                      }}
+                    >
+                      {link.title}
+                    </Box>
+                  </Link>
+                </li>
+              );
+            })}
+          </Box>
+        </Box>
 
-          {/* Drawer footer CTA */}
-          <div style={{ padding: "1.25rem 1.5rem", marginTop: "auto", borderTop: "1px solid rgba(124,58,237,0.15)" }}>
-            <a
-              href="mailto:contact@aurora-blossom.com"
-              style={{
-                display: "block",
-                textAlign: "center",
-                padding: "0.75rem",
-                background: "linear-gradient(135deg, #7C3AED 0%, #0891B2 100%)",
-                color: "white",
-                borderRadius: "8px",
-                fontFamily: '"Montserrat", sans-serif',
-                fontWeight: 600,
-                fontSize: "0.9rem",
-                textDecoration: "none",
-                letterSpacing: "0.03em",
-              }}
-            >
-              Get in Touch
-            </a>
-          </div>
-        </Drawer>
-      </Hidden>
+        <Box sx={{ mt: "auto", p: 2.5, borderTop: `1px solid ${color.slate200}` }}>
+          <Box
+            component="a"
+            href="mailto:contact@aurora-blossom.com"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+              minHeight: 50,
+              borderRadius: `${radius.sm + 2}px`,
+              bgcolor: color.violet600,
+              color: color.white,
+              fontFamily: font.display,
+              fontWeight: 700,
+              fontSize: "0.95rem",
+              textDecoration: "none",
+              "&:hover": { bgcolor: color.violet700 },
+              "&:focus-visible": focusRing,
+            }}
+          >
+            <MailOutlineRounded fontSize="small" aria-hidden="true" />
+            Get in Touch
+          </Box>
+        </Box>
+      </Drawer>
     </AppBar>
   );
 }
@@ -206,6 +213,8 @@ Header.defaultProps = {
   color: "white",
 };
 
+// Legacy props (color, fixed, brand, changeColorOnScroll…) are still accepted
+// so existing page call-sites keep working; the header is always fixed/white.
 Header.propTypes = {
   color: PropTypes.oneOf([
     "primary", "info", "success", "warning", "danger",

@@ -1,114 +1,75 @@
-/*eslint-disable*/
 import React from "react";
-import makeStyles from '@mui/styles/makeStyles';
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-// @mui/icons-material
+import { Box, Typography } from "@mui/material";
 import Favorite from "@mui/icons-material/Favorite";
-// core components
 import Header from "/components/Header/Header.js";
 import HeaderLinks from "/components/Header/HeaderLinks.js";
-import Footer from "/components/Footer/Footer.js";
-import GridContainer from "/components/Grid/GridContainer.js";
-import GridItem from "/components/Grid/GridItem.js";
+import ErrorLayout from "/components/ui/ErrorLayout.js";
+import { color, layout, focusRingOnDark } from "/styles/tokens.js";
 
-import errorPageStyle from "/styles/jss/novel-logiks/pages/errorPageStyles.js";
+// Copy and links are unchanged from the original template page; only the layout is new.
+const FOOTER_LINKS = [
+  { href: "https://www.aurora-blossom.com", label: "Sunil", external: true },
+  { href: "https://www.aurora-blossom.com", label: "About us", external: true },
+  { href: "http://blog.creative-tim.com/?ref=njsmkp-error", label: "Blog" },
+  { href: "https://www.aurora-blossom.com", label: "Licenses", external: true },
+];
 
-const useStyles = makeStyles(errorPageStyle);
+const linkSx = {
+  display: "inline-block",
+  py: "4px",
+  color: "rgba(255,255,255,0.75)",
+  textDecoration: "none",
+  borderRadius: "4px",
+  "&:hover": { color: color.white, textDecoration: "underline" },
+  "&:focus-visible": focusRingOnDark,
+};
 
 export default function ErrorPage({ ...rest }) {
   React.useEffect(() => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   });
-  const classes = useStyles();
   return (
     <div>
-      <Header
-        absolute
-        color="transparent"
-        brand="NextJS Material Kit PRO"
-        links={<HeaderLinks dropdownHoverColor="dark" />}
-        {...rest}
-      />
-      <div
-        className={classes.pageHeader}
-        style={{
-          backgroundImage: "url('/img/clint-mckoy.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "top center"
+      <Header absolute color="transparent" brand="NextJS Material Kit PRO" links={<HeaderLinks dropdownHoverColor="dark" />} {...rest} />
+      <ErrorLayout code="404" title="Page not found :(">
+        <Typography component="p" sx={{ mt: 2, fontSize: { xs: "1.125rem", md: "1.25rem" }, color: "rgba(255,255,255,0.82)" }}>
+          Ooooups! Looks like you got lost.
+        </Typography>
+      </ErrorLayout>
+      <Box
+        component="footer"
+        sx={{
+          bgcolor: color.ink,
+          color: "rgba(255,255,255,0.6)",
+          px: layout.gutter,
+          py: 3,
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 2,
+          fontSize: "0.85rem",
         }}
       >
-        {/* <div className={classes.container}> */}
-        <div className={classes.contentCenter}>
-          <GridContainer>
-            <GridItem md={12}>
-              <h1 className={classes.title}>404</h1>
-              <h2 className={classes.subTitle}>Page not found :(</h2>
-              <h4 className={classes.description}>
-                Ooooups! Looks like you got lost.
-              </h4>
-            </GridItem>
-          </GridContainer>
-        </div>
-        {/* </div> */}
-      </div>
-      <Footer
-        content={
-          <div>
-            <div className={classes.left}>
-              <List className={classes.list}>
-                <ListItem className={classes.inlineBlock}>
-                  <a
-                    href="https://www.aurora-blossom.com"
-                    target="_blank"
-                    className={classes.block}
-                  >
-                    Sunil
-                  </a>
-                </ListItem>
-                <ListItem className={classes.inlineBlock}>
-                  <a
-                    href="https://www.aurora-blossom.com"
-                    target="_blank"
-                    className={classes.block}
-                  >
-                    About us
-                  </a>
-                </ListItem>
-                <ListItem className={classes.inlineBlock}>
-                  <a
-                    href="http://blog.creative-tim.com/?ref=njsmkp-error"
-                    className={classes.block}
-                  >
-                    Blog
-                  </a>
-                </ListItem>
-                <ListItem className={classes.inlineBlock}>
-                  <a
-                    href="https://www.aurora-blossom.com"
-                    target="_blank"
-                    className={classes.block}
-                  >
-                    Licenses
-                  </a>
-                </ListItem>
-              </List>
-            </div>
-            <div className={classes.right}>
-              &copy; {1900 + new Date().getYear()} , made with{" "}
-              <Favorite className={classes.icon} /> by{" "}
-              <a
-                href="https://www.aurora-blossom.com"
-                target="_blank"
-              >
-                Sunil
-              </a>{" "}
-              for a better web.
-            </div>
-          </div>
-        }
-      />
+        <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "flex", flexWrap: "wrap", gap: 3 }}>
+          {FOOTER_LINKS.map((l) => (
+            <li key={l.label}>
+              <Box component="a" href={l.href} target={l.external ? "_blank" : undefined} rel={l.external ? "noopener noreferrer" : undefined} sx={linkSx}>
+                {l.label}
+              </Box>
+            </li>
+          ))}
+        </Box>
+        <Box>
+          &copy; {1900 + new Date().getYear()} , made with{" "}
+          <Favorite aria-label="love" sx={{ fontSize: 14, verticalAlign: "-2px", color: "#F472B6" }} /> by{" "}
+          <Box component="a" href="https://www.aurora-blossom.com" target="_blank" rel="noopener noreferrer" sx={linkSx}>
+            Sunil
+          </Box>{" "}
+          for a better web.
+        </Box>
+      </Box>
     </div>
   );
 }

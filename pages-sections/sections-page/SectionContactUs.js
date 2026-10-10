@@ -1,88 +1,47 @@
 import React from "react";
-import { Box, Grid, Typography, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import { contactUs } from "../../data/contact-us-data";
+import Section from "/components/ui/Section.js";
+import IconTile from "/components/ui/IconTile.js";
+import { color, font, gradient, radius, shadow, type, focusRing } from "/styles/tokens.js";
 
 // Contact info rows — icon, label, lines
 const CONTACT_ITEMS = [
-  {
-    Icon: PlaceOutlinedIcon,
-    label: "Office Address",
-    lines: contactUs.address_lines,
-    color: "#7C3AED",
-    bg: "rgba(124,58,237,0.08)",
-  },
-  {
-    Icon: EmailOutlinedIcon,
-    label: "Email",
-    lines: contactUs.email_ids.map((e) => ({ text: e, href: `mailto:${e}` })),
-    color: "#0891B2",
-    bg: "rgba(8,145,178,0.08)",
-  },
-  {
-    Icon: PhoneOutlinedIcon,
-    label: "Phone",
-    lines: contactUs.phone_no.map((p) => ({ text: p, href: `tel:${p.replace(/\D/g, "")}` })),
-    color: "#059669",
-    bg: "rgba(5,150,105,0.08)",
-  },
-  {
-    Icon: AccessTimeOutlinedIcon,
-    label: "Working Hours",
-    lines: [contactUs.working_hours],
-    color: "#D97706",
-    bg: "rgba(217,119,6,0.08)",
-  },
+  { Icon: PlaceOutlinedIcon, label: "Office Address", lines: contactUs.address_lines },
+  { Icon: EmailOutlinedIcon, label: "Email", lines: contactUs.email_ids.map((e) => ({ text: e, href: `mailto:${e}` })) },
+  { Icon: PhoneOutlinedIcon, label: "Phone", lines: contactUs.phone_no.map((p) => ({ text: p, href: `tel:${p.replace(/\D/g, "")}` })) },
+  { Icon: AccessTimeOutlinedIcon, label: "Working Hours", lines: [contactUs.working_hours] },
 ];
 
-function ContactRow({ item }) {
+function ContactRow({ item, index }) {
   return (
     <Box
+      component="li"
       sx={{
         display: "flex",
         alignItems: "flex-start",
-        gap: 2,
-        p: 2.5,
-        borderRadius: 2.5,
-        bgcolor: item.bg,
-        border: `1px solid ${item.color}22`,
-        transition: "transform 0.2s ease",
-        "&:hover": { transform: "translateX(4px)" },
+        gap: 2.5,
+        p: { xs: 2.5, md: 3 },
+        "& + &": { borderTop: `1px solid ${color.slate200}` },
       }}
     >
-      {/* Icon badge */}
-      <Box
-        aria-hidden="true"
-        sx={{
-          flexShrink: 0,
-          width: 44,
-          height: 44,
-          borderRadius: 2,
-          bgcolor: `${item.color}18`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <item.Icon sx={{ color: item.color, fontSize: "1.25rem" }} />
-      </Box>
-
-      {/* Content */}
-      <Box>
+      <IconTile icon={item.Icon} variant={index % 2 ? "teal" : "violet"} size={44} />
+      <Box sx={{ minWidth: 0 }}>
         <Typography
-          variant="caption"
+          component="h3"
           sx={{
-            display: "block",
-            fontFamily: '"Montserrat", sans-serif',
+            fontFamily: font.display,
             fontWeight: 700,
-            fontSize: "0.7rem",
-            letterSpacing: "0.08em",
+            fontSize: "0.75rem",
+            letterSpacing: "0.1em",
             textTransform: "uppercase",
-            color: item.color,
-            mb: 0.5,
+            color: color.slate500,
+            m: 0,
+            mb: 0.75,
           }}
         >
           {item.label}
@@ -97,29 +56,21 @@ function ContactRow({ item }) {
               href={href}
               sx={{
                 display: "block",
-                fontFamily: '"Inter", sans-serif',
-                fontWeight: 500,
-                fontSize: "0.9rem",
-                color: "text.primary",
-                lineHeight: 1.6,
+                fontWeight: 600,
+                fontSize: "1rem",
+                color: color.ink2,
+                lineHeight: 1.7,
                 textDecoration: "none",
-                "&:hover": { color: item.color, textDecoration: "underline" },
+                overflowWrap: "anywhere",
+                borderRadius: "4px",
+                "&:hover": { color: color.violet700, textDecoration: "underline", textUnderlineOffset: "3px" },
+                "&:focus-visible": focusRing,
               }}
             >
               {text}
             </Typography>
           ) : (
-            <Typography
-              key={i}
-              sx={{
-                display: "block",
-                fontFamily: '"Inter", sans-serif',
-                fontWeight: 500,
-                fontSize: "0.9rem",
-                color: "text.primary",
-                lineHeight: 1.6,
-              }}
-            >
+            <Typography key={i} sx={{ display: "block", fontWeight: i === 0 && item.lines.length > 1 ? 700 : 500, fontSize: "1rem", color: color.slate800, lineHeight: 1.7 }}>
               {text}
             </Typography>
           );
@@ -131,125 +82,72 @@ function ContactRow({ item }) {
 
 export default function SectionContactUs({ ...rest }) {
   return (
-    <section
-      id="contactUs"
-      className="cd-section"
-      aria-labelledby="contact-heading"
-      {...rest}
-    >
+    <Section tone="subtle" id="contactUs" className="cd-section" aria-labelledby="contact-heading" {...rest}>
       <Box
         sx={{
-          py: { xs: 6, md: 10 },
-          px: { xs: 3, md: 6 },
-          maxWidth: 1200,
-          mx: "auto",
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", md: "5fr 7fr" },
+          gap: { xs: 5, md: 8 },
+          alignItems: "start",
         }}
       >
-        <Grid container spacing={6} alignItems="flex-start">
-          {/* Left — CTA copy */}
-          <Grid item xs={12} md={5}>
-            <Box
+        {/* Left — CTA copy */}
+        <Box sx={{ position: { xs: "static", md: "sticky" }, top: 112 }}>
+          <Box aria-hidden="true" sx={{ width: 48, height: 4, borderRadius: 2, background: gradient.brand, mb: 2.5 }} />
+          <Typography
+            id="contact-heading"
+            variant="h2"
+            component="h2"
+            sx={{ fontFamily: font.display, fontWeight: 800, fontSize: type.h2, lineHeight: 1.15, color: color.ink2, m: 0, mb: 3 }}
+          >
+            Let&apos;s Build Something Great Together
+          </Typography>
+
+          {contactUs.points.map((point, i) => (
+            <Typography
+              key={i}
               sx={{
-                position: { xs: "static", md: "sticky" },
-                top: 100,
+                fontFamily: i < 2 ? font.body : font.display,
+                fontWeight: i < 2 ? 400 : 700,
+                fontSize: i < 2 ? type.lead : "1.125rem",
+                color: i < 2 ? color.slate600 : color.violet800,
+                lineHeight: 1.7,
+                mb: i < 2 ? 1.5 : 1,
               }}
             >
-              <Typography
-                id="contact-heading"
-                variant="h2"
-                component="h2"
-                sx={{
-                  fontFamily: '"Montserrat", sans-serif',
-                  fontWeight: 800,
-                  fontSize: { xs: "1.75rem", md: "2.5rem" },
-                  backgroundImage: "linear-gradient(135deg, #4C1D95 0%, #0891B2 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  mb: 3,
-                  lineHeight: 1.2,
-                }}
-              >
-                Let's Build Something Great Together
-              </Typography>
+              {point}
+            </Typography>
+          ))}
 
-              {contactUs.points.map((point, i) => (
-                <Typography
-                  key={i}
-                  variant={i < 2 ? "body1" : "h6"}
-                  sx={{
-                    fontFamily: i < 2 ? '"Inter", sans-serif' : '"Montserrat", sans-serif',
-                    fontWeight: i < 2 ? 400 : 700,
-                    fontSize: i < 2 ? "1.05rem" : "1.1rem",
-                    color: i < 2 ? "text.secondary" : "#4C1D95",
-                    lineHeight: 1.75,
-                    mb: 2,
-                  }}
-                >
-                  {point}
-                </Typography>
-              ))}
+          <Box sx={{ mt: 4, display: "flex", gap: 1.5, flexWrap: "wrap", "& > *": { flex: { xs: "1 1 100%", sm: "0 0 auto" } } }}>
+            <Button variant="contained" color="primary" size="large" component="a" href={`mailto:${contactUs.email_ids[0]}`} startIcon={<EmailOutlinedIcon />}>
+              Email Us
+            </Button>
+            <Button variant="outlined" color="primary" size="large" component="a" href={`tel:${contactUs.phone_no[0].replace(/\D/g, "")}`} startIcon={<PhoneOutlinedIcon />}>
+              Call Us
+            </Button>
+          </Box>
+        </Box>
 
-              {/* Email CTA */}
-              <Box sx={{ mt: 4, display: "flex", gap: 2, flexWrap: "wrap" }}>
-                <Button
-                  variant="contained"
-                  component="a"
-                  href={`mailto:${contactUs.email_ids[0]}`}
-                  sx={{
-                    textTransform: "none",
-                    fontFamily: '"Montserrat", sans-serif',
-                    fontWeight: 600,
-                    borderRadius: 2,
-                    px: 3,
-                    py: 1.25,
-                    background: "linear-gradient(135deg, #7C3AED 0%, #0891B2 100%)",
-                    boxShadow: "0 4px 14px rgba(124,58,237,0.3)",
-                    "&:hover": {
-                      background: "linear-gradient(135deg, #6D28D9 0%, #0E7490 100%)",
-                      boxShadow: "0 6px 20px rgba(124,58,237,0.45)",
-                      transform: "translateY(-1px)",
-                    },
-                    transition: "all 0.2s ease",
-                  }}
-                >
-                  Email Us
-                </Button>
-                <Button
-                  variant="outlined"
-                  component="a"
-                  href={`tel:${contactUs.phone_no[0].replace(/\D/g, "")}`}
-                  sx={{
-                    textTransform: "none",
-                    fontFamily: '"Montserrat", sans-serif',
-                    fontWeight: 600,
-                    borderRadius: 2,
-                    px: 3,
-                    py: 1.25,
-                    borderColor: "#7C3AED",
-                    color: "#7C3AED",
-                    "&:hover": {
-                      bgcolor: "rgba(124,58,237,0.06)",
-                      borderColor: "#6D28D9",
-                    },
-                  }}
-                >
-                  Call Us
-                </Button>
-              </Box>
-            </Box>
-          </Grid>
-
-          {/* Right — contact details */}
-          <Grid item xs={12} md={7}>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
-              {CONTACT_ITEMS.map((item) => (
-                <ContactRow key={item.label} item={item} />
-              ))}
-            </Box>
-          </Grid>
-        </Grid>
+        {/* Right — contact details */}
+        <Box
+          component="ul"
+          sx={{
+            listStyle: "none",
+            m: 0,
+            p: 0,
+            borderRadius: `${radius.lg}px`,
+            bgcolor: color.white,
+            border: `1px solid ${color.slate200}`,
+            boxShadow: shadow.md,
+            overflow: "hidden",
+          }}
+        >
+          {CONTACT_ITEMS.map((item, i) => (
+            <ContactRow key={item.label} item={item} index={i} />
+          ))}
+        </Box>
       </Box>
-    </section>
+    </Section>
   );
 }

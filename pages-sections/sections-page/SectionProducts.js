@@ -1,5 +1,6 @@
 import React from "react";
-import { Box, Grid, Typography, Chip } from "@mui/material";
+import Image from "next/image";
+import { Box, Typography } from "@mui/material";
 import ShoppingCartCheckoutIcon       from "@mui/icons-material/ShoppingCartCheckout";
 import AdminPanelSettingsIcon         from "@mui/icons-material/AdminPanelSettings";
 import AnalyticsIcon                  from "@mui/icons-material/Analytics";
@@ -14,114 +15,123 @@ import ReceiptLongIcon                from "@mui/icons-material/ReceiptLong";
 import NotificationsActiveIcon        from "@mui/icons-material/NotificationsActive";
 import LockPersonIcon                 from "@mui/icons-material/LockPerson";
 import MonitorHeartIcon               from "@mui/icons-material/MonitorHeart";
+import Section from "/components/ui/Section.js";
+import SectionHeader from "/components/ui/SectionHeader.js";
+import FeatureCard from "/components/ui/FeatureCard.js";
+import { gridPattern } from "/components/ui/PageHero.js";
+import { color, font, gradient, radius } from "/styles/tokens.js";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
 const ECOMMERCE_FEATURES = [
-  { icon: ShoppingCartCheckoutIcon, title: "E-Commerce Application",  desc: "Performant, SEO-optimised, and mobile-first from the ground up.",                                              color: "#7C3AED", bg: "rgba(124,58,237,0.07)" },
-  { icon: QueryBuilderIcon,         title: "Saves Time",               desc: "Customers order groceries and essentials from anywhere — seamless and instant.",                                color: "#0891B2", bg: "rgba(8,145,178,0.07)"  },
-  { icon: LocalShippingIcon,        title: "Reliable Delivery",        desc: "On-time delivery with end-to-end order tracking and careful goods handling.",                                   color: "#059669", bg: "rgba(5,150,105,0.07)"  },
-  { icon: AdminPanelSettingsIcon,   title: "Admin Panel",              desc: "Manage all modules — products, users, orders, and more — from one place.",                                     color: "#BE185D", bg: "rgba(190,24,93,0.07)"  },
-  { icon: AnalyticsIcon,            title: "Analytics Integrated",     desc: "Track sales, conversions, and customer behaviour in real time.",                                                color: "#D97706", bg: "rgba(217,119,6,0.07)"  },
-  { icon: Dashboard,                title: "Role-Based Dashboards",    desc: "Intuitive dashboards that surface the right data to the right person instantly.",                               color: "#7C3AED", bg: "rgba(124,58,237,0.07)" },
-  { icon: TuneIcon,                 title: "Fully Configurable",       desc: "Configure categories, products, pricing, discounts, and tax rules with ease.",                                  color: "#0891B2", bg: "rgba(8,145,178,0.07)"  },
+  { icon: ShoppingCartCheckoutIcon, title: "E-Commerce Application",  desc: "Performant, SEO-optimised, and mobile-first from the ground up." },
+  { icon: QueryBuilderIcon,         title: "Saves Time",               desc: "Customers order groceries and essentials from anywhere — seamless and instant." },
+  { icon: LocalShippingIcon,        title: "Reliable Delivery",        desc: "On-time delivery with end-to-end order tracking and careful goods handling." },
+  { icon: AdminPanelSettingsIcon,   title: "Admin Panel",              desc: "Manage all modules — products, users, orders, and more — from one place." },
+  { icon: AnalyticsIcon,            title: "Analytics Integrated",     desc: "Track sales, conversions, and customer behaviour in real time." },
+  { icon: Dashboard,                title: "Role-Based Dashboards",    desc: "Intuitive dashboards that surface the right data to the right person instantly." },
+  { icon: TuneIcon,                 title: "Fully Configurable",       desc: "Configure categories, products, pricing, discounts, and tax rules with ease." },
 ];
 
 const CLINICFLOW_FEATURES = [
-  { icon: CalendarMonthIcon,       title: "Smart Appointment Booking", desc: "Patients book, reschedule, or cancel 24/7 with real-time slot availability.",                                  color: "#7C3AED", bg: "rgba(124,58,237,0.07)" },
-  { icon: PeopleAltIcon,           title: "Multi-Role Access",         desc: "Separate dashboards for Super Admin, Clinic Admin, Doctors, and Patients.",                                    color: "#0891B2", bg: "rgba(8,145,178,0.07)"  },
-  { icon: ReceiptLongIcon,         title: "Prescriptions & Records",   desc: "Digital prescriptions and full medical history — including family member records.",                            color: "#059669", bg: "rgba(5,150,105,0.07)"  },
-  { icon: NotificationsActiveIcon, title: "SMS & Email Alerts",        desc: "Automated reminders, booking confirmations, and cancellation alerts via MSG91 & email.",                       color: "#BE185D", bg: "rgba(190,24,93,0.07)"  },
-  { icon: MonitorHeartIcon,        title: "Analytics Dashboard",       desc: "Real-time clinic analytics — appointments, revenue trends, doctor performance, and patient growth.",            color: "#D97706", bg: "rgba(217,119,6,0.07)"  },
-  { icon: LockPersonIcon,          title: "Subscription & Billing",    desc: "Razorpay-powered plan tiers (Free → Enterprise) with automated invoicing.",                                   color: "#7C3AED", bg: "rgba(124,58,237,0.07)" },
-  { icon: LocalHospitalIcon,       title: "Queue Management",          desc: "Live walk-in queue with wait-time estimates and real-time doctor availability.",                               color: "#0891B2", bg: "rgba(8,145,178,0.07)"  },
+  { icon: CalendarMonthIcon,       title: "Smart Appointment Booking", desc: "Patients book, reschedule, or cancel 24/7 with real-time slot availability." },
+  { icon: PeopleAltIcon,           title: "Multi-Role Access",         desc: "Separate dashboards for Super Admin, Clinic Admin, Doctors, and Patients." },
+  { icon: ReceiptLongIcon,         title: "Prescriptions & Records",   desc: "Digital prescriptions and full medical history — including family member records." },
+  { icon: NotificationsActiveIcon, title: "SMS & Email Alerts",        desc: "Automated reminders, booking confirmations, and cancellation alerts via MSG91 & email." },
+  { icon: MonitorHeartIcon,        title: "Analytics Dashboard",       desc: "Real-time clinic analytics — appointments, revenue trends, doctor performance, and patient growth." },
+  { icon: LockPersonIcon,          title: "Subscription & Billing",    desc: "Razorpay-powered plan tiers (Free → Enterprise) with automated invoicing." },
+  { icon: LocalHospitalIcon,       title: "Queue Management",          desc: "Live walk-in queue with wait-time estimates and real-time doctor availability." },
 ];
 
 // ── Shared feature grid ───────────────────────────────────────────────────────
-function FeatureGrid({ features }) {
+function FeatureGrid({ features, iconVariant }) {
   return (
-    <Grid container spacing={3} sx={{ mt: 0 }}>
+    <Box
+      component="ul"
+      sx={{
+        listStyle: "none",
+        m: 0,
+        p: 0,
+        display: "grid",
+        gap: { xs: 2, md: 2.5 },
+        gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" },
+      }}
+    >
       {features.map((f) => (
-        <Grid key={f.title} item xs={12} sm={6} md={4}>
-          <Box
-            sx={{
-              p: 3, borderRadius: 3, height: "100%",
-              background: f.bg, border: `1px solid ${f.color}22`,
-              transition: "transform 0.2s ease, box-shadow 0.2s ease",
-              "&:hover": { transform: "translateY(-3px)", boxShadow: `0 10px 30px ${f.color}22` },
-            }}
-          >
-            <Box sx={{ width: 44, height: 44, borderRadius: 2, bgcolor: `${f.color}18`, display: "flex", alignItems: "center", justifyContent: "center", mb: 2 }}>
-              <f.icon sx={{ color: f.color, fontSize: "1.4rem" }} aria-hidden="true" />
-            </Box>
-            <Typography variant="h6" component="h4" sx={{ fontFamily: '"Montserrat", sans-serif', fontWeight: 700, fontSize: "0.95rem", color: f.color, mb: 1 }}>
-              {f.title}
-            </Typography>
-            <Typography variant="body2" sx={{ color: "text.secondary", lineHeight: 1.7, fontSize: "0.85rem" }}>
-              {f.desc}
-            </Typography>
-          </Box>
-        </Grid>
+        <li key={f.title}>
+          <FeatureCard icon={f.icon} title={f.title} description={f.desc} headingComponent="h4" iconVariant={iconVariant} />
+        </li>
       ))}
-    </Grid>
+    </Box>
   );
 }
 
 // ── Single product block ──────────────────────────────────────────────────────
-function ProductBlock({ number, chip, title, description, gradient, accentColor, icon: Icon, features, imageContent }) {
+function ProductBlock({ number, chip, title, description, accent, features, imageContent, iconVariant }) {
   return (
-    <Box sx={{ mb: { xs: 10, md: 14 }, "&:last-child": { mb: 0 } }}>
-      {/* Number label */}
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 4 }}>
-        <Box
-          sx={{
-            width: 48, height: 48, borderRadius: "50%",
-            background: gradient,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            flexShrink: 0,
-          }}
-        >
-          <Typography sx={{ color: "#fff", fontFamily: '"Montserrat", sans-serif', fontWeight: 900, fontSize: "1rem" }}>
-            {number}
-          </Typography>
-        </Box>
-        <Box sx={{ height: 1, flex: 1, background: `linear-gradient(90deg, ${accentColor}40 0%, transparent 100%)` }} />
-      </Box>
-
+    <Box component="article" aria-label={title}>
       {/* Banner */}
       <Box
         sx={{
-          borderRadius: 4, overflow: "hidden", mb: 5,
-          background: gradient,
-          p: { xs: 4, md: 6 },
-          display: "flex", flexDirection: { xs: "column", md: "row" },
-          alignItems: "center", gap: 4,
+          position: "relative",
+          overflow: "hidden",
+          borderRadius: `${radius.xl}px`,
+          background: gradient.night,
+          color: color.white,
+          p: { xs: 3.5, sm: 5, md: 7 },
+          mb: { xs: 3, md: 4 },
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", md: "1.1fr 0.9fr" },
+          gap: { xs: 4, md: 6 },
+          alignItems: "center",
         }}
       >
-        <Box sx={{ flex: 1 }}>
-          <Chip
-            label={chip}
-            size="small"
-            sx={{ mb: 2, bgcolor: "rgba(255,255,255,0.18)", color: "#fff", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em" }}
-          />
+        <Box aria-hidden="true" sx={gridPattern} />
+        <Box sx={{ position: "relative" }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 3 }}>
+            <Typography
+              sx={{ fontFamily: font.display, fontWeight: 800, fontSize: "0.85rem", color: accent, letterSpacing: "0.08em" }}
+            >
+              {number}
+            </Typography>
+            <Box aria-hidden="true" sx={{ width: 28, height: 1, bgcolor: "rgba(255,255,255,0.3)" }} />
+            <Typography
+              component="span"
+              sx={{
+                px: 1.5,
+                py: 0.5,
+                borderRadius: 999,
+                border: "1px solid rgba(255,255,255,0.2)",
+                bgcolor: "rgba(255,255,255,0.08)",
+                fontFamily: font.display,
+                fontWeight: 700,
+                fontSize: "0.72rem",
+                letterSpacing: "0.08em",
+                color: "rgba(255,255,255,0.9)",
+              }}
+            >
+              {chip}
+            </Typography>
+          </Box>
           <Typography
-            variant="h3" component="h3"
-            sx={{ fontFamily: '"Montserrat", sans-serif', fontWeight: 800, color: "#fff", fontSize: { xs: "1.5rem", md: "2rem" }, mb: 2, lineHeight: 1.25 }}
+            variant="h3"
+            component="h3"
+            sx={{ fontFamily: font.display, fontWeight: 800, color: color.white, fontSize: { xs: "1.75rem", md: "2.25rem" }, lineHeight: 1.15, m: 0, mb: 2 }}
           >
             {title}
           </Typography>
-          <Typography variant="body1" sx={{ color: "rgba(255,255,255,0.85)", lineHeight: 1.8, maxWidth: 480 }}>
+          <Typography sx={{ color: "rgba(255,255,255,0.8)", lineHeight: 1.8, fontSize: "1.0625rem", maxWidth: 520 }}>
             {description}
           </Typography>
         </Box>
         <Box
           sx={{
-            flexShrink: 0, width: { xs: "100%", md: 280 },
-            borderRadius: 3, overflow: "hidden",
-            boxShadow: "0 20px 60px rgba(0,0,0,0.35)",
-            bgcolor: "rgba(255,255,255,0.10)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            minHeight: 180,
+            position: "relative",
+            borderRadius: `${radius.lg}px`,
+            overflow: "hidden",
+            border: "1px solid rgba(255,255,255,0.14)",
+            boxShadow: "0 30px 60px -24px rgba(0,0,0,0.6)",
+            bgcolor: "rgba(255,255,255,0.06)",
           }}
         >
           {imageContent}
@@ -129,7 +139,7 @@ function ProductBlock({ number, chip, title, description, gradient, accentColor,
       </Box>
 
       {/* Features */}
-      <FeatureGrid features={features} />
+      <FeatureGrid features={features} iconVariant={iconVariant} />
     </Box>
   );
 }
@@ -137,79 +147,91 @@ function ProductBlock({ number, chip, title, description, gradient, accentColor,
 // ── Section ───────────────────────────────────────────────────────────────────
 export default function SectionProducts({ ...rest }) {
   return (
-    <section id="products" className="cd-section" aria-labelledby="products-heading" {...rest}>
-      <Box sx={{ py: { xs: 6, md: 10 }, px: { xs: 3, md: 6 }, maxWidth: 1200, mx: "auto" }}>
+    <Section id="products" className="cd-section" aria-labelledby="products-heading" {...rest}>
+      <SectionHeader
+        id="products-heading"
+        title="Our Products"
+        lead="We identified the target buyer, understood their pain points, and engineered a solution that genuinely works."
+      />
 
-        {/* Header */}
-        <Box sx={{ textAlign: "center", mb: { xs: 8, md: 12 } }}>
-          <Typography
-            id="products-heading" variant="h2" component="h2"
-            sx={{
-              fontFamily: '"Montserrat", sans-serif', fontWeight: 800,
-              fontSize: { xs: "1.75rem", md: "2.5rem" },
-              backgroundImage: "linear-gradient(135deg, #4C1D95 0%, #0891B2 100%)",
-              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
-              mb: 2,
-            }}
-          >
-            Our Products
-          </Typography>
-          <Typography variant="body1" sx={{ color: "text.secondary", maxWidth: 600, mx: "auto", fontSize: "1.05rem", lineHeight: 1.8 }}>
-            We identified the target buyer, understood their pain points, and engineered a solution that genuinely works.
-          </Typography>
-        </Box>
-
-        {/* ── Product 01 — E-Commerce Platform ── */}
-        <ProductBlock
-          number="01"
-          chip="E-Commerce"
-          title="E-Commerce Platform"
-          description="A full-featured, production-grade e-commerce platform built for modern retail. Scalable architecture, real-time analytics, role-based access control, and a seamless shopping experience — all in one product."
-          gradient="linear-gradient(135deg, #1E1B4B 0%, #4C1D95 50%, #0891B2 100%)"
-          accentColor="#7C3AED"
-          features={ECOMMERCE_FEATURES}
-          imageContent={
-            <img
+      {/* ── Product 01 — E-Commerce Platform ── */}
+      <ProductBlock
+        number="01"
+        chip="E-Commerce"
+        title="E-Commerce Platform"
+        description="A full-featured, production-grade e-commerce platform built for modern retail. Scalable architecture, real-time analytics, role-based access control, and a seamless shopping experience — all in one product."
+        accent={color.violet300}
+        iconVariant="violet"
+        features={ECOMMERCE_FEATURES}
+        imageContent={
+          <Box sx={{ position: "relative", aspectRatio: "16 / 10" }}>
+            <Image
               src="/img/lsk_imgs/ecommerce.png"
               alt="E-Commerce Platform"
-              loading="lazy"
-              style={{ width: "100%", height: "180px", objectFit: "cover", display: "block" }}
+              layout="fill"
+              objectFit="cover"
+              sizes="(max-width: 900px) 100vw, 480px"
             />
-          }
-        />
+          </Box>
+        }
+      />
 
-        {/* Divider */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 3, my: { xs: 6, md: 8 } }}>
-          <Box sx={{ flex: 1, height: 1, bgcolor: "rgba(0,0,0,0.08)" }} />
-          <Typography sx={{ color: "text.disabled", fontSize: "0.75rem", fontFamily: '"Montserrat", sans-serif', fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-            Also from Aurora Blossom
-          </Typography>
-          <Box sx={{ flex: 1, height: 1, bgcolor: "rgba(0,0,0,0.08)" }} />
-        </Box>
-
-        {/* ── Product 02 — ClinicFlow247 ── */}
-        <ProductBlock
-          number="02"
-          chip="Healthcare Tech"
-          title="ClinicFlow247"
-          description="A modern clinic management platform that connects clinics, doctors, and patients — 24/7. Online appointment booking, digital prescriptions, SMS reminders, live queue management, and built-in billing — all in one place."
-          gradient="linear-gradient(135deg, #064E3B 0%, #065F46 50%, #0891B2 100%)"
-          accentColor="#059669"
-          features={CLINICFLOW_FEATURES}
-          imageContent={
-            <Box sx={{ textAlign: "center", p: 3 }}>
-              <LocalHospitalIcon sx={{ fontSize: 56, color: "rgba(255,255,255,0.9)", mb: 1 }} />
-              <Typography sx={{ color: "#fff", fontFamily: '"Montserrat", sans-serif', fontWeight: 800, fontSize: "1rem" }}>
-                ClinicFlow247
-              </Typography>
-              <Typography sx={{ color: "rgba(255,255,255,0.7)", fontSize: "0.75rem", mt: 0.5 }}>
-                Modern Clinic Management
-              </Typography>
-            </Box>
-          }
-        />
-
+      {/* Divider */}
+      <Box sx={{ display: "flex", alignItems: "center", gap: 3, my: { xs: 7, md: 10 } }}>
+        <Box sx={{ flex: 1, height: "1px", bgcolor: color.slate200 }} />
+        <Typography sx={{ color: color.slate500, fontSize: "0.75rem", fontFamily: font.display, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", textAlign: "center" }}>
+          Also from Aurora Blossom
+        </Typography>
+        <Box sx={{ flex: 1, height: "1px", bgcolor: color.slate200 }} />
       </Box>
-    </section>
+
+      {/* ── Product 02 — ClinicFlow247 ── */}
+      <ProductBlock
+        number="02"
+        chip="Healthcare Tech"
+        title="ClinicFlow247"
+        description="A modern clinic management platform that connects clinics, doctors, and patients — 24/7. Online appointment booking, digital prescriptions, SMS reminders, live queue management, and built-in billing — all in one place."
+        accent={color.teal400}
+        iconVariant="teal"
+        features={CLINICFLOW_FEATURES}
+        imageContent={
+          <Box
+            sx={{
+              aspectRatio: "16 / 10",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              p: 3,
+              background: `radial-gradient(circle at 50% 35%, rgba(34,211,238,0.28) 0%, rgba(34,211,238,0) 60%), linear-gradient(160deg, ${color.teal700} 0%, #0B3B4A 100%)`,
+            }}
+          >
+            <Box
+              aria-hidden="true"
+              sx={{
+                width: 76,
+                height: 76,
+                borderRadius: "22px",
+                bgcolor: "rgba(255,255,255,0.12)",
+                border: "1px solid rgba(255,255,255,0.25)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                mb: 2,
+              }}
+            >
+              <LocalHospitalIcon sx={{ fontSize: 40, color: color.white }} />
+            </Box>
+            <Typography sx={{ color: "#fff", fontFamily: font.display, fontWeight: 800, fontSize: "1.25rem" }}>
+              ClinicFlow247
+            </Typography>
+            <Typography sx={{ color: "rgba(255,255,255,0.75)", fontSize: "0.85rem", mt: 0.5 }}>
+              Modern Clinic Management
+            </Typography>
+          </Box>
+        }
+      />
+    </Section>
   );
 }

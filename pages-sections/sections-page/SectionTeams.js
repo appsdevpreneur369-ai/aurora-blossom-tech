@@ -1,188 +1,144 @@
-import React, { useState, useEffect, useCallback } from "react";
-import GridContainer from "/components/Grid/GridContainer.js";
-import GridItem from "/components/Grid/GridItem.js";
-import { Typography, Box } from "@mui/material";
+import React from "react";
+import { Box, Typography } from "@mui/material";
+import Section from "/components/ui/Section.js";
+import SectionHeader from "/components/ui/SectionHeader.js";
+import { color, font, motion, radius, shadow } from "/styles/tokens.js";
 
 const TEAM = [
   {
     name: "Suhasini",
     role: "Chief Executive Officer",
-    emoji: "\u{1F469}\u200D\u{1F4BC}",
-    gradient: "linear-gradient(135deg, #7C3AED 0%, #EC4899 100%)",
     bio: "A visionary leader and Full Stack Developer proficient across the complete technology stack — front-end, back-end, server management, and security. Suhasini steers Aurora Blossom's strategy, culture, and engineering excellence.",
   },
   {
     name: "Venkat Raju",
     role: "Cloud Architect",
-    emoji: "\u2601\uFE0F",
-    gradient: "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
     bio: "Expert in designing, implementing, and managing cloud computing architecture. Venkat leads Cloud Strategy, Architecture Design, Cloud Service Integration, Security & Compliance, Cost Optimisation, Migration Planning, and Disaster Recovery.",
   },
   {
     name: "Farhaan",
     role: "Data Analyst & Data Scientist",
-    emoji: "\u{1F4CA}",
-    gradient: "linear-gradient(135deg, #0891B2 0%, #1D4ED8 100%)",
     bio: "Farhaan leverages advanced statistical and machine learning techniques to extract actionable insights from complex datasets, while driving data-driven decision-making and business strategy through expert visualisation.",
   },
   {
     name: "Sunil",
     role: "Front End Lead",
-    emoji: "\u{1F3A8}",
-    gradient: "linear-gradient(135deg, #6D28D9 0%, #0891B2 100%)",
     bio: "Sunil leads and manages the front-end development team, architecting intuitive user interfaces and exceptional user experiences across web and mobile. Expert in React, Next.js, and modern CSS systems.",
   },
   {
     name: "Shanti",
     role: "Technical Lead",
-    emoji: "\u2699\uFE0F",
-    gradient: "linear-gradient(135deg, #BE185D 0%, #7C3AED 100%)",
     bio: "Defines architecture, selects tech stacks, and ensures scalability. Shanti writes and reviews high-quality code, upskills the team, bridges stakeholders, and champions automation, cloud solutions, and secure deployments.",
   },
   {
     name: "Sri Charan",
     role: "Full Stack Developer",
-    emoji: "\u{1F4BB}",
-    gradient: "linear-gradient(135deg, #1D4ED8 0%, #0891B2 100%)",
     bio: "Oversees all technical, functional, and visual components of software development. Sri Charan ensures cross-device compatibility, optimises performance, seamlessly integrates design with functionality, and continuously expands skills.",
   },
 ];
 
-function TeamCard({ member }) {
-  const [flipped, setFlipped] = useState(false);
-  const [isTouch, setIsTouch] = useState(false);
+const initials = (name) =>
+  name
+    .split(" ")
+    .map((p) => p[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
 
-  useEffect(() => {
-    setIsTouch(window.matchMedia("(hover: none)").matches);
-  }, []);
-
+// Bios were previously hidden behind a hover/tap flip; they are now always visible.
+function TeamCard({ member, index }) {
+  const tealFirst = index % 2 === 1;
   return (
     <Box
-      onClick={() => isTouch && setFlipped((f) => !f)}
-      onMouseEnter={() => !isTouch && setFlipped(true)}
-      onMouseLeave={() => !isTouch && setFlipped(false)}
-      aria-label={`${member.name} — ${member.role}. ${isTouch ? "Tap" : "Hover"} to ${flipped ? "see front" : "learn more"}`}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => e.key === "Enter" && setFlipped((f) => !f)}
+      component="article"
+      aria-labelledby={`team-${index}`}
       sx={{
-        perspective: "1000px",
-        cursor: "pointer",
-        height: { xs: 280, sm: 300 },
-        mb: { xs: 2, md: 3 },
-        WebkitTapHighlightColor: "transparent",
-        outline: "none",
+        height: "100%",
+        p: { xs: 3, md: 3.5 },
+        borderRadius: `${radius.lg}px`,
+        bgcolor: color.white,
+        border: `1px solid ${color.slate200}`,
+        boxShadow: shadow.xs,
+        transition: `box-shadow ${motion.base} ${motion.ease}, transform ${motion.base} ${motion.ease}`,
+        "&:hover": { boxShadow: shadow.md, transform: "translateY(-3px)" },
       }}
     >
-      <Box
-        sx={{
-          position: "relative",
-          width: "100%",
-          height: "100%",
-          transformStyle: "preserve-3d",
-          transition: "transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)",
-          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
-        }}
-      >
-        {/* Front */}
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2.5 }}>
         <Box
+          aria-hidden="true"
           sx={{
-            position: "absolute",
-            inset: 0,
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden",
-            borderRadius: 3,
-            background: member.gradient,
+            width: 56,
+            height: 56,
+            flexShrink: 0,
+            borderRadius: "50%",
+            background: tealFirst
+              ? `linear-gradient(135deg, ${color.teal600}, ${color.violet600})`
+              : `linear-gradient(135deg, ${color.violet600}, ${color.teal600})`,
+            color: color.white,
             display: "flex",
-            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            p: 3,
-            boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
+            fontFamily: font.display,
+            fontWeight: 800,
+            fontSize: "1.05rem",
+            boxShadow: "inset 0 0 0 3px rgba(255,255,255,0.25)",
           }}
         >
-          <Box sx={{ fontSize: "3rem", lineHeight: 1, mb: 1.5, filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.25))" }}>
-            {member.emoji}
-          </Box>
-          <Typography sx={{ color: "#fff", fontFamily: '"Montserrat", sans-serif', fontSize: "1.3rem", fontWeight: 700, textAlign: "center", mb: 0.5 }}>
-            {member.name}
-          </Typography>
-          <Typography sx={{ color: "rgba(255,255,255,0.85)", fontFamily: '"Montserrat", sans-serif', fontSize: "0.78rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", textAlign: "center" }}>
-            {member.role}
-          </Typography>
-          <Typography sx={{ color: "rgba(255,255,255,0.5)", fontSize: "0.7rem", mt: 2, fontStyle: "italic" }}>
-            {isTouch ? "tap to learn more" : "hover to learn more"}
-          </Typography>
+          {initials(member.name)}
         </Box>
-
-        {/* Back */}
-        <Box
-          sx={{
-            position: "absolute",
-            inset: 0,
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
-            borderRadius: 3,
-            background: member.gradient,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            p: 3,
-            boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
-          }}
-        >
-          <Typography sx={{ color: "#fff", fontFamily: '"Montserrat", sans-serif', fontSize: "1.1rem", fontWeight: 700, textAlign: "center", mb: 0.5 }}>
+        <Box sx={{ minWidth: 0 }}>
+          <Typography
+            id={`team-${index}`}
+            component="h3"
+            sx={{ fontFamily: font.display, fontWeight: 800, fontSize: "1.125rem", color: color.ink2, m: 0, lineHeight: 1.3 }}
+          >
             {member.name}
           </Typography>
-          <Typography sx={{ color: "rgba(255,255,255,0.85)", fontFamily: '"Montserrat", sans-serif', fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", textAlign: "center", mb: 1.5 }}>
+          <Typography
+            sx={{
+              mt: 0.5,
+              fontFamily: font.display,
+              fontWeight: 700,
+              fontSize: "0.72rem",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: color.violet700,
+            }}
+          >
             {member.role}
-          </Typography>
-          <Typography sx={{ color: "rgba(255,255,255,0.9)", fontFamily: '"Inter", sans-serif', fontSize: "0.8rem", lineHeight: 1.65, textAlign: "center" }}>
-            {member.bio}
           </Typography>
         </Box>
       </Box>
+      <Typography sx={{ color: color.slate600, fontSize: "0.9375rem", lineHeight: 1.75 }}>{member.bio}</Typography>
     </Box>
   );
 }
 
 export default function SectionTeams({ ...rest }) {
   return (
-    <section id="teams" className="cd-section" aria-labelledby="teams-heading" {...rest}>
-      <Box sx={{ py: { xs: 6, md: 10 }, px: { xs: 3, md: 6 }, maxWidth: 1200, mx: "auto" }}>
-        <Box sx={{ textAlign: "center", mb: { xs: 5, md: 7 } }}>
-          <Typography
-            id="teams-heading"
-            variant="h2"
-            component="h2"
-            sx={{
-              fontFamily: '"Montserrat", sans-serif',
-              fontWeight: 800,
-              fontSize: { xs: "1.75rem", md: "2.5rem" },
-              backgroundImage: "linear-gradient(135deg, #4C1D95 0%, #0891B2 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              mb: 2,
-            }}
-          >
-            Meet the Team
-          </Typography>
-          <Typography variant="body1" sx={{ color: "text.secondary", maxWidth: 520, mx: "auto", fontSize: "1.05rem", lineHeight: 1.8 }}>
-            Passionate technologists, architects, and strategists — united by one mission: making technology work for you.
-          </Typography>
-        </Box>
-
-        <GridContainer spacing={3}>
-          {TEAM.map((member) => (
-            <GridItem key={member.name} xs={12} sm={6} md={4}>
-              <TeamCard member={member} />
-            </GridItem>
-          ))}
-        </GridContainer>
+    <Section id="teams" className="cd-section" aria-labelledby="teams-heading" {...rest}>
+      <SectionHeader
+        id="teams-heading"
+        title="Meet the Team"
+        lead="Passionate technologists, architects, and strategists — united by one mission: making technology work for you."
+      />
+      <Box
+        component="ul"
+        sx={{
+          listStyle: "none",
+          m: 0,
+          p: 0,
+          display: "grid",
+          gap: { xs: 2.5, md: 3 },
+          gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)" },
+        }}
+      >
+        {TEAM.map((member, i) => (
+          <li key={member.name}>
+            <TeamCard member={member} index={i} />
+          </li>
+        ))}
       </Box>
-    </section>
+    </Section>
   );
 }

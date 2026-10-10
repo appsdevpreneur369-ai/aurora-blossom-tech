@@ -3,8 +3,19 @@ import Head from "next/head";
 import Link from "next/link";
 import Header from "../components/Header/Header.js";
 import HeaderLinks from "../components/Header/HeaderLinks.js";
-import Footer from "../components/Footer/Footer.js";
-import { Box, Typography, Grid, TextField } from "@mui/material";
+import Footer from "../components/Footer/SiteFooter.js";
+import { Box, Button, Typography, TextField } from "@mui/material";
+import WhatsApp from "@mui/icons-material/WhatsApp";
+import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
+import EventAvailableOutlined from "@mui/icons-material/EventAvailableOutlined";
+import AssignmentOutlined from "@mui/icons-material/AssignmentOutlined";
+import ForumOutlined from "@mui/icons-material/ForumOutlined";
+import ReceiptLongOutlined from "@mui/icons-material/ReceiptLongOutlined";
+import InsightsOutlined from "@mui/icons-material/InsightsOutlined";
+import PageHero from "../components/ui/PageHero.js";
+import IconTile from "../components/ui/IconTile.js";
+import { CtaLink } from "../components/ClinicFlow/LandingBlocks.js";
+import { color, font, layout, radius, shadow, focusRing } from "../styles/tokens.js";
 
 const SITE_URL = "https://www.aurora-blossom.com";
 const PAGE_URL = `${SITE_URL}/book-demo`;
@@ -12,11 +23,11 @@ const PAGE_URL = `${SITE_URL}/book-demo`;
 const WHATSAPP_NUMBER = "919000000000"; // replace with real number
 
 const WHAT_YOULL_SEE = [
-  { icon: "📅", text: "Live appointment booking and patient queue management" },
-  { icon: "📋", text: "Creating a digital patient record and prescription in under 1 minute" },
-  { icon: "💬", text: "WhatsApp reminder setup and automated notifications" },
-  { icon: "🧾", text: "GST invoice generation and payment tracking" },
-  { icon: "📊", text: "Revenue and appointment analytics dashboard" },
+  { icon: EventAvailableOutlined, text: "Live appointment booking and patient queue management" },
+  { icon: AssignmentOutlined, text: "Creating a digital patient record and prescription in under 1 minute" },
+  { icon: ForumOutlined, text: "WhatsApp reminder setup and automated notifications" },
+  { icon: ReceiptLongOutlined, text: "GST invoice generation and payment tracking" },
+  { icon: InsightsOutlined, text: "Revenue and appointment analytics dashboard" },
 ];
 
 const TESTIMONIALS = [
@@ -55,131 +66,170 @@ export default function BookDemo() {
 
       <Header brand="" links={<HeaderLinks dropdownHoverColor="info" />} fixed color="white" changeColorOnScroll={{ height: 60, color: "white" }} />
 
-      <main style={{ paddingTop: "80px", fontFamily: '"Inter", sans-serif' }}>
+      <main id="main-content">
 
         {/* Hero */}
-        <Box sx={{ background: "linear-gradient(135deg, #4C1D95 0%, #0891B2 100%)", color: "#fff", py: { xs: 7, md: 10 }, px: { xs: 3, md: 8 }, textAlign: "center" }}>
-          <Typography component="h1" sx={{ fontFamily: '"Montserrat", sans-serif', fontWeight: 900, fontSize: { xs: "2rem", md: "2.75rem" }, mb: 2, lineHeight: 1.2 }}>
-            Book Your Free Demo
-          </Typography>
-          <Typography sx={{ fontSize: { xs: "1rem", md: "1.2rem" }, maxWidth: 580, mx: "auto", color: "rgba(255,255,255,0.88)", lineHeight: 1.7 }}>
-            20 minutes. Live walkthrough. We'll show you how ClinicFlow247 can transform your clinic's operations — for free, no commitment.
-          </Typography>
-        </Box>
+        <PageHero
+          title="Book Your Free Demo"
+          lead="20 minutes. Live walkthrough. We'll show you how ClinicFlow247 can transform your clinic's operations — for free, no commitment."
+          titleSx={{ pb: { xs: 6, md: 8 } }}
+        />
 
-        <Box sx={{ maxWidth: 1100, mx: "auto", py: { xs: 6, md: 10 }, px: { xs: 3, md: 4 } }}>
-          <Grid container spacing={6}>
-
+        <Box sx={{ bgcolor: color.slate50, pb: { xs: 9, md: 12 } }}>
+          <Box
+            sx={{
+              maxWidth: layout.maxWidth,
+              mx: "auto",
+              px: layout.gutter,
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+              gap: { xs: 6, md: 8 },
+              alignItems: "start",
+            }}
+          >
             {/* Form */}
-            <Grid item xs={12} md={6}>
+            <Box sx={{ mt: { xs: -6, md: -8 }, position: "relative" }}>
               {!submitted ? (
-                <Box sx={{ bgcolor: "#fff", borderRadius: "20px", border: "1px solid #E2E8F0", p: { xs: 3, md: 4 }, boxShadow: "0 4px 24px rgba(0,0,0,0.06)" }}>
-                  <Typography sx={{ fontFamily: '"Montserrat", sans-serif', fontWeight: 800, fontSize: "1.3rem", mb: 0.5, color: "#1E293B" }}>
+                <Box
+                  component="form"
+                  noValidate
+                  aria-labelledby="demo-form-heading"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (isValid) handleWhatsApp();
+                  }}
+                  sx={{ bgcolor: color.white, borderRadius: `${radius.xl}px`, border: `1px solid ${color.slate200}`, p: { xs: 3, md: 4.5 }, boxShadow: shadow.lg }}
+                >
+                  <Typography id="demo-form-heading" component="h2" sx={{ fontFamily: font.display, fontWeight: 800, fontSize: "1.375rem", mb: 0.75, color: color.ink2 }}>
                     Request a Demo
                   </Typography>
-                  <Typography sx={{ color: "#64748B", fontSize: "0.9rem", mb: 3 }}>Fill in your details and we'll reach out on WhatsApp within 2 hours.</Typography>
+                  <Typography sx={{ color: color.slate600, fontSize: "0.95rem", mb: 3.5 }}>Fill in your details and we'll reach out on WhatsApp within 2 hours.</Typography>
 
-                  <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                    <TextField fullWidth label="Your Name *" name="name" value={form.name} onChange={handleChange} size="small" />
-                    <TextField fullWidth label="Clinic / Hospital Name *" name="clinicName" value={form.clinicName} onChange={handleChange} size="small" />
-                    <TextField fullWidth label="WhatsApp Number *" name="phone" value={form.phone} onChange={handleChange} size="small" placeholder="+91 98765 43210" />
-                    <TextField fullWidth label="City *" name="city" value={form.city} onChange={handleChange} size="small" />
+                  <Box sx={{ display: "flex", flexDirection: "column", gap: 2.25 }}>
+                    <TextField fullWidth label="Your Name *" name="name" value={form.name} onChange={handleChange} size="medium" autoComplete="name" inputProps={{ "aria-required": true }} />
+                    <TextField fullWidth label="Clinic / Hospital Name *" name="clinicName" value={form.clinicName} onChange={handleChange} size="medium" autoComplete="organization" inputProps={{ "aria-required": true }} />
+                    <TextField fullWidth label="WhatsApp Number *" name="phone" value={form.phone} onChange={handleChange} size="medium" placeholder="+91 98765 43210" type="tel" autoComplete="tel" inputProps={{ "aria-required": true }} />
+                    <TextField fullWidth label="City *" name="city" value={form.city} onChange={handleChange} size="medium" autoComplete="address-level2" inputProps={{ "aria-required": true }} />
                     <TextField
-                      fullWidth select label="Number of Doctors" name="doctors" value={form.doctors} onChange={handleChange} size="small"
+                      fullWidth select label="Number of Doctors" name="doctors" value={form.doctors} onChange={handleChange} size="medium"
                       SelectProps={{ native: true }}
                     >
                       {["1", "2–5", "6–15", "15+"].map((opt) => <option key={opt} value={opt}>{opt}</option>)}
                     </TextField>
-                    <TextField fullWidth label="Anything specific you'd like to see?" name="message" value={form.message} onChange={handleChange} size="small" multiline rows={3} />
-                    <Box
-                      component="button"
-                      onClick={handleWhatsApp}
+                    <TextField fullWidth label="Anything specific you'd like to see?" name="message" value={form.message} onChange={handleChange} size="medium" multiline rows={3} />
+                    <Button
+                      type="submit"
+                      size="large"
                       disabled={!isValid}
+                      startIcon={<WhatsApp />}
                       sx={{
-                        display: "flex", alignItems: "center", justifyContent: "center", gap: 1.5,
-                        bgcolor: isValid ? "#25D366" : "#94A3B8", color: "#fff",
-                        fontFamily: '"Montserrat", sans-serif', fontWeight: 700, fontSize: "1rem",
-                        border: "none", borderRadius: "10px", py: 1.75, cursor: isValid ? "pointer" : "not-allowed",
-                        transition: "background 0.2s", "&:hover": { bgcolor: isValid ? "#22BB5D" : "#94A3B8" },
+                        mt: 0.5,
+                        minHeight: 54,
+                        bgcolor: color.whatsapp,
+                        color: "#06371B",
+                        fontSize: "1rem",
+                        "&:hover": { bgcolor: color.whatsappHover },
+                        "&.Mui-disabled": { bgcolor: color.slate200, color: color.slate500 },
                       }}
                     >
-                      <span>💬</span> Send via WhatsApp
-                    </Box>
-                    <Typography sx={{ textAlign: "center", color: "#94A3B8", fontSize: "0.78rem" }}>
+                      Send via WhatsApp
+                    </Button>
+                    <Typography sx={{ textAlign: "center", color: color.slate500, fontSize: "0.8rem" }}>
                       We'll reply within 2 hours during business hours (9 AM – 7 PM IST)
                     </Typography>
                   </Box>
                 </Box>
               ) : (
-                <Box sx={{ bgcolor: "#F0FDF4", borderRadius: "20px", border: "1px solid #86EFAC", p: 5, textAlign: "center" }}>
-                  <Typography sx={{ fontSize: "3rem", mb: 2 }}>🎉</Typography>
-                  <Typography sx={{ fontFamily: '"Montserrat", sans-serif', fontWeight: 800, fontSize: "1.3rem", color: "#166534", mb: 1 }}>Demo Request Sent!</Typography>
-                  <Typography sx={{ color: "#166534", fontSize: "0.95rem", lineHeight: 1.7, mb: 3 }}>
+                <Box
+                  role="status"
+                  sx={{ bgcolor: color.successBg, borderRadius: `${radius.xl}px`, border: `1px solid ${color.successBorder}`, p: { xs: 4, md: 5 }, textAlign: "center", boxShadow: shadow.lg }}
+                >
+                  <CheckCircleRounded aria-hidden="true" sx={{ fontSize: 56, color: color.success, mb: 2 }} />
+                  <Typography component="h2" sx={{ fontFamily: font.display, fontWeight: 800, fontSize: "1.375rem", color: "#14532D", mb: 1 }}>Demo Request Sent!</Typography>
+                  <Typography sx={{ color: "#166534", fontSize: "0.975rem", lineHeight: 1.7, mb: 3.5 }}>
                     Your WhatsApp message is ready. Our team will confirm your demo time within 2 hours.
                   </Typography>
-                  <Link href="/" passHref>
-                    <Box component="a" sx={{ display: "inline-block", bgcolor: "#4C1D95", color: "#fff", fontFamily: '"Montserrat", sans-serif', fontWeight: 700, fontSize: "0.9rem", px: 4, py: 1.5, borderRadius: "8px", textDecoration: "none" }}>
-                      ← Back to Home
-                    </Box>
-                  </Link>
+                  <CtaLink href="/" tone="primary">← Back to Home</CtaLink>
                 </Box>
               )}
-            </Grid>
+            </Box>
 
             {/* What you'll see + testimonials */}
-            <Grid item xs={12} md={6}>
-              <Typography sx={{ fontFamily: '"Montserrat", sans-serif', fontWeight: 800, fontSize: "1.2rem", color: "#1E293B", mb: 2 }}>
+            <Box sx={{ pt: { md: 6 } }}>
+              <Typography component="h2" sx={{ fontFamily: font.display, fontWeight: 800, fontSize: "1.375rem", color: color.ink2, mb: 2.5 }}>
                 What You'll See in 20 Minutes
               </Typography>
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5, mb: 5 }}>
+              <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "flex", flexDirection: "column", gap: 1.5, mb: 6 }}>
                 {WHAT_YOULL_SEE.map((item) => (
-                  <Box key={item.text} sx={{ display: "flex", alignItems: "flex-start", gap: 2, bgcolor: "#F8FAFC", borderRadius: "12px", p: 2, border: "1px solid #E2E8F0" }}>
-                    <Typography sx={{ fontSize: "1.4rem", flexShrink: 0 }}>{item.icon}</Typography>
-                    <Typography sx={{ color: "#475569", fontSize: "0.9rem", lineHeight: 1.6 }}>{item.text}</Typography>
+                  <Box component="li" key={item.text} sx={{ display: "flex", alignItems: "center", gap: 2, bgcolor: color.white, borderRadius: `${radius.md}px`, p: 2, border: `1px solid ${color.slate200}` }}>
+                    <IconTile icon={item.icon} variant="violet" size={40} />
+                    <Typography sx={{ color: color.slate700, fontSize: "0.95rem", lineHeight: 1.6 }}>{item.text}</Typography>
                   </Box>
                 ))}
               </Box>
 
-              <Typography sx={{ fontFamily: '"Montserrat", sans-serif', fontWeight: 800, fontSize: "1.2rem", color: "#1E293B", mb: 2 }}>
+              <Typography component="h2" sx={{ fontFamily: font.display, fontWeight: 800, fontSize: "1.375rem", color: color.ink2, mb: 2.5 }}>
                 What Doctors Say
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 {TESTIMONIALS.map((t) => (
-                  <Box key={t.name} sx={{ bgcolor: "#F5F3FF", borderRadius: "12px", p: 3, border: "1px solid #DDD6FE" }}>
-                    <Typography sx={{ color: "#4C1D95", fontSize: "0.9rem", lineHeight: 1.7, fontStyle: "italic", mb: 1.5 }}>"{t.quote}"</Typography>
-                    <Typography sx={{ fontFamily: '"Montserrat", sans-serif', fontWeight: 700, fontSize: "0.85rem", color: "#1E293B" }}>{t.name}</Typography>
-                    <Typography sx={{ color: "#7C3AED", fontSize: "0.78rem" }}>{t.specialty} · {t.location}</Typography>
+                  <Box component="figure" key={t.name} sx={{ m: 0, bgcolor: color.white, borderRadius: `${radius.lg}px`, p: 3, border: `1px solid ${color.slate200}`, borderLeft: `4px solid ${color.violet600}` }}>
+                    <Box component="blockquote" sx={{ m: 0, color: color.slate800, fontSize: "0.975rem", lineHeight: 1.75, fontStyle: "italic", mb: 2 }}>"{t.quote}"</Box>
+                    <Box component="figcaption">
+                      <Typography sx={{ fontFamily: font.display, fontWeight: 700, fontSize: "0.9rem", color: color.ink2 }}>{t.name}</Typography>
+                      <Typography sx={{ color: color.violet700, fontSize: "0.82rem" }}>{t.specialty} · {t.location}</Typography>
+                    </Box>
                   </Box>
                 ))}
               </Box>
-            </Grid>
-
-          </Grid>
+            </Box>
+          </Box>
         </Box>
 
         {/* Related pages */}
-        <Box sx={{ bgcolor: "#F8FAFC", py: { xs: 6, md: 8 }, px: { xs: 3, md: 8 }, textAlign: "center" }}>
-          <Typography sx={{ fontFamily: '"Montserrat", sans-serif', fontWeight: 700, fontSize: "1.1rem", color: "#1E293B", mb: 3 }}>
+        <Box component="section" aria-labelledby="related-heading" sx={{ bgcolor: color.white, py: { xs: 7, md: 9 }, px: layout.gutter, textAlign: "center", borderTop: `1px solid ${color.slate200}` }}>
+          <Typography id="related-heading" component="h2" sx={{ fontFamily: font.display, fontWeight: 800, fontSize: "1.25rem", color: color.ink2, mb: 3 }}>
             Learn more about ClinicFlow247
           </Typography>
-          <Box sx={{ display: "flex", gap: 2, justifyContent: "center", flexWrap: "wrap" }}>
+          <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "flex", gap: 1.5, justifyContent: "center", flexWrap: "wrap" }}>
             {[
               { href: "/clinic-management-software-india", label: "Clinic Management Software" },
               { href: "/doctor-appointment-software", label: "Appointment Software" },
               { href: "/electronic-prescription-software", label: "e-Prescription Software" },
             ].map((link) => (
-              <Link key={link.href} href={link.href} passHref>
-                <Box component="a" sx={{ bgcolor: "#fff", border: "1px solid #E2E8F0", borderRadius: "8px", px: 3, py: 1.25, fontSize: "0.875rem", color: "#4C1D95", fontWeight: 600, textDecoration: "none", "&:hover": { borderColor: "#7C3AED", bgcolor: "#F5F3FF" }, transition: "all 0.2s" }}>
-                  {link.label}
-                </Box>
-              </Link>
+              <li key={link.href}>
+                <Link href={link.href} passHref>
+                  <Box
+                    component="a"
+                    sx={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      minHeight: 44,
+                      bgcolor: color.white,
+                      border: `1px solid ${color.slate300}`,
+                      borderRadius: 999,
+                      px: 2.75,
+                      fontFamily: font.display,
+                      fontSize: "0.9rem",
+                      color: color.violet800,
+                      fontWeight: 700,
+                      textDecoration: "none",
+                      transition: "all 0.2s",
+                      "&:hover": { borderColor: color.violet600, bgcolor: color.violet50 },
+                      "&:focus-visible": focusRing,
+                    }}
+                  >
+                    {link.label}
+                  </Box>
+                </Link>
+              </li>
             ))}
           </Box>
         </Box>
 
       </main>
 
-      <Footer content={<Box sx={{ py: 2, textAlign: "center" }}><Typography variant="body2" sx={{ color: "text.secondary", fontSize: "0.8rem" }}>{`© ${new Date().getFullYear()} Aurora Blossom. ClinicFlow247 is a product of Aurora Blossom, Hyderabad.`}</Typography></Box>} />
+      <Footer legal={`© ${new Date().getFullYear()} Aurora Blossom. ClinicFlow247 is a product of Aurora Blossom, Hyderabad.`} />
     </>
   );
 }

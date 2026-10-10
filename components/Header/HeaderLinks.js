@@ -1,133 +1,273 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
-import Router from "next/router";
+import { Box } from "@mui/material";
+import KeyboardArrowDownRounded from "@mui/icons-material/KeyboardArrowDownRounded";
+import ArrowForwardRounded from "@mui/icons-material/ArrowForwardRounded";
 import { headerLinksData } from "../../data/header-links-data.js";
-import makeStyles from "@mui/styles/makeStyles";
-import styles from "/styles/jss/novel-logiks/components/headerLinksStyle.js";
+import { services } from "../../data/services-data.js";
+import { scrollToSection, useActiveNavItem } from "./navUtils.js";
+import { color, font, motion, radius, shadow, focusRing } from "/styles/tokens.js";
 
-const useStyles = makeStyles(styles);
+const linkSx = (isActive) => ({
+  position: "relative",
+  display: "inline-flex",
+  alignItems: "center",
+  height: 40,
+  px: { md: 1.1, lg: 1.5 },
+  borderRadius: `${radius.sm}px`,
+  fontFamily: font.display,
+  fontSize: { md: "0.84rem", lg: "0.9rem" },
+  fontWeight: 600,
+  whiteSpace: "nowrap",
+  color: isActive ? color.violet700 : color.slate700,
+  textDecoration: "none",
+  transition: `color ${motion.fast} ${motion.ease}, background-color ${motion.fast} ${motion.ease}`,
+  "&:hover": { color: color.violet700, bgcolor: color.violet50 },
+  "&:focus-visible": focusRing,
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    left: { md: 9, lg: 12 },
+    right: { md: 9, lg: 12 },
+    bottom: 2,
+    height: 2,
+    borderRadius: 2,
+    background: `linear-gradient(90deg, ${color.violet600}, ${color.teal600})`,
+    transform: isActive ? "scaleX(1)" : "scaleX(0)",
+    transformOrigin: "left",
+    transition: `transform ${motion.base} ${motion.ease}`,
+  },
+});
 
-const AURORA_GRADIENT = "linear-gradient(90deg, #7C3AED 0%, #0891B2 100%)";
+const ctaSx = (isActive) => ({
+  display: "inline-flex",
+  alignItems: "center",
+  height: 42,
+  px: 2.25,
+  ml: { md: 0.75, lg: 1.5 },
+  borderRadius: `${radius.pill}px`,
+  fontFamily: font.display,
+  fontSize: { md: "0.84rem", lg: "0.9rem" },
+  fontWeight: 700,
+  whiteSpace: "nowrap",
+  textDecoration: "none",
+  color: color.white,
+  bgcolor: isActive ? color.violet800 : color.violet600,
+  transition: `background-color ${motion.fast} ${motion.ease}, box-shadow ${motion.fast} ${motion.ease}`,
+  "&:hover": { bgcolor: color.violet700, boxShadow: shadow.brand },
+  "&:focus-visible": focusRing,
+});
 
-const easeInOutQuad = (t, b, c, d) => {
-  t /= d / 2;
-  if (t < 1) return (c / 2) * t * t + b;
-  t--;
-  return (-c / 2) * (t * (t - 2) - 1) + b;
-};
+function ServicesMenu({ link, isActive, onNavigate }) {
+  const [open, setOpen] = useState(false);
+  const closeTimer = useRef(null);
+  const wrapperRef = useRef(null);
+  const buttonRef = useRef(null);
 
-const scrollGo = (element, to, duration) => {
-  const start = element.scrollTop;
-  const change = to - start;
-  let currentTime = 0;
-  const animateScroll = () => {
-    currentTime += 20;
-    element.scrollTop = easeInOutQuad(currentTime, start, change, duration);
-    if (currentTime < duration) setTimeout(animateScroll, 20);
+  const openNow = () => {
+    clearTimeout(closeTimer.current);
+    setOpen(true);
   };
-  animateScroll();
-};
+  const closeSoon = () => {
+    clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpen(false), 120);
+  };
 
-export default function HeaderLinks({ dropdownHoverColor }) {
-  const [activeItem, setActiveItem] = useState(null);
-  const classes = useStyles();
-  const { links } = headerLinksData;
+  useEffect(() => () => clearTimeout(closeTimer.current), []);
 
-  const handleNavClick = useCallback((e, link) => {
-    setActiveItem(link.title);
-    if (link.title === "Services") {
-      Router.push(link.href);
-      return;
-    }
-    if (window.location.pathname === "/") {
-      const isMobile = /iPad|iPhone|iPod|android|webOS/i.test(navigator.userAgent);
-      if (!isMobile) {
-        e.preventDefault();
-        const target = document.getElementById(link.smoothScroll);
-        if (target) scrollGo(document.documentElement, target.offsetTop, 1250);
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        buttonRef.current?.focus();
       }
-    }
-  }, []);
+    };
+    const onClick = (e) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClick);
+    };
+  }, [open]);
 
   return (
-    <nav aria-label="Main navigation" style={{ display: "flex", alignItems: "center", width: "100%" }}>
-      {/* Brand logo */}
-      <Link href="/#home" passHref>
-        <a
-          aria-label="Aurora Blossom — Home"
-          style={{ display: "flex", alignItems: "center", gap: "0.625rem", textDecoration: "none", marginRight: "0.5rem" }}
-        >
-          {/* Logo mark — save your logo as /public/img/logo/aurora-blossom-logo.png */}
-          <img
-            src="/img/logo/aurora-blossom-logo.png"
-            alt="Aurora Blossom logo"
-            style={{ width: "2.25rem", height: "2.25rem", objectFit: "contain" }}
-          />
-          {/* Brand name as styled text — no image needed */}
-          <span
-            style={{
-              fontFamily: '"Montserrat", sans-serif',
-              fontWeight: 800,
-              fontSize: "1rem",
-              letterSpacing: "0.02em",
-              background: "linear-gradient(90deg, #4C1D95 0%, #0891B2 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Aurora Blossom
-          </span>
-        </a>
+    <Box
+      ref={wrapperRef}
+      sx={{ position: "relative", display: "inline-flex", alignItems: "center" }}
+      onMouseEnter={openNow}
+      onMouseLeave={closeSoon}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false);
+      }}
+    >
+      <Link href={link.href} passHref>
+        <Box component="a" aria-current={isActive ? "page" : undefined} sx={{ ...linkSx(isActive), pr: { md: 0.5, lg: 0.75 } }} onClick={() => onNavigate(link)}>
+          {link.title}
+        </Box>
       </Link>
+      <Box
+        component="button"
+        type="button"
+        ref={buttonRef}
+        aria-expanded={open}
+        aria-controls="services-menu"
+        aria-label={`${link.title} menu`}
+        onClick={() => setOpen((o) => !o)}
+        sx={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: 28,
+          height: 32,
+          p: 0,
+          border: 0,
+          borderRadius: `${radius.sm}px`,
+          bgcolor: "transparent",
+          color: isActive ? color.violet700 : color.slate600,
+          cursor: "pointer",
+          "&:hover": { bgcolor: color.violet50, color: color.violet700 },
+          "&:focus-visible": focusRing,
+          "& svg": { transition: `transform ${motion.base} ${motion.ease}`, transform: open ? "rotate(180deg)" : "none" },
+        }}
+      >
+        <KeyboardArrowDownRounded fontSize="small" />
+      </Box>
 
-      {/* Push nav links to the right */}
-      <span style={{ flex: 1 }} />
-
-      {/* Navigation links */}
-      {links.map((link) => {
-        const isActive = activeItem === link.title;
-        return (
-          <Link key={link.title} href={link.href} passHref>
-            <a
-              className={classes.dropdownLink}
-              aria-current={isActive ? "page" : undefined}
-              onClick={(e) => handleNavClick(e, link)}
-              style={{
-                position: "relative",
-                color: isActive ? "#7C3AED" : "#1E293B",
-                fontFamily: '"Montserrat", sans-serif',
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                letterSpacing: "0.04em",
-                textTransform: "uppercase",
-                padding: "0.625rem 0.875rem",
-                whiteSpace: "nowrap",
-                lineHeight: "2rem",
-                transition: "color 0.2s ease",
+      <Box
+        id="services-menu"
+        hidden={!open}
+        sx={{
+          position: "absolute",
+          top: "calc(100% + 14px)",
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: 640,
+          maxWidth: "calc(100vw - 48px)",
+          p: 1.5,
+          borderRadius: `${radius.lg}px`,
+          bgcolor: color.white,
+          border: `1px solid ${color.slate200}`,
+          boxShadow: shadow.lg,
+          display: open ? "grid" : "none",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 0.5,
+          zIndex: 10,
+          // hover bridge so the pointer can travel from the trigger to the panel
+          "&::before": { content: '""', position: "absolute", left: 0, right: 0, top: -16, height: 16 },
+        }}
+      >
+        {services.map((svc, idx) => (
+          <Link key={svc.serviceTitle} href={`/services-details#service-${idx + 1}`} passHref>
+            <Box
+              component="a"
+              onClick={() => setOpen(false)}
+              sx={{
+                display: "block",
+                p: 1.75,
+                borderRadius: `${radius.md}px`,
                 textDecoration: "none",
+                transition: `background-color ${motion.fast} ${motion.ease}`,
+                "&:hover": { bgcolor: color.violet50 },
+                "&:hover .svc-title": { color: color.violet700 },
+                "&:focus-visible": focusRing,
               }}
             >
-              {link.title}
-              <span
-                aria-hidden="true"
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: "0.875rem",
-                  right: "0.875rem",
-                  height: 2,
-                  borderRadius: 2,
-                  background: isActive ? AURORA_GRADIENT : "transparent",
-                  transition: "background 0.25s ease",
-                }}
-              />
-            </a>
+              <Box className="svc-title" component="span" sx={{ display: "block", fontFamily: font.display, fontWeight: 700, fontSize: "0.9rem", color: color.ink2, lineHeight: 1.35, mb: 0.5 }}>
+                {svc.serviceTitle}
+              </Box>
+              <Box component="span" sx={{ display: "block", fontSize: "0.8125rem", color: color.slate600, lineHeight: 1.5 }}>
+                {svc.serviceOneLiner}
+              </Box>
+            </Box>
           </Link>
-        );
-        })}
-    </nav>
+        ))}
+        <Link href={link.href} passHref>
+          <Box
+            component="a"
+            onClick={() => setOpen(false)}
+            sx={{
+              gridColumn: "1 / -1",
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              mt: 0.5,
+              px: 1.75,
+              py: 1.25,
+              borderRadius: `${radius.md}px`,
+              bgcolor: color.slate50,
+              fontFamily: font.display,
+              fontWeight: 700,
+              fontSize: "0.875rem",
+              color: color.violet700,
+              textDecoration: "none",
+              "&:hover": { bgcolor: color.violet50 },
+              "&:focus-visible": focusRing,
+            }}
+          >
+            {link.title}
+            <ArrowForwardRounded sx={{ fontSize: 18 }} aria-hidden="true" />
+          </Box>
+        </Link>
+      </Box>
+    </Box>
   );
 }
+
+ServicesMenu.propTypes = {
+  link: PropTypes.object.isRequired,
+  isActive: PropTypes.bool,
+  onNavigate: PropTypes.func.isRequired,
+};
+
+/** Desktop navigation (rendered by Header at md and up). */
+export default function HeaderLinks() {
+  const { links } = headerLinksData;
+  const active = useActiveNavItem();
+
+  const handleNavClick = useCallback((e, link) => {
+    if (link.title === "Services") return; // routes to /services-details
+    if (scrollToSection(link.smoothScroll)) e.preventDefault();
+  }, []);
+
+  const lastIndex = links.length - 1;
+
+  return (
+    <Box component="nav" aria-label="Main navigation" sx={{ display: "flex", alignItems: "center" }}>
+      <Box component="ul" sx={{ display: "flex", alignItems: "center", gap: { md: 0, lg: 0.25 }, listStyle: "none", m: 0, p: 0 }}>
+        {links.map((link, i) => {
+          const isActive = active === link.title;
+          if (link.title === "Services") {
+            return (
+              <li key={link.title}>
+                <ServicesMenu link={link} isActive={isActive} onNavigate={() => {}} />
+              </li>
+            );
+          }
+          return (
+            <li key={link.title}>
+              <Link href={link.href} passHref>
+                <Box
+                  component="a"
+                  aria-current={isActive ? "true" : undefined}
+                  onClick={(e) => handleNavClick(e, link)}
+                  sx={i === lastIndex ? ctaSx(isActive) : linkSx(isActive)}
+                >
+                  {link.title}
+                </Box>
+              </Link>
+            </li>
+          );
+        })}
+      </Box>
+    </Box>
+  );
+}
+
+HeaderLinks.propTypes = {
+  dropdownHoverColor: PropTypes.string,
+};

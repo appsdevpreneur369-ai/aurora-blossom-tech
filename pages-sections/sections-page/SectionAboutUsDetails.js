@@ -1,160 +1,102 @@
 import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import VisibilityOutlined from "@mui/icons-material/VisibilityOutlined";
+import FlagOutlined from "@mui/icons-material/FlagOutlined";
+import DiamondOutlined from "@mui/icons-material/DiamondOutlined";
+import Section from "/components/ui/Section.js";
+import SectionHeader from "/components/ui/SectionHeader.js";
+import IconTile from "/components/ui/IconTile.js";
+import { color, font, motion, radius, shadow } from "/styles/tokens.js";
 
-// Aurora Blossom — About section cards
-// Vision: violet→pink (aurora blossom)
-// Mission: teal→violet (aurora sky)
-// Values: violet→teal (matches brand palette)
 const CARDS = [
   {
     id: "vision",
     label: "Vision",
-    icon: "🌅",
-    gradient: "linear-gradient(135deg, #7C3AED 0%, #EC4899 100%)",
-    shadow: "rgba(124,58,237,0.35)",
+    icon: VisibilityOutlined,
     body: "To inspire people and improve lives through technology — delivered with purpose, precision, and passion.",
   },
   {
     id: "mission",
     label: "Mission",
-    icon: "🎯",
-    gradient: "linear-gradient(135deg, #0891B2 0%, #7C3AED 100%)",
-    shadow: "rgba(8,145,178,0.35)",
+    icon: FlagOutlined,
     body: "To contribute to the overall wellbeing of the communities we operate in — by building technology that genuinely matters.",
   },
   {
     id: "values",
     label: "Values",
-    icon: "💎",
-    gradient: "linear-gradient(135deg, #7C3AED 0%, #0891B2 100%)",
-    shadow: "rgba(124,58,237,0.35)",
+    icon: DiamondOutlined,
     body: "Oneness · Integrity · Humour · Trust · Thrive · Strive — the six pillars that define how we work and who we are.",
   },
 ];
 
 export default function SectionAboutUsDetails({ ...rest }) {
   return (
-    <section
-      id="about-us"
-      className="cd-section"
-      aria-labelledby="about-heading"
-      {...rest}
-    >
+    <Section id="about-us" className="cd-section" aria-labelledby="about-heading" {...rest}>
+      <SectionHeader
+        id="about-heading"
+        title="About Aurora Blossom"
+        lead="We are a technology company driven by purpose — building enterprise solutions that transform organisations and enrich communities."
+      />
+
       <Box
         sx={{
-          py: { xs: 6, md: 10 },
-          px: { xs: 3, md: 6 },
-          maxWidth: 1200,
-          mx: "auto",
+          display: "grid",
+          gap: { xs: 2.5, md: 3 },
+          gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
         }}
       >
-        {/* Section heading */}
-        <Box sx={{ textAlign: "center", mb: 7 }}>
-          <Typography
-            id="about-heading"
-            variant="h2"
-            component="h2"
+        {CARDS.map((card, i) => (
+          <Box
+            key={card.id}
+            component="article"
+            aria-labelledby={`about-${card.id}`}
             sx={{
-              fontFamily: '"Montserrat", sans-serif',
-              fontWeight: 800,
-              fontSize: { xs: "1.75rem", md: "2.5rem" },
-              backgroundImage:
-                "linear-gradient(135deg, #4C1D95 0%, #0891B2 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              mb: 2,
+              position: "relative",
+              p: { xs: 3.5, md: 4 },
+              borderRadius: `${radius.lg}px`,
+              bgcolor: color.white,
+              border: `1px solid ${color.slate200}`,
+              boxShadow: shadow.xs,
+              overflow: "hidden",
+              transition: `box-shadow ${motion.base} ${motion.ease}, transform ${motion.base} ${motion.ease}`,
+              "&::before": {
+                content: '""',
+                position: "absolute",
+                inset: "0 0 auto 0",
+                height: 3,
+                background: `linear-gradient(90deg, ${color.violet600}, ${color.teal600})`,
+                opacity: 0.85,
+              },
+              "&:hover": { boxShadow: shadow.md, transform: "translateY(-3px)" },
             }}
           >
-            About Aurora Blossom
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color: "text.secondary",
-              maxWidth: 600,
-              mx: "auto",
-              fontSize: "1.05rem",
-              lineHeight: 1.8,
-            }}
-          >
-            We are a technology company driven by purpose — building enterprise
-            solutions that transform organisations and enrich communities.
-          </Typography>
-        </Box>
-
-        {/* VMV Cards */}
-        <Grid container spacing={4} justifyContent="center">
-          {CARDS.map((card) => (
-            <Grid key={card.id} item xs={12} sm={6} md={4}>
-              <Box
-                component="article"
-                aria-label={card.label}
-                sx={{
-                  borderRadius: 4,
-                  p: 4,
-                  minHeight: 280,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  textAlign: "center",
-                  background: card.gradient,
-                  boxShadow: `0 12px 40px ${card.shadow}`,
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                  "&:hover": {
-                    transform: "translateY(-6px)",
-                    boxShadow: `0 20px 56px ${card.shadow}`,
-                  },
-                }}
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 3 }}>
+              <IconTile icon={card.icon} variant={i === 1 ? "teal" : "violet"} size={52} />
+              <Typography
+                aria-hidden="true"
+                sx={{ fontFamily: font.display, fontWeight: 800, fontSize: "2.25rem", lineHeight: 1, color: color.slate200 }}
               >
-                {/* Icon */}
-                <Box
-                  aria-hidden="true"
-                  sx={{
-                    fontSize: "2.5rem",
-                    mb: 2,
-                    lineHeight: 1,
-                    filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.2))",
-                  }}
-                >
-                  {card.icon}
-                </Box>
-
-                {/* Title */}
-                <Typography
-                  variant="h5"
-                  component="h3"
-                  sx={{
-                    fontFamily: '"Montserrat", sans-serif',
-                    fontWeight: 700,
-                    fontSize: "1.25rem",
-                    color: "#fff",
-                    mb: 2,
-                    letterSpacing: "0.04em",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {card.label}
-                </Typography>
-
-                {/* Body */}
-                <Typography
-                  variant="body1"
-                  sx={{
-                    color: "rgba(255,255,255,0.9)",
-                    fontSize: "0.95rem",
-                    lineHeight: 1.7,
-                    fontFamily: '"Inter", sans-serif',
-                  }}
-                >
-                  {card.body}
-                </Typography>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
+                {`0${i + 1}`}
+              </Typography>
+            </Box>
+            <Typography
+              id={`about-${card.id}`}
+              component="h3"
+              sx={{
+                fontFamily: font.display,
+                fontWeight: 800,
+                fontSize: "1.25rem",
+                color: color.ink2,
+                m: 0,
+                mb: 1.5,
+              }}
+            >
+              {card.label}
+            </Typography>
+            <Typography sx={{ color: color.slate600, fontSize: "1rem", lineHeight: 1.75 }}>{card.body}</Typography>
+          </Box>
+        ))}
       </Box>
-    </section>
+    </Section>
   );
 }

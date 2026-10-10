@@ -6,76 +6,179 @@ import { createRoot } from "react-dom/client";
 import { ThemeProvider, createTheme, StyledEngineProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import PageChange from "/components/PageChange/PageChange.js";
+import { color, font, radius, shadow, motion, focusRing } from "/styles/tokens.js";
 import "/styles/scss/novel-logiks.scss";
 import "/styles/css/novel-logiks.css";
 
-// ── Aurora Blossom MUI Theme ──────────────────────────────────────────────────
+// ── Aurora Blossom MUI Theme (built from /styles/tokens.js) ──────────────────
 const auroraTheme = createTheme({
   palette: {
-    primary:   { main: "#7C3AED", dark: "#4C1D95", light: "#A78BFA" },
-    secondary: { main: "#0891B2", dark: "#0E7490", light: "#22D3EE" },
-    error:     { main: "#EF4444" },
-    warning:   { main: "#F59E0B" },
-    success:   { main: "#10B981" },
-    background:{ default: "#F8FAFC", paper: "#FFFFFF" },
-    text:      { primary: "#0F172A", secondary: "#475569", disabled: "#94A3B8" },
+    primary:   { main: color.violet600, dark: color.violet800, light: color.violet300, contrastText: color.white },
+    secondary: { main: color.teal600, dark: color.teal700, light: color.teal400, contrastText: color.white },
+    error:     { main: color.error },
+    warning:   { main: color.warning },
+    success:   { main: color.success },
+    background:{ default: color.white, paper: color.white },
+    text:      { primary: color.ink2, secondary: color.slate600, disabled: color.slate400 },
+    divider:   color.slate200,
   },
   typography: {
-    fontFamily: '"Inter", "Montserrat", "Helvetica Neue", Arial, sans-serif',
-    h1: { fontFamily: '"Montserrat", sans-serif', fontWeight: 900 },
-    h2: { fontFamily: '"Montserrat", sans-serif', fontWeight: 800 },
-    h3: { fontFamily: '"Montserrat", sans-serif', fontWeight: 700 },
-    h4: { fontFamily: '"Montserrat", sans-serif', fontWeight: 700 },
-    h5: { fontFamily: '"Montserrat", sans-serif', fontWeight: 600 },
-    h6: { fontFamily: '"Montserrat", sans-serif', fontWeight: 600 },
-    button: { fontFamily: '"Montserrat", sans-serif', fontWeight: 600 },
+    fontFamily: font.body,
+    h1: { fontFamily: font.display, fontWeight: 800, letterSpacing: "-0.02em" },
+    h2: { fontFamily: font.display, fontWeight: 800, letterSpacing: "-0.015em" },
+    h3: { fontFamily: font.display, fontWeight: 700, letterSpacing: "-0.01em" },
+    h4: { fontFamily: font.display, fontWeight: 700 },
+    h5: { fontFamily: font.display, fontWeight: 700 },
+    h6: { fontFamily: font.display, fontWeight: 700 },
+    button: { fontFamily: font.display, fontWeight: 700 },
   },
-  shape: { borderRadius: 12 },
+  shape: { borderRadius: radius.md },
   shadows: [
     "none",
-    "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
-    "0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04)",
-    "0 10px 15px rgba(0,0,0,0.06), 0 4px 6px rgba(0,0,0,0.04)",
-    "0 20px 25px rgba(0,0,0,0.06), 0 10px 10px rgba(0,0,0,0.04)",
-    "0 25px 50px rgba(0,0,0,0.08)",
-    ...Array(19).fill("none"),
+    shadow.xs,
+    shadow.sm,
+    shadow.md,
+    shadow.md,
+    shadow.lg,
+    ...Array(19).fill(shadow.lg),
   ],
   components: {
+    MuiButtonBase: {
+      defaultProps: { disableRipple: false },
+    },
     MuiButton: {
+      defaultProps: { disableElevation: true },
       styleOverrides: {
         root: {
-          borderRadius: 8,
+          borderRadius: radius.sm + 2,
           textTransform: "none",
-          fontWeight: 600,
-          letterSpacing: "0.02em",
+          fontWeight: 700,
+          letterSpacing: "0.01em",
+          minHeight: 44,
+          paddingLeft: 22,
+          paddingRight: 22,
+          transition: `background-color ${motion.base} ${motion.ease}, border-color ${motion.base} ${motion.ease}, color ${motion.base} ${motion.ease}, box-shadow ${motion.base} ${motion.ease}, transform ${motion.base} ${motion.ease}`,
+          "&:active": { transform: "translateY(1px)" },
+          "&.Mui-focusVisible": focusRing,
+          "&.Mui-disabled": { cursor: "not-allowed", pointerEvents: "auto" },
         },
+        sizeLarge: { minHeight: 52, fontSize: "1rem", paddingLeft: 28, paddingRight: 28 },
+        sizeSmall: { minHeight: 36, paddingLeft: 14, paddingRight: 14 },
+        containedPrimary: {
+          backgroundColor: color.violet600,
+          "&:hover": { backgroundColor: color.violet700, boxShadow: shadow.brand },
+          "&.Mui-disabled": { backgroundColor: color.slate200, color: color.slate500 },
+        },
+        outlinedPrimary: {
+          borderWidth: 1.5,
+          borderColor: color.violet300,
+          color: color.violet700,
+          "&:hover": { borderWidth: 1.5, borderColor: color.violet600, backgroundColor: color.violet50 },
+        },
+        textPrimary: {
+          color: color.violet700,
+          "&:hover": { backgroundColor: color.violet50 },
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: { fontFamily: font.display, fontWeight: 600, borderRadius: radius.pill },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        rounded: { borderRadius: radius.lg },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 16,
-          boxShadow: "0 4px 20px rgba(0,0,0,0.06)",
+          borderRadius: radius.lg,
+          boxShadow: shadow.sm,
+          border: `1px solid ${color.slate200}`,
         },
       },
     },
     MuiAppBar: {
       styleOverrides: {
-        root: { boxShadow: "0 2px 20px rgba(0,0,0,0.06)" },
+        root: { boxShadow: "none" },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: radius.sm + 2,
+          backgroundColor: color.white,
+          "& .MuiOutlinedInput-notchedOutline": { borderColor: color.slate300 },
+          "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: color.slate400 },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": { borderColor: color.violet600, borderWidth: 2 },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: { color: color.slate600, "&.Mui-focused": { color: color.violet700 } },
       },
     },
     MuiCssBaseline: {
       styleOverrides: {
         "*, *::before, *::after": { boxSizing: "border-box" },
-        html: { scrollBehavior: "smooth" },
+        html: {
+          scrollBehavior: "smooth",
+          // Anchored sections (/#services etc.) land below the fixed header
+          scrollPaddingTop: 88,
+        },
         body: {
+          fontFamily: font.body,
+          color: color.ink2,
+          backgroundColor: color.white,
           WebkitFontSmoothing: "antialiased",
           MozOsxFontSmoothing: "grayscale",
+          textRendering: "optimizeLegibility",
         },
         "img, video": { maxWidth: "100%", height: "auto" },
         "a": {
           color: "inherit",
           textDecoration: "none",
+        },
+        "::selection": { backgroundColor: color.violet100, color: color.violet900 },
+        // Visible keyboard focus everywhere (template CSS removed outlines)
+        "*:focus-visible": { ...focusRing },
+        ".sr-only": {
+          position: "absolute",
+          width: 1,
+          height: 1,
+          padding: 0,
+          margin: -1,
+          overflow: "hidden",
+          clip: "rect(0, 0, 0, 0)",
+          whiteSpace: "nowrap",
+          border: 0,
+        },
+        ".skip-link": {
+          position: "fixed",
+          top: 12,
+          left: 12,
+          zIndex: 2000,
+          padding: "10px 16px",
+          borderRadius: radius.sm,
+          backgroundColor: color.ink2,
+          color: color.white,
+          fontFamily: font.display,
+          fontWeight: 700,
+          fontSize: "0.875rem",
+          transform: "translateY(-150%)",
+          transition: `transform ${motion.fast} ${motion.ease}`,
+          "&:focus": { transform: "translateY(0)" },
+        },
+        "@media (prefers-reduced-motion: reduce)": {
+          html: { scrollBehavior: "auto" },
+          "*, *::before, *::after": {
+            animationDuration: "0.01ms !important",
+            animationIterationCount: "1 !important",
+            transitionDuration: "0.01ms !important",
+          },
         },
       },
     },
@@ -84,7 +187,7 @@ const auroraTheme = createTheme({
     },
     MuiAutocomplete: {
       styleOverrides: {
-        paper: { borderRadius: 12, boxShadow: "0 8px 30px rgba(0,0,0,0.1)" },
+        paper: { borderRadius: radius.md, boxShadow: shadow.md, border: `1px solid ${color.slate200}` },
       },
     },
   },
@@ -138,6 +241,7 @@ export default class MyApp extends App {
           <Head>
             <title>Aurora Blossom | Digital Transformation &amp; IT Services</title>
           </Head>
+          <a className="skip-link" href="#main-content">Skip to main content</a>
           <Component {...pageProps} />
         </ThemeProvider>
       </StyledEngineProvider>

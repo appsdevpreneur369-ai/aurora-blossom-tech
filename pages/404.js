@@ -1,43 +1,22 @@
-/*eslint-disable*/
 import React from "react";
-import makeStyles from '@mui/styles/makeStyles';
-// core components
-import GridContainer from "/components/Grid/GridContainer.js";
-import GridItem from "/components/Grid/GridItem.js";
-import errorPageStyle from "/styles/jss/novel-logiks/pages/errorPageStyles.js";
+import { Box, Typography } from "@mui/material";
+import Header from "/components/Header/Header.js";
+import HeaderLinks from "/components/Header/HeaderLinks.js";
+import ErrorLayout from "/components/ui/ErrorLayout.js";
+import { CtaLink } from "/components/ClinicFlow/LandingBlocks.js";
 
-const useStyles = makeStyles(errorPageStyle);
-
-export default function ErrorPage({ ...rest }) {
-  // React.useEffect(() => {
-  //   window.scrollTo(0, 0);
-  //   document.body.scrollTop = 0;
-  // });
-  const classes = useStyles();
+export default function ErrorPage() {
   return (
-    <div>
-      <div
-        className={classes.pageHeader}
-        style={{
-          // backgroundImage: "url('/img/clint-mckoy.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "top center"
-        }}
-      >
-        <div className={classes.container}>
-          <div className={classes.contentCenter}>
-            <GridContainer>
-              <GridItem md={12}>
-                <h1 className={classes.title}>404</h1>
-                <h4 className={classes.description}>
-                  Ooooups! Looks like you got lost.
-                  Om Sai Ram
-                </h4>
-              </GridItem>
-            </GridContainer>
-          </div>
-        </div>
-      </div>
-    </div>
+    <>
+      <Header brand="" links={<HeaderLinks dropdownHoverColor="info" />} fixed color="white" />
+      <ErrorLayout code="404">
+        <Typography component="p" sx={{ mt: 3, fontSize: { xs: "1.125rem", md: "1.25rem" }, lineHeight: 1.7, color: "rgba(255,255,255,0.82)" }}>
+          Ooooups! Looks like you got lost. Om Sai Ram
+        </Typography>
+        <Box sx={{ mt: 5 }}>
+          <CtaLink href="/">← Back to Home</CtaLink>
+        </Box>
+      </ErrorLayout>
+    </>
   );
 }
