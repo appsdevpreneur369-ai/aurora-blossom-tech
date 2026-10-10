@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import { Box, Typography } from "@mui/material";
+import Link from "next/link";
+import { Box, Button, Typography } from "@mui/material";
 import CheckRounded from "@mui/icons-material/CheckRounded";
 import Header from "../components/Header/Header.js";
 import HeaderLinks from "../components/Header/HeaderLinks.js";
@@ -31,14 +32,15 @@ function ServiceRow({ svc, index }) {
         <Box
           sx={{
             position: "relative",
-            aspectRatio: "4 / 3",
+            aspectRatio: svc.featured ? "16 / 9" : "4 / 3",
             borderRadius: `${radius.xl}px`,
             overflow: "hidden",
             bgcolor: color.slate100,
+            ...(svc.featured && { background: "linear-gradient(160deg, #F8FDFF 0%, #DCF3FF 100%)" }),
             boxShadow: shadow.lg,
           }}
         >
-          <Image src={`/${svc.serviceImageUrl}`} alt={svc.serviceTitle} layout="fill" objectFit="cover" sizes="(max-width: 900px) 100vw, 560px" priority={index === 0} />
+          <Image src={`/${svc.serviceImageUrl}`} alt={svc.serviceImageAlt || svc.serviceTitle} layout="fill" objectFit={svc.featured ? "contain" : "cover"} sizes="(max-width: 900px) 100vw, 560px" priority={index === 0} />
         </Box>
       </Box>
       <Box sx={{ order: { md: reverse ? 1 : 2 } }}>
@@ -79,6 +81,17 @@ function ServiceRow({ svc, index }) {
             </Box>
           ))}
         </Box>
+        {svc.featured && (
+          <Box sx={{ mt: 4, display: "flex", flexWrap: "wrap", gap: 1.5, "& > a": { flex: { xs: "1 1 100%", sm: "0 0 auto" } } }}>
+            {svc.featured.links.map((l, i) => (
+              <Link key={l.href} prefetch={false} href={l.href} passHref>
+                <Button component="a" size="large" variant={i === 0 ? "contained" : "outlined"} color="primary">
+                  {l.label}
+                </Button>
+              </Link>
+            ))}
+          </Box>
+        )}
       </Box>
     </Box>
   );

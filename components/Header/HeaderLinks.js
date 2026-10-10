@@ -168,6 +168,7 @@ function ServicesMenu({ link, isActive, onNavigate }) {
               onClick={() => setOpen(false)}
               sx={{
                 display: "block",
+                gridColumn: svc.featured ? "1 / -1" : "auto",
                 p: 1.75,
                 borderRadius: `${radius.md}px`,
                 textDecoration: "none",
