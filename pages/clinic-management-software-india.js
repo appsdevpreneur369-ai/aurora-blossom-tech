@@ -72,7 +72,7 @@ const faqSchema = {
       name: "Does ClinicFlow247 support WhatsApp appointment reminders?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. ClinicFlow247 sends automated WhatsApp and SMS reminders to patients before appointments, reducing no-shows by up to 40%.",
+        text: "Yes. ClinicFlow247 sends automated WhatsApp and SMS reminders to patients before appointments.",
       },
     },
     {
@@ -98,7 +98,7 @@ const FEATURES = [
   { icon: CalendarMonthOutlined, title: "Smart Appointment Booking", desc: "Online and in-clinic appointment scheduling with real-time availability. Patients can book via WhatsApp or your clinic's link." },
   { icon: AssignmentIndOutlined, title: "Digital Patient Records (EMR)", desc: "Store and retrieve complete patient history, vitals, diagnoses, and visit notes instantly. No more paper files." },
   { icon: MedicationOutlined, title: "e-Prescription Generator", desc: "Create professional digital prescriptions in seconds. Share via WhatsApp or print — fully compliant with Indian standards." },
-  { icon: ForumOutlined, title: "WhatsApp & SMS Reminders", desc: "Automated appointment reminders reduce no-shows by up to 40%. Patients receive reminders 24 hrs and 1 hr before their slot." },
+  { icon: ForumOutlined, title: "WhatsApp & SMS Reminders", desc: "Automated appointment reminders reduce no-shows. Patients receive reminders 24 hrs and 1 hr before their slot." },
   { icon: ReceiptLongOutlined, title: "Billing & Invoicing", desc: "Generate GST-compliant invoices, track payments, and accept UPI. Full revenue dashboard included." },
   { icon: InsightsOutlined, title: "Analytics Dashboard", desc: "Track appointments, revenue, patient growth, and doctor performance. Make data-driven decisions for your clinic." },
 ];
@@ -111,7 +111,6 @@ const PLANS = [
 ];
 
 const STATS = [
-  { stat: "40%", label: "Reduction in no-shows with automated reminders" },
   { stat: "2 hrs", label: "Saved daily on manual paperwork and registers" },
   { stat: "₹599", label: "Starting price — less than a single patient visit" },
   { stat: "14 days", label: "Free trial — no credit card needed" },
@@ -120,7 +119,7 @@ const STATS = [
 const FAQS = [
   { q: "What is clinic management software?", a: "A digital platform that helps clinic owners manage appointments, patient records, billing, and patient communication — all in one place instead of multiple registers and spreadsheets." },
   { q: "Is ClinicFlow247 suitable for small clinics in India?", a: "Yes. ClinicFlow247 is designed for single-doctor clinics, group practices, and multi-specialty clinics across India. Pricing starts at ₹599/month with a free 14-day trial." },
-  { q: "Does ClinicFlow247 support WhatsApp appointment reminders?", a: "Yes. Automated WhatsApp and SMS reminders go out 24 hours and 1 hour before appointments, reducing no-shows by up to 40%." },
+  { q: "Does ClinicFlow247 support WhatsApp appointment reminders?", a: "Yes. Automated WhatsApp and SMS reminders go out 24 hours and 1 hour before appointments." },
   { q: "Is there a free trial?", a: "Yes — 14-day free trial, no credit card required. You can also start on the Free plan indefinitely for small practices." },
   { q: "Is patient data secure?", a: "All data is hosted on Google Cloud with HTTPS encryption, role-based access (only your staff can access records), and daily automated backups." },
 ];
@@ -248,7 +247,7 @@ export default function ClinicManagementSoftwareIndia() {
 
         {/* ── Why Choose ClinicFlow247 ── */}
         <Section tone="dark" aria-labelledby="why-heading">
-          <SectionHeader id="why-heading" title="Why 500+ Indian Doctors Choose ClinicFlow247" onDark />
+          <SectionHeader id="why-heading" title="Why Choose ClinicFlow247" onDark />
           <Box
             component="ul"
             sx={{
@@ -256,7 +255,7 @@ export default function ClinicManagementSoftwareIndia() {
               m: 0,
               p: 0,
               display: "grid",
-              gridTemplateColumns: { xs: "1fr 1fr", md: "repeat(4, 1fr)" },
+              gridTemplateColumns: { xs: "1fr", sm: "repeat(3, 1fr)" },
               gap: "1px",
               bgcolor: "rgba(255,255,255,0.12)",
               borderRadius: `${radius.lg}px`,
@@ -307,13 +306,13 @@ export default function ClinicManagementSoftwareIndia() {
         {/* ── CTA ── */}
         <CtaBand
           title="Ready to Digitise Your Clinic?"
-          body="Join 500+ doctors across India who run their clinics on ClinicFlow247. Setup takes under 30 minutes."
+          body="Setup takes under 30 minutes."
         >
           <CtaLink href="/book-demo">Book a Free Demo →</CtaLink>
           <Typography sx={{ mt: 3, color: "rgba(255,255,255,0.7)", fontSize: "0.9rem" }}>
             Or WhatsApp us at{" "}
-            <Box component="a" href="https://wa.me/919000000000" sx={{ color: color.white, fontWeight: 600, textDecoration: "underline", textUnderlineOffset: "3px", borderRadius: "4px", "&:focus-visible": focusRingOnDark }}>
-              +91 90000 00000
+            <Box component="a" href="https://wa.me/917032405627" sx={{ color: color.white, fontWeight: 600, textDecoration: "underline", textUnderlineOffset: "3px", borderRadius: "4px", "&:focus-visible": focusRingOnDark }}>
+              (+91) 7032405627
             </Box>
           </Typography>
         </CtaBand>

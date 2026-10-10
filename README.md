@@ -137,11 +137,9 @@ It will appear automatically in the desktop and mobile header.
 | Name | Role |
 |---|---|
 | Suhasini | Chief Executive Officer |
-| Venkat Raju | Cloud Architect |
 | Farhaan | Data Analyst & Data Scientist |
-| Sunil | Front End Lead |
+| Sunil | Cloud Architect |
 | Shanti | Technical Lead |
-| Sri Charan | Full Stack Developer |
 
 ---
 

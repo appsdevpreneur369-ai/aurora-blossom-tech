@@ -11,29 +11,19 @@ const TEAM = [
     bio: "A visionary leader and Full Stack Developer proficient across the complete technology stack — front-end, back-end, server management, and security. Suhasini steers Aurora Blossom's strategy, culture, and engineering excellence.",
   },
   {
-    name: "Venkat Raju",
-    role: "Cloud Architect",
-    bio: "Expert in designing, implementing, and managing cloud computing architecture. Venkat leads Cloud Strategy, Architecture Design, Cloud Service Integration, Security & Compliance, Cost Optimisation, Migration Planning, and Disaster Recovery.",
-  },
-  {
     name: "Farhaan",
     role: "Data Analyst & Data Scientist",
     bio: "Farhaan leverages advanced statistical and machine learning techniques to extract actionable insights from complex datasets, while driving data-driven decision-making and business strategy through expert visualisation.",
   },
   {
     name: "Sunil",
-    role: "Front End Lead",
+    role: "Cloud Architect",
     bio: "Sunil leads and manages the front-end development team, architecting intuitive user interfaces and exceptional user experiences across web and mobile. Expert in React, Next.js, and modern CSS systems.",
   },
   {
     name: "Shanti",
     role: "Technical Lead",
     bio: "Defines architecture, selects tech stacks, and ensures scalability. Shanti writes and reviews high-quality code, upskills the team, bridges stakeholders, and champions automation, cloud solutions, and secure deployments.",
-  },
-  {
-    name: "Sri Charan",
-    role: "Full Stack Developer",
-    bio: "Oversees all technical, functional, and visual components of software development. Sri Charan ensures cross-device compatibility, optimises performance, seamlessly integrates design with functionality, and continuously expands skills.",
   },
 ];
 
@@ -130,7 +120,9 @@ export default function SectionTeams({ ...rest }) {
           p: 0,
           display: "grid",
           gap: { xs: 2.5, md: 3 },
-          gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)" },
+          gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)" },
+          maxWidth: 960,
+          mx: "auto",
         }}
       >
         {TEAM.map((member, i) => (

@@ -82,8 +82,8 @@ export default function ContactUsPage() {
 
               <Box sx={{ display: "grid", gap: 2, maxWidth: 520 }}>
                 <InfoCard icon={PhoneOutlined} variant="violet">
-                  <Box component="a" href="tel:912244451109" sx={linkSx}>
-                    (+91) 2244451109
+                  <Box component="a" href="tel:917032405627" sx={linkSx}>
+                    (+91) 7032405627
                   </Box>
                   <br />
                   Mon - Fri, 8:00-22:00
@@ -112,14 +112,29 @@ export default function ContactUsPage() {
                 justifyContent: "center",
               }}
             >
-              <img
-                src="/img/resized_imgs/nl-logo.png"
-                alt=""
-                width={248}
-                height={266}
-                loading="lazy"
-                style={{ width: "min(60%, 220px)", height: "auto" }}
-              />
+              <Box
+                sx={{
+                  width: "min(60%, 220px)",
+                  aspectRatio: "1",
+                  borderRadius: "28px",
+                  bgcolor: color.white,
+                  boxShadow: shadow.lg,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  p: 3,
+                }}
+              >
+                <img
+                  src="/img/logo/aurora-blossom-logo-192.png"
+                  srcSet="/img/logo/aurora-blossom-logo-192.png 1x, /img/logo/aurora-blossom-logo-512.png 2x"
+                  alt="Aurora Blossom logo"
+                  width={192}
+                  height={176}
+                  loading="lazy"
+                  style={{ width: "100%", height: "auto" }}
+                />
+              </Box>
             </Box>
           </Box>
         </Section>

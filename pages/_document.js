@@ -52,7 +52,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: SITE_NAME,
   url: SITE_URL,
-  logo: `${SITE_URL}/img/lsk_imgs/aurora-blossom-logo.png`,
+  logo: `${SITE_URL}/img/logo/aurora-blossom-logo-512.png`,
   description: SITE_DESCRIPTION,
   address: {
     "@type": "PostalAddress",

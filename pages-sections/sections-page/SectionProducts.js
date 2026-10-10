@@ -5,7 +5,6 @@ import ShoppingCartCheckoutIcon       from "@mui/icons-material/ShoppingCartChec
 import AdminPanelSettingsIcon         from "@mui/icons-material/AdminPanelSettings";
 import AnalyticsIcon                  from "@mui/icons-material/Analytics";
 import LocalShippingIcon              from "@mui/icons-material/LocalShipping";
-import TuneIcon                       from "@mui/icons-material/Tune";
 import QueryBuilderIcon               from "@mui/icons-material/QueryBuilder";
 import Dashboard                      from "@mui/icons-material/Dashboard";
 import LocalHospitalIcon              from "@mui/icons-material/LocalHospital";
@@ -30,7 +29,6 @@ const ECOMMERCE_FEATURES = [
   { icon: AdminPanelSettingsIcon,   title: "Admin Panel",              desc: "Manage all modules — products, users, orders, and more — from one place." },
   { icon: AnalyticsIcon,            title: "Analytics Integrated",     desc: "Track sales, conversions, and customer behaviour in real time." },
   { icon: Dashboard,                title: "Role-Based Dashboards",    desc: "Intuitive dashboards that surface the right data to the right person instantly." },
-  { icon: TuneIcon,                 title: "Fully Configurable",       desc: "Configure categories, products, pricing, discounts, and tax rules with ease." },
 ];
 
 const CLINICFLOW_FEATURES = [
@@ -44,7 +42,7 @@ const CLINICFLOW_FEATURES = [
 ];
 
 // ── Shared feature grid ───────────────────────────────────────────────────────
-function FeatureGrid({ features, iconVariant }) {
+function FeatureGrid({ features, iconVariant, columns }) {
   return (
     <Box
       component="ul"
@@ -54,7 +52,7 @@ function FeatureGrid({ features, iconVariant }) {
         p: 0,
         display: "grid",
         gap: { xs: 2, md: 2.5 },
-        gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" },
+        gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)", lg: `repeat(${columns}, 1fr)` },
       }}
     >
       {features.map((f) => (
@@ -67,7 +65,7 @@ function FeatureGrid({ features, iconVariant }) {
 }
 
 // ── Single product block ──────────────────────────────────────────────────────
-function ProductBlock({ number, chip, title, description, accent, features, imageContent, iconVariant }) {
+function ProductBlock({ number, chip, title, description, accent, features, imageContent, iconVariant, columns = 4 }) {
   return (
     <Box component="article" aria-label={title}>
       {/* Banner */}
@@ -139,7 +137,7 @@ function ProductBlock({ number, chip, title, description, accent, features, imag
       </Box>
 
       {/* Features */}
-      <FeatureGrid features={features} iconVariant={iconVariant} />
+      <FeatureGrid features={features} iconVariant={iconVariant} columns={columns} />
     </Box>
   );
 }
@@ -162,6 +160,7 @@ export default function SectionProducts({ ...rest }) {
         description="A full-featured, production-grade e-commerce platform built for modern retail. Scalable architecture, real-time analytics, role-based access control, and a seamless shopping experience — all in one product."
         accent={color.violet300}
         iconVariant="violet"
+        columns={3}
         features={ECOMMERCE_FEATURES}
         imageContent={
           <Box sx={{ position: "relative", aspectRatio: "16 / 10" }}>

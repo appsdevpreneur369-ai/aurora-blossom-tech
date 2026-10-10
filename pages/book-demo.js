@@ -20,7 +20,7 @@ import { color, font, layout, radius, shadow, focusRing } from "../styles/tokens
 const SITE_URL = "https://www.aurora-blossom.com";
 const PAGE_URL = `${SITE_URL}/book-demo`;
 
-const WHATSAPP_NUMBER = "919000000000"; // replace with real number
+const WHATSAPP_NUMBER = "917032405627";
 
 const WHAT_YOULL_SEE = [
   { icon: EventAvailableOutlined, text: "Live appointment booking and patient queue management" },
@@ -28,12 +28,6 @@ const WHAT_YOULL_SEE = [
   { icon: ForumOutlined, text: "WhatsApp reminder setup and automated notifications" },
   { icon: ReceiptLongOutlined, text: "GST invoice generation and payment tracking" },
   { icon: InsightsOutlined, text: "Revenue and appointment analytics dashboard" },
-];
-
-const TESTIMONIALS = [
-  { name: "Dr. Ramesh K.", location: "Hyderabad", specialty: "General Physician", quote: "ClinicFlow247 cut our no-shows by half in the first month. Setup was surprisingly easy." },
-  { name: "Dr. Priya M.", location: "Bengaluru", specialty: "Paediatrician", quote: "I can write prescriptions and send them on WhatsApp before the patient leaves my room. Patients love it." },
-  { name: "Dr. Arjun S.", location: "Chennai", specialty: "Dermatologist", quote: "The analytics helped me understand peak hours and plan my schedule better. Revenue is up 20%." },
 ];
 
 export default function BookDemo() {
@@ -154,31 +148,16 @@ export default function BookDemo() {
               )}
             </Box>
 
-            {/* What you'll see + testimonials */}
+            {/* What you'll see */}
             <Box sx={{ pt: { md: 6 } }}>
               <Typography component="h2" sx={{ fontFamily: font.display, fontWeight: 800, fontSize: "1.375rem", color: color.ink2, mb: 2.5 }}>
                 What You'll See in 20 Minutes
               </Typography>
-              <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "flex", flexDirection: "column", gap: 1.5, mb: 6 }}>
+              <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "flex", flexDirection: "column", gap: 1.5 }}>
                 {WHAT_YOULL_SEE.map((item) => (
                   <Box component="li" key={item.text} sx={{ display: "flex", alignItems: "center", gap: 2, bgcolor: color.white, borderRadius: `${radius.md}px`, p: 2, border: `1px solid ${color.slate200}` }}>
                     <IconTile icon={item.icon} variant="violet" size={40} />
                     <Typography sx={{ color: color.slate700, fontSize: "0.95rem", lineHeight: 1.6 }}>{item.text}</Typography>
-                  </Box>
-                ))}
-              </Box>
-
-              <Typography component="h2" sx={{ fontFamily: font.display, fontWeight: 800, fontSize: "1.375rem", color: color.ink2, mb: 2.5 }}>
-                What Doctors Say
-              </Typography>
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                {TESTIMONIALS.map((t) => (
-                  <Box component="figure" key={t.name} sx={{ m: 0, bgcolor: color.white, borderRadius: `${radius.lg}px`, p: 3, border: `1px solid ${color.slate200}`, borderLeft: `4px solid ${color.violet600}` }}>
-                    <Box component="blockquote" sx={{ m: 0, color: color.slate800, fontSize: "0.975rem", lineHeight: 1.75, fontStyle: "italic", mb: 2 }}>"{t.quote}"</Box>
-                    <Box component="figcaption">
-                      <Typography sx={{ fontFamily: font.display, fontWeight: 700, fontSize: "0.9rem", color: color.ink2 }}>{t.name}</Typography>
-                      <Typography sx={{ color: color.violet700, fontSize: "0.82rem" }}>{t.specialty} · {t.location}</Typography>
-                    </Box>
                   </Box>
                 ))}
               </Box>
