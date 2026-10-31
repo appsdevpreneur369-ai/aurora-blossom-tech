@@ -5,6 +5,10 @@ import createEmotionCache from "/styles/createEmotionCache.js";
 
 const SITE_URL = "https://www.aurora-blossom.com";
 const SITE_NAME = "Aurora Blossom";
+// Registered (GST) business name — keep in sync with the footer's legal-name line.
+const LEGAL_NAME = "AURORA BLOSSOM";
+const ORG_ID = `${SITE_URL}/#organization`;
+const CLINICFLOW_URL = "https://clinicflow247.com";
 const SITE_DESCRIPTION =
   "Aurora Blossom — enterprise IT consulting, AI & analytics, cloud architecture, SAP, e-commerce, and digital marketing. Hyderabad, India.";
 
@@ -23,10 +27,11 @@ const websiteSchema = {
 const clinicflowSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
+  "@id": `${CLINICFLOW_URL}/#software`,
   name: "ClinicFlow247",
   applicationCategory: "HealthApplication",
   operatingSystem: "Web, Android, iOS",
-  url: "https://clinicflow247.com",
+  url: CLINICFLOW_URL,
   description:
     "ClinicFlow247 is a clinic management software for Indian clinics — appointment booking, EMR, e-prescriptions, WhatsApp reminders, and billing. Plans from ₹1,199/month.",
   offers: {
@@ -40,9 +45,12 @@ const clinicflowSchema = {
       unitCode: "MON",
     },
   },
+  brand: { "@type": "Brand", name: "ClinicFlow247", url: CLINICFLOW_URL },
   provider: {
     "@type": "Organization",
+    "@id": ORG_ID,
     name: SITE_NAME,
+    legalName: LEGAL_NAME,
     url: SITE_URL,
   },
 };
@@ -50,7 +58,9 @@ const clinicflowSchema = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": ORG_ID,
   name: SITE_NAME,
+  legalName: LEGAL_NAME,
   url: SITE_URL,
   logo: `${SITE_URL}/img/logo/aurora-blossom-logo-512.png`,
   description: SITE_DESCRIPTION,
@@ -82,6 +92,18 @@ const organizationSchema = {
     "Data Analytics",
     "IT Staffing",
   ],
+  brand: [
+    {
+      "@type": "Brand",
+      name: "ClinicFlow247",
+      url: CLINICFLOW_URL,
+      description: "Clinic & Healthcare Practice Management",
+    },
+  ],
+  makesOffer: {
+    "@type": "Offer",
+    itemOffered: { "@id": `${CLINICFLOW_URL}/#software` },
+  },
   sameAs: [
     "https://www.linkedin.com/company/aurorablossomtech",
     "https://twitter.com/aurorablossomtech",

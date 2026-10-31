@@ -28,6 +28,11 @@ const PRODUCT_LINKS = [
   { href: "/doctor-appointment-software", label: "Appointment Software" },
   { href: "/electronic-prescription-software", label: "e-Prescription Software" },
   { href: "/book-demo", label: "Book a Free Demo" },
+  {
+    href: "https://clinicflow247.com",
+    label: "ClinicFlow247 – Clinic & Healthcare Practice Management",
+    external: true,
+  },
 ];
 
 // Original homepage footer links (labels unchanged; Contact now targets the real section id).
@@ -37,6 +42,19 @@ const QUICK_LINKS = [
   { href: "/#careers", label: "Careers" },
   { href: "/#contactUs", label: "Contact" },
 ];
+
+// Screen-reader-only text (e.g. "opens in a new tab" on external links).
+const visuallyHidden = {
+  position: "absolute",
+  width: "1px",
+  height: "1px",
+  p: 0,
+  m: "-1px",
+  overflow: "hidden",
+  clip: "rect(0 0 0 0)",
+  whiteSpace: "nowrap",
+  border: 0,
+};
 
 const linkSx = {
   display: "inline-block",
@@ -77,11 +95,20 @@ function LinkList({ items }) {
     <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "grid", gap: 1 }}>
       {items.map((item) => (
         <li key={item.href + item.label}>
-          <Link prefetch={false} href={item.href} passHref>
-            <Box component="a" sx={linkSx}>
+          {item.external ? (
+            <Box component="a" href={item.href} target="_blank" rel="noopener" sx={linkSx}>
               {item.label}
+              <Box component="span" sx={visuallyHidden}>
+                {" "}(opens in a new tab)
+              </Box>
             </Box>
-          </Link>
+          ) : (
+            <Link prefetch={false} href={item.href} passHref>
+              <Box component="a" sx={linkSx}>
+                {item.label}
+              </Box>
+            </Link>
+          )}
         </li>
       ))}
     </Box>
@@ -165,7 +192,7 @@ export default function SiteFooter({ legal, extra }) {
           </Box>
 
           <Box component="nav" aria-labelledby="footer-products">
-            <ColumnHeading id="footer-products">Products</ColumnHeading>
+            <ColumnHeading id="footer-products">Our Products</ColumnHeading>
             <LinkList items={PRODUCT_LINKS} />
           </Box>
 
@@ -212,7 +239,12 @@ export default function SiteFooter({ legal, extra }) {
             gap: 2,
           }}
         >
-          <Typography sx={{ fontSize: "0.825rem", color: "rgba(255,255,255,0.6)" }}>{legal}</Typography>
+          <Box>
+            <Typography sx={{ fontSize: "0.825rem", color: "rgba(255,255,255,0.6)" }}>{legal}</Typography>
+            <Typography sx={{ mt: 0.5, fontSize: "0.75rem", letterSpacing: "0.04em", color: "rgba(255,255,255,0.6)" }}>
+              Legal name: AURORA BLOSSOM
+            </Typography>
+          </Box>
           <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "flex", flexWrap: "wrap", gap: { xs: 2.5, md: 3 } }}>
             {QUICK_LINKS.map((l) => (
               <li key={l.label}>

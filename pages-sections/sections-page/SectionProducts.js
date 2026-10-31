@@ -18,7 +18,8 @@ import Section from "/components/ui/Section.js";
 import SectionHeader from "/components/ui/SectionHeader.js";
 import FeatureCard from "/components/ui/FeatureCard.js";
 import { gridPattern } from "/components/ui/PageHero.js";
-import { color, font, gradient, radius } from "/styles/tokens.js";
+import OpenInNewRounded               from "@mui/icons-material/OpenInNewRounded";
+import { color, font, gradient, motion, radius, focusRingOnDark } from "/styles/tokens.js";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
@@ -65,7 +66,7 @@ function FeatureGrid({ features, iconVariant, columns }) {
 }
 
 // ── Single product block ──────────────────────────────────────────────────────
-function ProductBlock({ number, chip, title, description, accent, features, imageContent, iconVariant, columns = 4 }) {
+function ProductBlock({ number, chip, title, description, tagline, link, accent, features, imageContent, iconVariant, columns = 4 }) {
   return (
     <Box component="article" aria-label={title}>
       {/* Banner */}
@@ -121,6 +122,47 @@ function ProductBlock({ number, chip, title, description, accent, features, imag
           <Typography sx={{ color: "rgba(255,255,255,0.8)", lineHeight: 1.8, fontSize: "1.0625rem", maxWidth: 520 }}>
             {description}
           </Typography>
+          {tagline && (
+            <Typography sx={{ mt: 2, color: color.white, fontWeight: 600, lineHeight: 1.6, fontSize: "1rem", maxWidth: 520 }}>
+              {tagline}
+            </Typography>
+          )}
+          {link && (
+            <Box
+              component="a"
+              href={link.href}
+              target="_blank"
+              rel="noopener"
+              sx={{
+                mt: 3.5,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 1,
+                minHeight: 48,
+                px: 3,
+                borderRadius: `${radius.pill}px`,
+                fontFamily: font.display,
+                fontWeight: 700,
+                fontSize: "0.95rem",
+                color: color.ink,
+                bgcolor: color.white,
+                textDecoration: "none",
+                transition: `background-color ${motion.fast} ${motion.ease}, transform ${motion.fast} ${motion.ease}`,
+                "&:hover": { bgcolor: color.teal50 },
+                "&:active": { transform: "translateY(1px)" },
+                "&:focus-visible": focusRingOnDark,
+              }}
+            >
+              {link.label}
+              <OpenInNewRounded aria-hidden="true" sx={{ fontSize: 18 }} />
+              <Box
+                component="span"
+                sx={{ position: "absolute", width: "1px", height: "1px", overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}
+              >
+                {" "}(opens in a new tab)
+              </Box>
+            </Box>
+          )}
         </Box>
         <Box
           sx={{
@@ -190,6 +232,8 @@ export default function SectionProducts({ ...rest }) {
         chip="Healthcare Tech"
         title="ClinicFlow247"
         description="A modern clinic management platform that connects clinics, doctors, and patients — 24/7. Online appointment booking, digital prescriptions, SMS reminders, live queue management, and built-in billing — all in one place."
+        tagline="Appointments, patient records, prescriptions, payments and automated WhatsApp/SMS updates for clinics"
+        link={{ href: "https://clinicflow247.com", label: "Visit clinicflow247.com" }}
         accent={color.teal400}
         iconVariant="teal"
         features={CLINICFLOW_FEATURES}
