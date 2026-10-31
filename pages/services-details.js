@@ -6,6 +6,7 @@ import CheckRounded from "@mui/icons-material/CheckRounded";
 import Header from "../components/Header/Header.js";
 import HeaderLinks from "../components/Header/HeaderLinks.js";
 import SiteFooter from "../components/Footer/SiteFooter.js";
+import ClinicFlowBanner from "/components/ClinicFlow/ClinicFlowBanner.js";
 import PageHero from "../components/ui/PageHero.js";
 import Section from "../components/ui/Section.js";
 import { services } from "../data/services-data.js";
@@ -36,11 +37,14 @@ function ServiceRow({ svc, index }) {
             borderRadius: `${radius.xl}px`,
             overflow: "hidden",
             bgcolor: color.slate100,
-            ...(svc.featured && { background: "linear-gradient(160deg, #F8FDFF 0%, #DCF3FF 100%)" }),
             boxShadow: shadow.lg,
           }}
         >
-          <Image src={`/${svc.serviceImageUrl}`} alt={svc.serviceImageAlt || svc.serviceTitle} layout="fill" objectFit={svc.featured ? "contain" : "cover"} sizes="(max-width: 900px) 100vw, 560px" priority={index === 0} />
+          {svc.featured ? (
+            <ClinicFlowBanner sizes="(max-width: 900px) 60vw, 340px" sx={{ height: "100%" }} />
+          ) : (
+            <Image src={`/${svc.serviceImageUrl}`} alt={svc.serviceImageAlt || svc.serviceTitle} layout="fill" objectFit="cover" sizes="(max-width: 900px) 100vw, 560px" priority={index === 0} />
+          )}
         </Box>
       </Box>
       <Box sx={{ order: { md: reverse ? 1 : 2 } }}>

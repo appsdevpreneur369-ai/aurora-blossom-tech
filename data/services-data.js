@@ -59,8 +59,9 @@ export const services = [
   },
   {
     serviceTitle: "Healthcare Technology",
-    serviceImageUrl: "img/clinicflow/clinicflow247-hero.jpg",
-    serviceImageAlt: "ClinicFlow247 — Less Chaos. More Care.",
+    // Shown via components/ClinicFlow/ClinicFlowBanner.js wherever this service is featured.
+    serviceImageUrl: "images/clinicflow/clinicflow247-hero-visual-1280.jpg",
+    serviceImageAlt: "ClinicFlow247 – Less Chaos. More Care. Clinic management platform by Aurora Blossom",
     servicePoints: [
       "ClinicFlow247 — Aurora Blossom's clinic management platform that connects clinics, doctors, and patients 24/7.",
       "Smart appointment booking with real-time slot availability and live queue management.",

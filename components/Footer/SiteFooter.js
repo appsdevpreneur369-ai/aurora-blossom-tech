@@ -11,6 +11,7 @@ import Twitter from "@mui/icons-material/Twitter";
 import Instagram from "@mui/icons-material/Instagram";
 import Facebook from "@mui/icons-material/Facebook";
 import BrandMark from "/components/ui/BrandMark.js";
+import ClinicFlowLogo from "/components/ui/ClinicFlowLogo.js";
 import { services } from "../../data/services-data.js";
 import { contactUs } from "../../data/contact-us-data.js";
 import { color, font, layout, motion, radius, focusRingOnDark } from "/styles/tokens.js";
@@ -32,6 +33,7 @@ const PRODUCT_LINKS = [
     href: "https://clinicflow247.com",
     label: "ClinicFlow247 – Clinic & Healthcare Practice Management",
     external: true,
+    brandIcon: true,
   },
 ];
 
@@ -96,8 +98,19 @@ function LinkList({ items }) {
       {items.map((item) => (
         <li key={item.href + item.label}>
           {item.external ? (
-            <Box component="a" href={item.href} target="_blank" rel="noopener" sx={linkSx}>
-              {item.label}
+            <Box
+              component="a"
+              href={item.href}
+              target="_blank"
+              rel="noopener"
+              sx={item.brandIcon ? { ...linkSx, display: "inline-flex", alignItems: "flex-start", gap: 1 } : linkSx}
+            >
+              {item.brandIcon && (
+                <Box component="span" sx={{ mt: "1px", display: "inline-flex", flexShrink: 0 }}>
+                  <ClinicFlowLogo variant="icon" size={20} decorative />
+                </Box>
+              )}
+              <span>{item.label}</span>
               <Box component="span" sx={visuallyHidden}>
                 {" "}(opens in a new tab)
               </Box>

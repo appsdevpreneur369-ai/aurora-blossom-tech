@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Box, Button, Typography } from "@mui/material";
 import ArrowForwardRounded from "@mui/icons-material/ArrowForwardRounded";
@@ -14,6 +13,8 @@ import LocalHospitalOutlined from "@mui/icons-material/LocalHospitalOutlined";
 import Section from "/components/ui/Section.js";
 import SectionHeader from "/components/ui/SectionHeader.js";
 import IconTile from "/components/ui/IconTile.js";
+import ClinicFlowLogo from "/components/ui/ClinicFlowLogo.js";
+import HeroVisual, { fadeEdges } from "/components/ClinicFlow/HeroVisual.js";
 import { color, font, motion, radius, shadow } from "/styles/tokens.js";
 
 const CARDS = [
@@ -44,6 +45,15 @@ const HEALTHCARE_POINTS = [
   { icon: ReceiptLongOutlined, text: "Billing, invoicing, and clinic analytics" },
 ];
 
+const visuallyHidden = {
+  position: "absolute",
+  width: "1px",
+  height: "1px",
+  overflow: "hidden",
+  clip: "rect(0 0 0 0)",
+  whiteSpace: "nowrap",
+};
+
 // Healthcare focus — introduces ClinicFlow247, Aurora Blossom's healthcare product.
 function HealthcareHighlight() {
   return (
@@ -61,15 +71,47 @@ function HealthcareHighlight() {
         boxShadow: shadow.md,
       }}
     >
-      <Box sx={{ position: "relative", minHeight: { xs: 0, md: 420 }, aspectRatio: { xs: "4 / 3", md: "auto" }, bgcolor: "#E3F5FF" }}>
-        <Image
-          src="/img/clinicflow/clinicflow247-doctor.jpg"
-          alt="A clinic doctor with the ClinicFlow247 dashboard"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="70% 30%"
-          sizes="(max-width: 900px) 100vw, 540px"
-        />
+      {/* clinicflow247.com hero composition, shown uncropped on a wash that matches its edges */}
+      <Box
+        component="a"
+        href="https://clinicflow247.com"
+        target="_blank"
+        rel="noopener"
+        sx={{
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          p: { xs: "56px 12px 12px", md: "64px 20px 20px" },
+          background: "linear-gradient(180deg, #F5F8FF 0%, #EAF4FD 55%, #F1F3F9 100%)",
+          textDecoration: "none",
+          outlineOffset: "-4px",
+          "& img": { transition: `transform ${motion.slow} ${motion.ease}` },
+          "&:hover img": { transform: "scale(1.02)" },
+          "&:focus-visible": { outline: `3px solid ${color.teal600}` },
+        }}
+      >
+        <HeroVisual sizes="(max-width: 900px) 100vw, 520px" sx={fadeEdges({ left: "3%", right: "3%", top: "3%", bottom: "3%" })} />
+        <Box
+          aria-hidden="true"
+          sx={{
+            position: "absolute",
+            top: { xs: 12, md: 16 },
+            left: { xs: 12, md: 16 },
+            display: "inline-flex",
+            px: 1.5,
+            py: 0.875,
+            borderRadius: 999,
+            bgcolor: "rgba(255,255,255,0.92)",
+            border: `1px solid ${color.slate200}`,
+            boxShadow: shadow.xs,
+          }}
+        >
+          <ClinicFlowLogo size={22} />
+        </Box>
+        <Box component="span" sx={visuallyHidden}>
+          (opens clinicflow247.com in a new tab)
+        </Box>
       </Box>
       <Box sx={{ p: { xs: 3.5, sm: 4.5, md: 6 }, display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2.5 }}>

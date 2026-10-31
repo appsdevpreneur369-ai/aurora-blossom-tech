@@ -6,6 +6,7 @@ import ArrowForwardRounded from "@mui/icons-material/ArrowForwardRounded";
 import NorthEastRounded from "@mui/icons-material/NorthEastRounded";
 import CheckCircleRounded from "@mui/icons-material/CheckCircleRounded";
 import { services } from "../../data/services-data";
+import ClinicFlowBanner from "/components/ClinicFlow/ClinicFlowBanner.js";
 import Section from "/components/ui/Section.js";
 import SectionHeader from "/components/ui/SectionHeader.js";
 import { color, font, motion, radius, shadow, focusRing } from "/styles/tokens.js";
@@ -109,24 +110,11 @@ function FeaturedService({ svc, index }) {
         boxShadow: shadow.md,
       }}
     >
-      {/* Banner shown uncropped; the backdrop continues the artwork's own light-blue wash */}
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          background: "linear-gradient(160deg, #F8FDFF 0%, #DCF3FF 100%)",
-        }}
-      >
-        <Box sx={{ position: "relative", width: "100%", aspectRatio: "16 / 9" }}>
-          <Image
-            src={`/${svc.serviceImageUrl}`}
-            alt={svc.serviceImageAlt || svc.serviceTitle}
-            layout="fill"
-            objectFit="contain"
-            sizes="(max-width: 900px) 100vw, 620px"
-          />
-        </Box>
-      </Box>
+      {/* HTML banner (new ClinicFlow247 logo + wordmark); the backdrop continues its light-blue wash */}
+      <ClinicFlowBanner
+        sizes="(max-width: 900px) 60vw, 380px"
+        sx={{ aspectRatio: { xs: "16 / 9", md: "auto" }, height: { md: "100%" }, minHeight: { md: 340 } }}
+      />
       <Box sx={{ p: { xs: 3, sm: 4, md: 5 }, display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2 }}>
           <Typography aria-hidden="true" sx={{ fontFamily: font.display, fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.12em", color: color.teal700 }}>

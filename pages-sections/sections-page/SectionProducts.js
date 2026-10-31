@@ -18,6 +18,7 @@ import Section from "/components/ui/Section.js";
 import SectionHeader from "/components/ui/SectionHeader.js";
 import FeatureCard from "/components/ui/FeatureCard.js";
 import { gridPattern } from "/components/ui/PageHero.js";
+import ClinicFlowLogo from "/components/ui/ClinicFlowLogo.js";
 import OpenInNewRounded               from "@mui/icons-material/OpenInNewRounded";
 import { color, font, gradient, motion, radius, focusRingOnDark } from "/styles/tokens.js";
 
@@ -247,28 +248,11 @@ export default function SectionProducts({ ...rest }) {
               justifyContent: "center",
               textAlign: "center",
               p: 3,
-              background: `radial-gradient(circle at 50% 35%, rgba(34,211,238,0.28) 0%, rgba(34,211,238,0) 60%), linear-gradient(160deg, ${color.teal700} 0%, #0B3B4A 100%)`,
+              // Navy like the clinicflow247.com navbar, so the lockup reads in its own colours
+              background: "radial-gradient(circle at 50% 35%, rgba(0,184,232,0.22) 0%, rgba(0,184,232,0) 60%), linear-gradient(160deg, #0B1E3D 0%, #0B3B4A 100%)",
             }}
           >
-            <Box
-              aria-hidden="true"
-              sx={{
-                width: 76,
-                height: 76,
-                borderRadius: "22px",
-                bgcolor: "rgba(255,255,255,0.12)",
-                border: "1px solid rgba(255,255,255,0.25)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                mb: 2,
-              }}
-            >
-              <LocalHospitalIcon sx={{ fontSize: 40, color: color.white }} />
-            </Box>
-            <Typography sx={{ color: "#fff", fontFamily: font.display, fontWeight: 800, fontSize: "1.25rem" }}>
-              ClinicFlow247
-            </Typography>
+            <ClinicFlowLogo size={48} textSize="1.6rem" onDark sx={{ mb: 1.5 }} />
             <Typography sx={{ color: "rgba(255,255,255,0.75)", fontSize: "0.85rem", mt: 0.5 }}>
               Modern Clinic Management
             </Typography>
