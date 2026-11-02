@@ -1,7 +1,5 @@
 import React from "react";
-import Link from "next/link";
-import { Box, Button, Typography } from "@mui/material";
-import ArrowForwardRounded from "@mui/icons-material/ArrowForwardRounded";
+import { Box, Typography } from "@mui/material";
 import EventAvailableOutlined from "@mui/icons-material/EventAvailableOutlined";
 import AssignmentIndOutlined from "@mui/icons-material/AssignmentIndOutlined";
 import ForumOutlined from "@mui/icons-material/ForumOutlined";
@@ -130,25 +128,13 @@ function HealthcareHighlight() {
         <Typography sx={{ color: color.slate600, fontSize: "1.0625rem", lineHeight: 1.75, mb: 3 }}>
           Improving lives through technology starts where people go for care. That is why Aurora Blossom built ClinicFlow247 — a clinic management platform that connects clinics, doctors, and patients 24/7, from the first appointment to the final invoice.
         </Typography>
-        <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, mb: 4, display: "grid", gap: 1.5, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" } }}>
+        <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "grid", gap: 1.5, gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" } }}>
           {HEALTHCARE_POINTS.map(({ icon: Icon, text }) => (
             <Box component="li" key={text} sx={{ display: "flex", alignItems: "flex-start", gap: 1.25, fontSize: "0.9375rem", lineHeight: 1.5, color: color.slate800, fontWeight: 500 }}>
               <Icon aria-hidden="true" sx={{ fontSize: 20, mt: "1px", color: color.teal600, flexShrink: 0 }} />
               {text}
             </Box>
           ))}
-        </Box>
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5, "& > a": { flex: { xs: "1 1 100%", sm: "0 0 auto" } } }}>
-          <Link prefetch={false} href="/clinic-management-software-india" passHref>
-            <Button component="a" variant="contained" color="primary" endIcon={<ArrowForwardRounded />}>
-              Explore ClinicFlow247
-            </Button>
-          </Link>
-          <Link prefetch={false} href="/book-demo" passHref>
-            <Button component="a" variant="outlined" color="primary">
-              Book a Free Demo
-            </Button>
-          </Link>
         </Box>
       </Box>
     </Box>
